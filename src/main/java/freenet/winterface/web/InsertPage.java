@@ -398,7 +398,7 @@ public class InsertPage extends WinterPage {
 					if (directoryFile != null) {
 						clientPut = new ClientPutDir(fcp.getGlobalForeverClient(), insertURI, identifier, Integer.MAX_VALUE,
 								RequestStarter.BULK_SPLITFILE_PRIORITY_CLASS, ClientRequest.PERSIST_FOREVER, null, false, !compress, -1, directoryFile, null,
-								false, true, false, false, Node.FORK_ON_CACHEABLE_DEFAULT, HighLevelSimpleClientImpl.EXTRA_INSERTS_SINGLE_BLOCK,
+								false, false, true, false, false, Node.FORK_ON_CACHEABLE_DEFAULT, HighLevelSimpleClientImpl.EXTRA_INSERTS_SINGLE_BLOCK,
 								HighLevelSimpleClientImpl.EXTRA_INSERTS_SPLITFILE_HEADER, false, overrideSplitfileKey, fcp, container);
 					}
 					// File to insert is a file

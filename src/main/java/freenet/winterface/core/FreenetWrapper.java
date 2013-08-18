@@ -36,7 +36,7 @@ public class FreenetWrapper {
 		this.pr = pr;
 		// TODO NodeClientCore will provide an instance of BookmarkManager
 		// Make changes respectively
-		this.bookmarkManager = new BookmarkManager(pr.getNode().clientCore);
+		this.bookmarkManager = new BookmarkManager(pr.getNode().clientCore, false);
 	}
 
 	/**

@@ -33,12 +33,7 @@ public class VersionPanel extends DashboardPanel {
 		String freenet = "Freenet " + Version.publicVersion + " Build #" + Version.buildNumber() + " " + Version.cvsRevision();
 		add(new Label("freenet-ver", Model.of(freenet)));
 		// Freenet-ext version info
-		String freenetExt = "Freenet-ext Build #" + NodeStarter.extBuildNumber;
-		if (NodeStarter.extBuildNumber < NodeStarter.RECOMMENDED_EXT_BUILD_NUMBER) {
-			freenetExt += (" (" + NodeStarter.RECOMMENDED_EXT_BUILD_NUMBER + "is recommended)");
-		}
-		freenetExt += (" " + NodeStarter.extRevisionNumber);
-		add(new Label("freenet-ext-ver", Model.of(freenetExt)));
+		add(new Label("freenet-ext-ver", Model.of("Freenet-ext Build #" + NodeStarter.extBuildNumber + " " + NodeStarter.extRevisionNumber)));
 	}
 
 	@Override

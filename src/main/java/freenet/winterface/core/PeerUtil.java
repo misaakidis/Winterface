@@ -217,7 +217,7 @@ public class PeerUtil {
 	public static PeerAdditionReturnCodes addNewDarknetNode(Node node, String[] ref, String comment, FRIEND_TRUST trust, FRIEND_VISIBILITY visibility) {
 		SimpleFieldSet fs;
 		try {
-			fs = new SimpleFieldSet(ref, false, true);
+			fs = new SimpleFieldSet(ref, false, true, true);
 			if (!fs.getEndMarker().endsWith(REF_END_MARKER)) {
 				logger.error("Trying to add noderef with end marker \"" + fs.getEndMarker() + "\"");
 				return PeerAdditionReturnCodes.WRONG_ENCODING;
@@ -251,7 +251,7 @@ public class PeerUtil {
 			logger.error("Internal error", t);
 			return PeerAdditionReturnCodes.INTERNAL_ERROR;
 		}
-		if (Arrays.equals(pn.getIdentity(), node.getDarknetIdentity())) {
+		if (Arrays.equals(pn.getPubKeyHash(), node.getDarknetPubKeyHash())) {
 			return PeerAdditionReturnCodes.TRY_TO_ADD_SELF;
 		}
 		if (node.addPeerConnection(pn)) {

@@ -17,7 +17,7 @@ import com.google.common.collect.Maps;
 import freenet.client.FetchException;
 import freenet.client.async.DatabaseDisabledException;
 import freenet.client.filter.ContentFilter;
-import freenet.client.filter.MIMEType;
+import freenet.client.filter.FilterMIMEType;
 import freenet.node.RequestStarter;
 import freenet.node.fcp.DownloadRequestStatus;
 import freenet.node.fcp.FCPServer;
@@ -226,7 +226,7 @@ public class QueueHelper {
 				} else if (failureCode == FetchException.CONTENT_VALIDATION_BAD_MIME) {
 					String mimeType = download.getMIMEType();
 					mimeType = ContentFilter.stripMIMEType(mimeType);
-					MIMEType type = ContentFilter.getMIMEType(mimeType);
+					FilterMIMEType type = ContentFilter.getMIMEType(mimeType);
 					if (type == null) {
 						if (isDesired(DL_F_U_MIME)) {
 							logger.warn("Bad MIME failure code yet MIME is " + mimeType + " which does not have a handler!");
