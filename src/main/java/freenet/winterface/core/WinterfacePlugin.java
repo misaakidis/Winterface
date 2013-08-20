@@ -1,8 +1,10 @@
 package freenet.winterface.core;
 
 import java.net.URL;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.apache.velocity.app.Velocity;
 import org.eclipse.jetty.server.Server;
 
 import freenet.config.SubConfig;
@@ -62,6 +64,15 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		plugin_path = this.getClass().getClassLoader().getResource(".");
 		// Register logger and so on
 		logger.debug("Loaded WinterFacePlugin on path " + plugin_path);
+
+		// Templates are stored in jars on the classpath.
+		Properties properties = new Properties();
+		properties.setProperty("resource.loader", "class");
+		properties.setProperty("class.resource.loader.class",
+		                       "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+
+		Velocity.init(properties);
+
 		// initServer();
 		serverManager = new ServerManager();
 		serverManager.startServer(DEV_MODE, config, new FreenetWrapper(pr));

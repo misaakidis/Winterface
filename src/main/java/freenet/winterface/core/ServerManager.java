@@ -6,6 +6,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
+import freenet.winterface.web.VelocityTest;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
 import org.apache.wicket.Application;
@@ -86,8 +87,8 @@ public class ServerManager {
 			ServletContextHandler sch = new ServletContextHandler(ServletContextHandler.SESSIONS);
 			initIPFilter(sch, config);
 			initErrorHandlers(sch);
-			initWicketServlet(devMode, sch);
 			initStaticResources(sch);
+			sch.addServlet(VelocityTest.class, "/test");
 
 			/*
 			 * Add PluginRespirator/Configuration to servlet context So it can
@@ -139,24 +140,6 @@ public class ServerManager {
 		errorHandler.addErrorPage(HttpServletResponse.SC_NOT_FOUND, "/error");
 		errorHandler.addErrorPage(HttpServletResponse.SC_FORBIDDEN, "/error");
 		sch.setErrorHandler(errorHandler);
-	}
-
-	/**
-	 * Initializes and configures {@link WicketServlet}
-	 * 
-	 * @param devMode
-	 *            {@code true} to start Wicket in development mode (see
-	 * @param sch
-	 */
-	private void initWicketServlet(boolean devMode, ServletContextHandler sch) {
-		ServletHolder sh = new ServletHolder(WicketServlet.class);
-		sh.setInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, WinterfaceApplication.class.getName());
-		sh.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/*");
-		if (!devMode) {
-			sh.setInitParameter("wicket." + Application.CONFIGURATION, "deployment");
-		}
-
-		sch.addServlet(sh, "/*");
 	}
 
 	/**
