@@ -60,7 +60,7 @@ public class Configuration {
 	private final static String FULLACCESS_HOSTS_OPTION = "allowedHostsFullAccess";
 
 	/** Default bindto hosts */
-	private final static String BINDTO_DEFAULT = "127.0.0.1,0:0:0:0:0:0:0:1";
+	private final static String BINDTO_DEFAULT = "127.0.0.1";
 	/** Full access hosts entry name in config file */
 	private final static String BINDTO_OPTION = "bindTo";
 
