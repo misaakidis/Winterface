@@ -17,7 +17,7 @@ public class VelocityTest extends VelocityBase {
 	}
 
 	@Override
-	protected void fillContext(Context context, HttpServletRequest request) {
+	protected void subFillContext(Context context, HttpServletRequest request) {
 		context.put("test", "Do ya like waffles?");
 	}
 }
