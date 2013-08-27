@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.Localizer;
-import org.apache.wicket.model.Model;
 
 import freenet.keys.FreenetURI;
 import freenet.node.fcp.ClientPut.COMPRESS_STATE;
@@ -17,7 +15,6 @@ import freenet.node.fcp.UploadFileRequestStatus;
 import freenet.node.fcp.UploadRequestStatus;
 import freenet.support.SizeUtil;
 import freenet.support.TimeUtil;
-import freenet.winterface.web.core.RequestStatusView;
 
 /**
  * A Util class to calculate and localize different properties of a
@@ -57,7 +54,7 @@ public class RequestStatusUtil {
 	 * @return localized {@link String} corresponding to priority
 	 */
 	public static String getPriority(RequestStatus req) {
-		String result = Localizer.get().getString(L10N_PRIO_PREFIX + req.getPriority(), null);
+		String result = Short.toString(req.getPriority());
 		logger.trace(String.format("Priority for RequestStatus (%s) : %s", req.hashCode(), result));
 		return result;
 	}
@@ -133,14 +130,10 @@ public class RequestStatusUtil {
 	public static String getLastActivity(RequestStatus req) {
 		String result;
 		long lastActiveTime = req.getLastActivity();
-		Localizer localizer = Localizer.get();
 		if (lastActiveTime == 0) {
-			result = localizer.getString(L10N_UNKNOW_LA, null, L10N_UNKNOW_LA);
+			result = "Unknown";
 		} else {
-			String lastActivityAgo = TimeUtil.formatTime(System.currentTimeMillis() - lastActiveTime);
-			Map<String, String> substitution = new HashMap<String, String>();
-			substitution.put("time", lastActivityAgo);
-			result = localizer.getString(L10N_AGO_LA, null, Model.ofMap(substitution), L10N_AGO_LA);
+			result = TimeUtil.formatTime(System.currentTimeMillis() - lastActiveTime);
 		}
 		logger.trace(String.format("Last activity for RequestStatus (%s) : %s", req.hashCode(), result));
 		return result;
@@ -160,7 +153,6 @@ public class RequestStatusUtil {
 		} else {
 			key = L10N_PERSISTENCE_NONE;
 		}
-		key = Localizer.get().getString(key, null);
 		logger.trace(String.format("Persistence key for RequestStatus (%s) : %s", req.hashCode(), key));
 		return key;
 	}
@@ -179,7 +171,7 @@ public class RequestStatusUtil {
 			file = ((UploadFileRequestStatus) req).getOrigFilename();
 		}
 		if (file == null) {
-			result = Localizer.get().getString(L10N_NONE, null, L10N_NONE);
+			result = "None";
 		} else {
 			result = file.toString();
 		}
@@ -210,7 +202,7 @@ public class RequestStatusUtil {
 			result[0] = uri.toShortString();
 			result[1] = "/" + uri + postfix;
 		} else {
-			result[0] = result[1] = Localizer.get().getString(L10N_UNKNOWN, null, L10N_UNKNOWN);
+			result[0] = result[1] = "Unknown";
 		}
 		logger.trace(String.format("Link for RequestStatus (%s) : %s", req.hashCode(), result[1]));
 		return result;

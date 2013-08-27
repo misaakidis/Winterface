@@ -1,7 +1,5 @@
 package freenet.winterface.core;
 
-import org.apache.wicket.util.time.Duration;
-
 import freenet.config.ConfigCallback;
 import freenet.config.InvalidConfigValueException;
 import freenet.config.NodeNeedRestartException;
@@ -10,6 +8,8 @@ import freenet.support.api.BooleanCallback;
 import freenet.support.api.IntCallback;
 import freenet.support.api.LongCallback;
 import freenet.support.api.StringCallback;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Manages plugin configurations
@@ -40,7 +40,7 @@ public class Configuration {
 	private final static String PORT_OPTION = "port";
 
 	/** Default server idle timeout */
-	private final static int IDLE_TIEMOUT_DEFAULT = (int) Duration.ONE_HOUR.getMilliseconds();
+	private final static int IDLE_TIEMOUT_DEFAULT = (int)TimeUnit.HOURS.toMillis(1);
 	/** Server idle timeout entry name in config file */
 	private final static String IDLE_TIMEOUT_OPTION = "idleTimeout";
 

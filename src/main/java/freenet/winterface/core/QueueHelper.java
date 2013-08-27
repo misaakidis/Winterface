@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.Application;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -24,7 +23,6 @@ import freenet.node.fcp.FCPServer;
 import freenet.node.fcp.RequestStatus;
 import freenet.node.fcp.UploadDirRequestStatus;
 import freenet.node.fcp.UploadFileRequestStatus;
-import freenet.winterface.web.core.WinterfaceApplication;
 
 /**
  * A util class which reads all the global requests from {@link FCPServer} (see
@@ -157,10 +155,12 @@ public class QueueHelper {
 	 * 
 	 * @param requestedClass
 	 *            class of requested queues
+	 * @param fcpServer
+	 *            used to query global requests.
 	 * @throws DatabaseDisabledException
 	 *             is thrown if database is disabled
 	 */
-	public QueueHelper(int requestedClass) throws DatabaseDisabledException {
+	public QueueHelper(int requestedClass, FCPServer fcpServer) throws DatabaseDisabledException {
 		requestsBackingMap = Maps.newHashMap();
 		dl_f_b_mimeBackingMap = Maps.newHashMap();
 		dl_f_u_mimeBackingMap = Maps.newHashMap();
@@ -168,7 +168,7 @@ public class QueueHelper {
 		logger.debug("Getting request queue for code " + Integer.toBinaryString(requestedClass));
 		this.requestedClass = requestedClass;
 		this.lowestQueuedPriority = RequestStarter.MINIMUM_PRIORITY_CLASS;
-		fcp = ((WinterfaceApplication) Application.get()).getFreenetWrapper().getNode().clientCore.getFCPServer();
+		fcp = fcpServer;
 		RequestStatus[] globalRequests;
 		globalRequests = fcp.getGlobalRequests();
 		long tmpTotalQueuedDownloadSize = 0;

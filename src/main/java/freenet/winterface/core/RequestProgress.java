@@ -1,10 +1,7 @@
 package freenet.winterface.core;
 
-import org.apache.wicket.Localizer;
-
 import freenet.node.fcp.ClientPut.COMPRESS_STATE;
 import freenet.node.fcp.RequestStatus;
-import freenet.winterface.web.core.RequestStatusView;
 
 /**
  * A Wrapper class which calculates the progress of a {@link RequestStatus}
@@ -117,7 +114,7 @@ public class RequestProgress {
 			key = L10N_PROG_COMP;
 			break;
 		}
-		return Localizer.get().getString(key, null, key);
+		return key;
 	}
 
 }

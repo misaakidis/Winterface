@@ -3,13 +3,10 @@ package freenet.winterface.core;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.apache.wicket.Application;
-
 import freenet.crypt.RandomSource;
 import freenet.crypt.SHA256;
 import freenet.keys.FreenetURI;
 import freenet.support.HexUtil;
-import freenet.winterface.web.core.WinterfaceApplication;
 
 /**
  * A Util class for requests being sent from browser to Winterface.
@@ -55,10 +52,9 @@ public final class RequestsUtil {
 	 *            current time
 	 * @return generated force value
 	 */
-	public static String getForceValue(String key, long time) {
+	public static String getForceValue(String key, long time, RandomSource randomSource) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		byte[] random = new byte[32];
-		RandomSource randomSource = ((WinterfaceApplication) Application.get()).getFreenetWrapper().getNode().clientCore.random;
 		randomSource.nextBytes(random);
 
 		try {

@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.form.upload.FileUpload;
 
 import freenet.clients.http.ConnectionsToadlet.PeerAdditionReturnCodes;
 import freenet.io.comm.PeerParseException;
@@ -67,20 +66,6 @@ public class PeerUtil {
 			// TODO maybe throw an appropriate exception?
 		}
 		return null;
-	}
-
-	/**
-	 * Create node reference from given {@link FileUpload}.
-	 * <p>
-	 * given file must be a text file encoded in UTF-8
-	 * </p>
-	 * 
-	 * @param file
-	 *            uploaded node reference
-	 * @return node reference as {@link String}
-	 */
-	public static String buildRefsFromFile(FileUpload file) {
-		return buildRefsFromString(new String(file.getBytes(), Charset.forName("UTF-8")));
 	}
 
 	/**

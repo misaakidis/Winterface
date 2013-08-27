@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import freenet.io.AddressMatcher;
-import freenet.winterface.web.core.WinterfaceApplication;
 
 /**
  * {@link Filter} for IP filtering.

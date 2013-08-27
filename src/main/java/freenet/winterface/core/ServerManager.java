@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import freenet.winterface.web.VelocityTest;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
-import org.apache.wicket.Application;
-import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory;
-import org.apache.wicket.protocol.http.WicketFilter;
-import org.apache.wicket.protocol.http.WicketServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -20,8 +16,6 @@ import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-
-import freenet.winterface.web.core.WinterfaceApplication;
 
 /**
  * Takes care of {@link Server}
