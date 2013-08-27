@@ -8,7 +8,7 @@
 	<description>Freenet Web Interface</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty.version>8.1.3.v20120416</jetty.version>
+		<jetty.version>8.1.12.v20130726</jetty.version>
 	</properties>
 	<dependencies>
 		<dependency>
