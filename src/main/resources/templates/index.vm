@@ -6,10 +6,11 @@
 	<title>Freenet</title>
 	<link href="/static/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />
 	<link href="/static/css/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="/static/css/freenet-base.css" media="all" rel="stylesheet" type="text/css" />
 	<script src="/static/js/bootstrap.js" type="text/javascript"></script>
 </head>
 <body>
-	##parse ($navbar)
+	#parse ($navbar)
 	<main class="container">
 		#parse ($requestedPage)
 	</main>
