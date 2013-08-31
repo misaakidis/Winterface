@@ -1,0 +1,384 @@
+#*
+USED VARS:
+  $freenet.openApp.name = Internal name of the open app or null if no app is open
+  $freenet.openApp.menu = Null or the html to be inserted on the menu
+  $freenet.openApp.group = Group where the open app is on the menu
+  $freenet.currentUrl = url path of the item
+
+
+EXPECTED VALUES:
+
+Installation wizard: 
+  $freenet.openApp.name = 'wizard'
+  $freenet.openApp.menu = Null
+  $freenet.openApp.group = 'wizard'
+  $freenet.currentUrl = '/wizard/1', '/wizard/2', '/wizard/3' (for each step)
+
+Dashboard:
+  $freenet.openApp.name = 'dashboard'
+  $freenet.openApp.menu = Null
+  $freenet.openApp.group = 'dashboard'
+  $freenet.currentUrl = '/'
+
+Any app installed by the user (not build-in - freemail, sone, etc):
+  $freenet.openApp.name = 'appname'
+  $freenet.openApp.menu = html of the menu (I will create macros to handle the menus for 'known' apps - we must discuss this)
+  $freenet.openApp.group = 'apps'
+  $freenet.currentUrl = '/apps/appname' (for urls inside the app we can use '/apps/appname/newitem', this way to open any app the user can just add '/apps/appname' to his freenet url)
+
+BUILD-IN APPS:
+  FRIENDS:
+    CONNECTION TO FRIENDS
+      $freenet.openApp.name = 'connectiontofriends'
+      $freenet.openApp.menu = Null
+      $freenet.openApp.group = 'friends'
+      $freenet.currentUrl = '/apps/friends/connectiontofriends'
+    ADD A FRIEND
+      $freenet.openApp.name = 'addfriend'
+      $freenet.openApp.menu = Null
+      $freenet.openApp.group = 'friends'
+      $freenet.currentUrl = '/apps/friends/addfriend'
+
+
+BROWSE MENU:
+  Bookmarks:
+    $freenet.openApp.name = 'bookmarks'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'browse'
+    $freenet.currentUrl = '/browse/bookmarks'
+  Search:
+    $freenet.openApp.name = 'search'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'browse'
+    $freenet.currentUrl = '/browse/search'
+  Visit Freesite:
+    $freenet.openApp.name = 'visit'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'browse'
+    $freenet.currentUrl = '/browse/visit'
+
+UPLOAD MENU:
+  Upload freesite:
+    $freenet.openApp.name = 'uploadfreesite'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'upload'
+    $freenet.currentUrl = '/upload/freesite'
+  Upload file:
+    $freenet.openApp.name = 'uploadfile'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'upload'
+    $freenet.currentUrl = '/upload/file'
+
+NOTIFICATIONS MENU:
+  $freenet.openApp.name = 'notifications'
+  $freenet.openApp.menu = Null
+  $freenet.openApp.group = 'notifications'
+  $freenet.currentUrl = '/notifications'
+
+DOWNLOADS MENU:
+  $freenet.openApp.name = 'downloads'
+  $freenet.openApp.menu = Null
+  $freenet.openApp.group = 'share'
+  $freenet.currentUrl = '/share/downloads'
+
+SECURITY AND STATUS MENU:
+  $freenet.openApp.name = Null
+  $freenet.openApp.menu = Null
+  $freenet.openApp.group = 'securityandstatus'
+  $freenet.currentUrl = Null
+  $freenet.status.connections.quantity = Number of connected peers / total possible connections (e.g '6/10')
+  $freenet.status.connections.percentage = return the % of the connection.quantity (6/10 = 60%)
+  $freenet.security.connection.level = 0:DISCONECTED; 1:LOW; 2:NORMAL; 3:HIGH; 4:MAXIMUM
+  $freenet.security.dataStorage.level = 0:NONE; 1:LOW; 2:HIGH; 3:MAXIMUM;
+
+SETTINGS MENU:
+  Security Levels:
+    $freenet.openApp.name = 'securitylevels'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/securitylevels'
+  Interfaces:
+    $freenet.openApp.name = 'interfaces'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/interfaces'
+  FCP:
+    $freenet.openApp.name = 'fcp'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/fcp'
+  Core settings:
+    $freenet.openApp.name = 'core'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/core'
+  Installation settings:
+    $freenet.openApp.name = 'installation'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/installation'
+  Load management:
+    $freenet.openApp.name = 'loadmanagement'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/loadmanagement'
+  Opennet:
+    $freenet.openApp.name = 'opennet'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/opennet'
+  Request scheduling:
+    $freenet.openApp.name = 'scheduling'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/scheduling'
+  Auto-update:
+    $freenet.openApp.name = 'autoupdate'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/autoupdate'
+  SSL:
+    $freenet.openApp.name = 'ssl'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/ssl'
+  Keyutils:
+    $freenet.openApp.name = 'keyutils'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'settings'
+    $freenet.currentUrl = '/settings/keyutils'
+
+SETTINGS > STATUS SUBMENU:
+  Connection to stranges:
+    $freenet.openApp.name = 'connectiontostrangers'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'status'
+    $freenet.currentUrl = '/status/connectiontostrangers'
+  Statistics:
+    $freenet.openApp.name = 'statistics'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'status'
+    $freenet.currentUrl = '/status/statistics'
+  Diagnostic:
+    $freenet.openApp.name = 'diagnostic'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'status'
+    $freenet.currentUrl = '/status/diagnostic'
+  Internet Connection:
+    $freenet.openApp.name = 'internetconnection'
+    $freenet.openApp.menu = Null
+    $freenet.openApp.group = 'status'
+    $freenet.currentUrl = '/status/internetconnection'
+*#
+<header id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar-inner">
+    <div class="container">
+      <img src="/static/images/logo-navbar.png" alt="Freenet" id="logo-navbar">
+
+      #if( $freenet.openApp.group == "wizard" )
+
+      <a class="brand">
+        $i18n.get("Navbar.wizard.homepageTitle")
+      </a>
+
+      <div class="pull-right" style="color:white; margin-top:10px">
+        <span class="badge #if( $freenet.currentUrl == '/wizard/1' )badge-success#end">1 - $i18n.get("Navbar.wizard.datastoreSize")</span>
+        <small class="icon-arrow-right"></small>
+        <span class="badge #if( $freenet.currentUrl == '/wizard/2' )badge-success#end">2 - $i18n.get("Navbar.wizard.bandwidthLimit")</span>
+        <small class="icon-arrow-right"></small>
+        <span class="badge #if( $freenet.currentUrl == '/wizard/3' )badge-success#end">3 - $i18n.get("Navbar.wizard.networkSecurity")</span>
+      </div>
+
+      #else
+
+      <a class="brand" href="/">
+       Freenet
+     </a>
+
+     <ul class="nav" id="navbar-item-openapp">
+      <li class="divider-vertical"></li>
+      ## If is an external app (not buildin) show the central menu
+      #if( !$freenet.openApp.group == "apps" )
+      <li class="dropdown" id="open-app" data-openappname="$freenet.openApp.name"></li>
+      #end
+    </ul>
+
+    <ul class="nav pull-right">
+      <li class="divider-vertical"></li>
+
+      <!-- BEGIN APPS MENU -->
+      <li class="dropdown #if( !$freenet.openApp.group == "apps" )active#end" id="navbar-item-apps">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">$i18n.get("Navbar.apps") <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+
+          <!-- REMOVE-ME: EXAMPLE OF MENU -->
+          <li class="nav-header">$i18n.get("Navbar.apps.category.messaging")</li>
+
+          <li class="dropdown-submenu"><a href="#">Freemail</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">sub item</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown-submenu"><a href="#">FLIC</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">sub item</a></li>
+            </ul>
+          </li>
+          <!-- END REMOVE-ME -->
+
+          <li class="nav-header">$i18n.get("Navbar.apps.category.community")</li>
+          <li class="dropdown-submenu #if( $freenet.openApp.name == "connectionstofriends" ||  $freenet.openApp.name == "addfriend" )active#end"><a href="#">$i18n.get("Navbar.apps.friends")</a>
+            <ul class="dropdown-menu">
+              <li class="#if( $freenet.openApp.name == "connectionstofriends")active#end" id="connectionstofriends-menu"><a href="/apps/friends/connectionstofriends">$i18n.get("Navbar.apps.friends.connectionToFriends")</a></li>
+              <li class="#if( $freenet.openApp.name == "addfriend")active#end" id="addfriend-menu"><a href="/apps/friends/addfriend">$i18n.get("Navbar.apps.friends.addFriend")</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-header">$i18n.get("Navbar.apps.category.tools")</li>
+          <li class="dropdown-submenu"><a href="#">Key Utils</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Key Explorer</a></li>
+              <li><a href="#">Site Explorer</a></li>
+              <li><a href="#">Split Explorer</a></li>
+              <li><a href="#">Extra Calculator</a></li>
+              <li><a href="#">FBlob Viewer</a></li>
+              <li><a href="#">Key Converter</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+          </li>
+
+          <li class="divider"></li>
+          <li class="#if( $freenet.openApp.name == "manageapps")active#end"><a href="/apps/manage">$i18n.get("Navbar.apps.manageApps")</a></li>
+        </ul>
+      </li>
+      <!-- END APPS MENU -->
+
+      <!-- BEGIN BROWSE MENU -->
+      <li class="dropdown #if( $freenet.openApp.group == "browse")active#end" id="navbar-item-browse">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Browse Freenet">$i18n.get("Navbar.browse") <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li class="#if( $freenet.openApp.name == "bookmarks")active#end"><a href="/browse/bookmarks">$i18n.get("Navbar.browse.bookmarks")</a></li>
+          <li class="#if( $freenet.openApp.name == "search")active#end"><a href="/browse/search">$i18n.get("Navbar.browse.search")</a></li>
+          <li class="#if( $freenet.openApp.name == "visit")active#end"><a href="/browse/visit">$i18n.get("Navbar.browse.visit")</a></li>
+        </ul>
+      </li>
+      <!-- END BROWSE MENU -->
+
+      <!-- BEGIN UPLOAD MENU -->
+      <li class="dropdown #if( $freenet.openApp.group == "upload")active#end" id="navbar-item-upload">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">$i18n.get("Navbar.upload") <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li class="#if( $freenet.openApp.name == "uploadfreesite")active#end"><a href="/upload/freesite">$i18n.get("Navbar.upload.freesite")</a></li>
+          <li class="#if( $freenet.openApp.name == "uploadfile")active#end"><a href="/upload/file">$i18n.get("Navbar.upload.file")</a></li>
+        </ul>
+      </li>
+      <!-- END UPLOAD MENU -->
+
+      <li class="divider-vertical"></li>
+
+      <!-- BEGIN NOTIFICATIONS MENU -->
+      <li class="dropdown #if( $freenet.openApp.group == "notifications")active#end" id="navbar-item-notifications" data-toggle="tooltip" title="$i18n.get('Navbar.notifications')" data-placement="bottom">
+        <a href="/notifications">
+          <span id="notifications-quantity" class="label">
+            0
+          </span>
+        </a>
+      </li>
+      <!-- END NOTIFICATIONS MENU -->
+
+      <!-- BEGIN DOWNLOADS MENU -->
+      <li class="#if( $freenet.openApp.group == "share")active#end" id="navbar-item-downloads" data-toggle="tooltip" title="$i18n.get('Navbar.downloads')" data-placement="bottom">
+        <a href="/share/downloads"><i class="icon-download"></i></a>
+      </li>
+      <!-- END DOWNLOADS MENU -->
+
+      <!-- BEGIN STATUS AND SECURITY MENU -->
+      <li class="dropdown" id="navbar-item-securityandstatus" data-toggle="tooltip" title="$i18n.get('Navbar.securityandstatus')" data-placement="bottom">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock"></i></a>
+        <div class="dropdown-menu">
+          <strong>$i18n.get("Navbar.securityandstatus.status.connections")</strong>
+          <a href="/status/connectionstostrangers" class="btn btn-link btn-small no-margin">$i18n.get("Navbar.securityandstatus.status.detailsBtn")</a>
+          <div class="progress">
+            <div class="bar 
+            #if( $freenet.status.connections.percentage >= 0 && $freenet.status.connections.percentage <= 30 )
+              bar-danger
+            #elseif( $freenet.status.connections.percentage >= 31 && $freenet.status.connections.percentage <= 60 )
+              bar-warning
+            #elseif( $freenet.status.connections.percentage >= 61 && $freenet.status.connections.percentage <= 100 )
+              bar-success
+            #end" style="width: ${freenet.status.connections.percentage}%;">$freenet.status.connections.quantity</div>
+          </div>
+          <strong>$i18n.get("Navbar.securityandstatus.security")</strong> 
+          <a href="/settings/securitylevels" class="btn btn-link btn-small no-margin">$i18n.get("Navbar.securityandstatus.security.editBtn")</a>
+          <br>
+          <div class="row">
+            <div class="span2">
+              <small class="text-small uppercase">$i18n.get("Navbar.securityandstatus.security.connection")</small><br>
+              #if( $freenet.security.connection.level ==  0 )
+                <span class="muted uppercase"><i class="icon-off"></i> $i18n.get("Navbar.securityandstatus.security.disconnected")</span>
+              #elseif( $freenet.security.connection.level ==  1 )
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Navbar.securityandstatus.security.low")</span>
+              #elseif( $freenet.security.connection.level ==  2 )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Navbar.securityandstatus.security.normal")</span>
+              #elseif( $freenet.security.connection.level ==  3 )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Navbar.securityandstatus.security.high")</span>
+              #elseif( $freenet.security.connection.level ==  4 )
+                <span class="uppercase"><i class="icon-shield"></i> <strong>$i18n.get("Navbar.securityandstatus.security.maximum")</strong></span>
+              #end
+            </div>
+            <div class="span2">
+              <small class="text-small uppercase">$i18n.get("Navbar.securityandstatus.security.dataStorage")</small><br>
+              #if( $freenet.security.connection.level ==  0 )
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Navbar.securityandstatus.security.none") </span>
+              #elseif( $freenet.security.connection.level ==  1 )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Navbar.securityandstatus.security.low") </span>
+              #elseif( $freenet.security.connection.level ==  2 )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Navbar.securityandstatus.security.high") </span>
+              #elseif( $freenet.security.connection.level ==  3 )
+                <span class="uppercase"><i class="icon-shield"></i> <strong>$i18n.get("Navbar.securityandstatus.security.maximum")</strong> </span>
+              #end
+              
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- END STATUS AND SECURITY MENU -->
+
+      <!-- BEGIN SETTINGS MENU -->
+      <li class="dropdown #if( $freenet.openApp.group == "settings" || $freenet.openApp.group == "status")active#end" id="navbar-item-settings" data-toggle="tooltip" title="$i18n.get('Navbar.settings')" data-placement="bottom">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-submenu #if( $freenet.openApp.group == "status")active#end"><a href="#">$i18n.get("Navbar.status")</a>
+            <ul class="dropdown-menu">
+              <li class="#if( $freenet.openApp.name == "connectionstostrangers")active#end"><a href="/status/connectionstostrangers">$i18n.get("Navbar.status.connectiontostrangers")</a></li>
+              <li class="#if( $freenet.openApp.name == "statistics")active#end"><a href="/status/statistics">$i18n.get("Navbar.status.statistics")</a></li>
+              <li><a href="/status/diagnostic" target="blank">$i18n.get("Navbar.status.diagnostic")</a></li>
+              <li class="#if( $freenet.openApp.name == "internetconnection")active#end"><a href="/status/internetconnection">$i18n.get("Navbar.status.internetconnection")</a></li>
+            </ul>
+          </li>
+
+          <li class="divider"></li>
+
+          <li class="#if( $freenet.openApp.name == "securitylevels")active#end"><a href="/settings/securitylevels">$i18n.get("Navbar.settings.securitylevels")</a></li>
+          <li class="#if( $freenet.openApp.name == "interfaces")active#end"><a href="/settings/interfaces">$i18n.get("Navbar.settings.interfaces")</a></li>
+          <li class="#if( $freenet.openApp.name == "fcp")active#end"><a href="/settings/fcp">$i18n.get("Navbar.settings.fcp")</a></li>
+          <li class="#if( $freenet.openApp.name == "logs")active#end"><a href="/settings/logs">$i18n.get("Navbar.settings.logs")Logs</a></li>
+          <li class="#if( $freenet.openApp.name == "core")active#end"><a href="/settings/core">
+            $i18n.get("Navbar.settings.core")</a></li>
+          <li class="#if( $freenet.openApp.name == "installation")active#end"><a href="/settings/installation">$i18n.get("Navbar.settings.installation")</a></li>
+          <li class="#if( $freenet.openApp.name == "loadmanagement")active#end"><a href="/settings/loadmanagement">$i18n.get("Navbar.settings.loadmanagement")</a></li>
+          <li class="#if( $freenet.openApp.name == "opennet")active#end"><a href="/settings/opennet">$i18n.get("Navbar.settings.opennet")Opennet</a></li>
+          <li class="#if( $freenet.openApp.name == "scheduling")active#end"><a href="/settings/scheduling">$i18n.get("Navbar.settings.scheduling")</a></li>
+          <li class="#if( $freenet.openApp.name == "autoupdate")active#end"><a href="/settings/autoupdate">$i18n.get("Navbar.settings.autoupdate")</a></li>
+          <li class="#if( $freenet.openApp.name == "ssl")active#end"><a href="/settings/ssl">$i18n.get("Navbar.settings.ssl")</a></li>
+          <li class="#if( $freenet.openApp.name == "keyutils")active#end"><a href="/settings/keyutils">$i18n.get("Navbar.settings.keyutils")</a></li>
+        </ul>
+      </li>
+      <!-- END SETTINGS MENU -->
+
+    </ul>
+    #end
+  </div>
+</nav>
+</header>
