@@ -1,0 +1,50 @@
+ body { 
+ 	padding-top: 60px;
+ 	margin-bottom: 20px; 
+ }
+
+/* Main menu itens on the navbar (i.e APPS, BROWSE, etc) */
+header li[id|=navbar-item] > a {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Currently open app menu */
+#navbar-item-openapp > li > a {
+  font-weight: bold;
+  color: white;
+}
+
+/* Icon-only menus */
+#navbar-item-notifications > a,
+#navbar-item-downloads > a,
+#navbar-item-security > a,
+#navbar-item-settings > a, {
+  font-size: 20px;
+}
+
+.text-small {
+	font-size: 0.8em;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Remove margins added by bootstrap (used with progress bars) */
+ .no-margin {
+ 	margin: 0 !important;
+ }
+
+/* Position to the navbar logo */
+ #logo-navbar{
+  float:left; 
+  margin-top: 5px; 
+  margin-left: -60px;
+}
+
+/* Large dropdown menu */
+div.dropdown-menu {
+  width:300px; 
+  padding: 10px;
+}
