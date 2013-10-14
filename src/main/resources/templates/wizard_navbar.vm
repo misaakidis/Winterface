@@ -1,0 +1,18 @@
+<header id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar-inner">
+		<div class="container">
+			<img src="/static/images/logo-navbar.png" alt="Freenet" id="logo-navbar">
+			<a class="brand">
+				$i18n.get("Navbar.wizard.homepageTitle")
+			</a>
+
+			<div class="pull-right" style="color:white; margin-top:10px">
+				<span class="badge #if( $freenet.currentUrl == '/wizard/1' )badge-success#end">1 - $i18n.get("Navbar.wizard.datastoreSize")</span>
+				<small class="icon-arrow-right"></small>
+				<span class="badge #if( $freenet.currentUrl == '/wizard/2' )badge-success#end">2 - $i18n.get("Navbar.wizard.bandwidthLimit")</span>
+				<small class="icon-arrow-right"></small>
+				<span class="badge #if( $freenet.currentUrl == '/wizard/3' )badge-success#end">3 - $i18n.get("Navbar.wizard.networkSecurity")</span>
+			</div>
+		</div>
+	</nav>
+</header>

@@ -8,12 +8,6 @@ USED VARS:
 
 EXPECTED VALUES:
 
-Installation wizard: 
-  $freenet.openApp.name = 'wizard'
-  $freenet.openApp.menu = Null
-  $freenet.openApp.group = 'wizard'
-  $freenet.currentUrl = '/wizard/1', '/wizard/2', '/wizard/3' (for each step)
-
 Dashboard:
   $freenet.openApp.name = 'dashboard'
   $freenet.openApp.menu = Null
@@ -174,22 +168,6 @@ SETTINGS > STATUS SUBMENU:
   <nav class="navbar-inner">
     <div class="container">
       <img src="/static/images/logo-navbar.png" alt="Freenet" id="logo-navbar">
-
-      #if( $freenet.openApp.group == "wizard" )
-
-      <a class="brand">
-        $i18n.get("Navbar.wizard.homepageTitle")
-      </a>
-
-      <div class="pull-right" style="color:white; margin-top:10px">
-        <span class="badge #if( $freenet.currentUrl == '/wizard/1' )badge-success#end">1 - $i18n.get("Navbar.wizard.datastoreSize")</span>
-        <small class="icon-arrow-right"></small>
-        <span class="badge #if( $freenet.currentUrl == '/wizard/2' )badge-success#end">2 - $i18n.get("Navbar.wizard.bandwidthLimit")</span>
-        <small class="icon-arrow-right"></small>
-        <span class="badge #if( $freenet.currentUrl == '/wizard/3' )badge-success#end">3 - $i18n.get("Navbar.wizard.networkSecurity")</span>
-      </div>
-
-      #else
 
       <a class="brand" href="/">
        Freenet
@@ -378,7 +356,6 @@ SETTINGS > STATUS SUBMENU:
       <!-- END SETTINGS MENU -->
 
     </ul>
-    #end
   </div>
 </nav>
 </header>
