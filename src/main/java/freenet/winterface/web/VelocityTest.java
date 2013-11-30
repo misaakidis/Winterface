@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Test page for Velocity templates in Jetty.
- *
- * TODO: Also look into VelocityViewServlet? How to handle
  */
 public class VelocityTest extends VelocityBase {
 
