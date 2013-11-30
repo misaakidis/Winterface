@@ -7,3 +7,6 @@
 # Eclipse settings
 /.settings
 /.project
+# IDEA IDE
+/.idea/
+*.iml
