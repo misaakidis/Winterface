@@ -1,2 +1,2 @@
 <strong>This is an included page.</strong>
-<em>$test</em>
+<em>The following is internationalized text: $i18n.get("Navbar.wizard.homepageTitle")</em>
