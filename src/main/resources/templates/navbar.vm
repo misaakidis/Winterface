@@ -1,8 +1,8 @@
 #*
 USED VARS:
-  $freenet.openApp.name = Internal name of the open app or null if no app is open
-  $freenet.openApp.menu = Null or the html to be inserted on the menu
-  $freenet.openApp.group = Group where the open app is on the menu
+  $freenet.openAppName = Internal name of the open app or null if no app is open
+  $freenet.openAppMenu = Null or the html to be inserted on the menu
+  $freenet.openAppGroup = Group where the open app is on the menu
   $freenet.currentUrl = url path of the item
 
 
