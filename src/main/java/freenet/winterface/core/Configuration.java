@@ -35,7 +35,7 @@ public class Configuration {
 	private long maxLength;
 
 	/** Default server port value */
-	private final static int PORT_DEFAULT = 8080;
+	private final static int PORT_DEFAULT = 8088;
 	/** Port entry name in config file */
 	private final static String PORT_OPTION = "port";
 
