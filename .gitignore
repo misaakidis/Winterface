@@ -13,3 +13,6 @@
 #Vagrant
 Vagrantfile
 /.vagrant
+#Freenet jars needed to build
+freenet-ext.jar
+freenet.jar
