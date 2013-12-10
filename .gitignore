@@ -10,3 +10,6 @@
 # IDEA IDE
 /.idea/
 *.iml
+#Vagrant
+Vagrantfile
+/.vagrant
