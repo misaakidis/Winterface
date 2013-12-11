@@ -7,6 +7,8 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.web.VelocityTest;
+import freenet.winterface.web.Dashboard;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
 import org.eclipse.jetty.server.Server;
@@ -83,6 +85,7 @@ public class ServerManager {
 			initErrorHandlers(sch);
 			initStaticResources(sch);
 			sch.addServlet(VelocityTest.class, "/test");
+			sch.addServlet(Dashboard.class, "/");
 
 			/*
 			 * Add PluginRespirator/Configuration to servlet context So it can

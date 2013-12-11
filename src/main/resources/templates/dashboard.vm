@@ -1,0 +1,206 @@
+##
+## Expected data
+##
+##TODO: Chance _ to . on var names
+
+## $freenet.NotificationsQuantity expects the quantity of notifications that the user must read
+#set( $freenet_NotificationsQuantity = 2 )
+
+## $freenet.SecurityLevelsConnection expects: "low" or "normal" or "high" or "maximum"
+#set( $freenet_SecurityLevelsConnection = "low" )
+
+## $freenet.SecurityLevelsDataStorage expects: "none" or "low" or "high" or "maximum"
+#set( $freenet_SecurityLevelsDataStorage = "none" )
+
+## $freenet.FreenetVersion expects something like: Freenet 0.7.5 Build #1444
+## $freenet.ExtVersion expects something like: Freenet-ext Build #29 rv29
+
+## $freenet.Notifications expects a list of notifications where:
+## $freenet.Notifications.title = title
+## $freenet.Notifications.message = message
+## $freenet.Notifications.key = key that will be used on the url to read or remove the notification
+
+<div class="row">
+
+  <div class="span4">
+    <section class="nopadding">
+      <div class="page-header clearfix">
+        <span class="lead">$i18n.get("Global.NotificationsTitle")</span>
+      </div>
+
+      ##TODO: Create the loop (How messages will get here?)
+      
+      ##foreach (notification in $freenet.Notifications)
+
+      <div class="alert alert-info alert-block">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>$notification.title</strong>
+        Message: $notification.message
+        Key: $notification.key
+        <br>
+        <a href="#" class="act lowercase">$i18n.get("Global.ViewAction")</a> | 
+        <a href="#" class="act act-danger lowercase"  data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
+      </div>
+
+      ##endfor
+
+    </section>
+  </div>
+
+
+  <div class="#if($freenet_NotificationsQuantity)span8#{else}span12#end" id="bookmarks-container">
+    <section class="nopadding">
+      <div class="page-header">
+        <a class="btn btn-small btn-link pull-right" id="edit-bookmarks">$i18n.get("Global.EditAction")</a>
+        <span class="lead">$i18n.get("Global.BookmarksTitle")</span>
+      </div>
+
+      ##TODO: Create bookmarks loop
+
+      <div class="accordion" id="bookmark-list">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#bookmark-list" href="#collapseOne">
+              Directories of websites on Freenet
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+            <div class="accordion-inner">
+              <ul>
+                <li><a title="A large, regularly updated index, linking to absolutely everything. Some sites may not have accurate descriptions. Be careful!"  data-placement="right" href="/redesign/downloadingfile" data-toggle="tooltip">Linkageddon</a></li>
+                <li><a title="An index of freenet sites with categories" data-placement="right" data-toggle="tooltip" href="#">AFKindex</a></li>
+                <li><a data-toggle="tooltip"  data-placement="right" title="A one-page index with a menu including categories" href="#">The Ultimate FreeNet Index</a></li>
+                <li><a data-toggle="tooltip"  data-placement="right" title="A small French index with descriptions" href="#">Index des sites Français</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#bookmark-list" href="#collapseTwo">
+                Freenet related software and documentation
+              </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <ul>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="The official freesite of FMS, a spam resistant message board system for Freenet"  href="#">Freenet Message System</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right" title="The official site for Freemail - email over Freenet"  href="#">Freemail</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Simple guide to publishing web sites to Freenet" href="#">Publish!</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="A more detailed explanation of publishing freesites" href="#/">Freesite HOWTO</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Fast anonymous social chat over Freenet" href="#">Sone</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Tool for uploading freesites (Freenet websites)" href="http://127.0.0.1:8888/USK@e3myoFyp5avg6WYN16ImHri6J7Nj8980Fm~aQe4EX1U,QvbWT0ImE0TwLODTl7EoJx2NBnwDxTbLTE6zkB-eGPs,AQACAAE/jSite/19/">jSite</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="A Wiki about Freenet (needs some tools to edit)" href="#">Freenet
+                    Documentation Wiki</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="An illustrated guide to setting up social networking tools" href="#">Freenet Social Networking Guide</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#bookmark-list" href="#collapseThree">
+                  Freenet team's blogs
+                </a>
+              </div>
+              <div id="collapseThree" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <ul>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Toad&#39;s flog" href="#">Toad</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Bombe&#39;s flog" href="#">Bombe</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Flog of the main Freetalk &amp; Web Of Trust developer" href="#/">xor</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+</div>
+      
+      <br>
+      <div class="row">
+        <div class="span8">
+          <section class="nopadding">
+            <div class="page-header clearfix">
+              <span class="lead">$i18n.get("Dashboard.TasksTitle")</span>
+            </div>
+            <div class="row">
+              <div class="span4">
+                <h5>$i18n.get("Dashboard.TasksTalkTitle")</h5>
+                <ul>
+                  <li><strong>Sone</strong>  <small class="muted">microblogging platform</small> <a href="#installAppModal" class="btn btn-link btn-mini"  data-toggle="modal">Learn more</a></li>
+                  <li><strong>FMS</strong>  <small class="muted">forum</small> <a href="#installAppModalExisting" class="btn btn-link btn-mini" data-toggle="modal">Learn more</a></li>
+                  <li><strong>FLIC</strong>  <small class="muted">real-time chat</small> <a href="#" class="btn btn-link btn-mini">Learn more</a></li>
+                  <li><strong>Freemail</strong>  <small class="muted">anonymous email</small> <a href="#" class="btn btn-link btn-mini">Learn more</a></li>
+                </ul>
+              </div>
+              <div class="span4">
+                <h5>$i18n.get("Dashboard.TasksDiscoverTitle")</h5>
+                <ul>
+                  <li><a href="/search?menu=search">Search</a> <small class="muted">dig in freenet</small></li>
+                  <li><a href="#visitFreesite"  data-toggle="modal">Visit a freesite</a> <small class="muted">(if you already have the key)</small></li>
+                </ul>
+                <h5>$i18n.get("Dashboard.TasksLearnTitle")</h5>
+                <ul>
+                  <li><a href="#">Social Guide</a> <small class="muted">social apps how-to</small></li>
+                  <li><a href="#">Wiki</a> <small class="muted">freenet wiki site</small></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="span4">
+          <section class="nopadding">
+            <div class="page-header clearfix">
+              <span class="lead">$i18n.get("Global.FreenetStatusTitle")</span>
+            </div>
+            <strong>$i18n.get("Status.ConnectionsQuantityTitle")</strong>
+            <a href="#" class="btn btn-link btn-small">$i18n.get("Global.MoreDetailsAction")</a>
+            <div class="progress">
+
+              ##TODO: Implement the result and change colours
+
+              <div class="bar bar-success" style="width: 60%;">6/10</div>
+            </div>
+            <strong>$i18n.get("Status.SecurityLevelsTitle")</strong> 
+            <a href="/settings/seclevels" class="btn btn-link btn-small">$i18n.get("Global.EditAction")</a>
+            <br>
+            <div class="row">
+              <div class="span2">
+                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsConnectionTitle")</small><br>
+                #if( $freenet_SecurityLevelsConnection == "low" ) 
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsConnectionLow") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "normal" )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsConnectionNormal") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "high" )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsConnectionHigh") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "maximum" )
+                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsConnectionMaximum") </span>
+                #end
+              </div>
+              <div class="span2">
+                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsDataStorageTitle")</small><br>
+                #if( $freenet_SecurityLevelsDataStorage == "none" ) 
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsDataStorageNone") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "low" )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsDataStorageLow") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "high" )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsDataStorageHigh") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "maximum" )
+                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsDataStorageMaximum") </span>
+                #end
+              </div>
+            </div>
+            <br>
+            <strong>$i18n.get("Global.GeneralTitle")</strong>  <br>
+            <small>$i18n.get("Global.LanguageTitle"): <a href="#">$i18n.get("Global.LanguageEN")</a></small>  <br>
+            <small>$i18n.get("Global.FreenetVersionTitle"): <span class="muted">$freenet.FreenetVersion</span> </small>  <br>
+            <small>$i18n.get("Global.ExtVersionTitle"): <span class="muted">$freenet.ExtVersion</span></small>  <br>
+            <br>
+            <strong>$i18n.get("Global.NodeControl")</strong>  <br>
+            <a href="#" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.RestartFreenet")</a>
+            <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a>
+          </section>
+        </div>
+      </div>
