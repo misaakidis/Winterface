@@ -1,0 +1,16 @@
+# Set default behaviour, in case users don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files to always be normalized and converted
+# to native line endings on checkout.
+*.css text
+*.java text
+*.js text
+*.properties text
+*.vm text
+*.xml text
+
+# Do not normalize binary files.
+*.png binary
+*.jpg binary
+*.jpeg binary
