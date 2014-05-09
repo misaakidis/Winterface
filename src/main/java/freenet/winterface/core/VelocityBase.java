@@ -34,6 +34,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	 */
 	@Override
 	protected void fillContext(Context context, HttpServletRequest request) {
+		context.put("freenet", context.get("freenet-interface"));
 		context.put("requestedPage", templateFor(templateName));
 		// TODO: Support for Wizard nav bar pages too - set navbar to wizard_navbar.vm
 		context.put("navbar", templateFor("navbar.vm"));
