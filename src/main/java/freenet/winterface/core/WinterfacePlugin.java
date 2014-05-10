@@ -14,6 +14,7 @@ import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginConfigurable;
 import freenet.pluginmanager.FredPluginVersioned;
 import freenet.pluginmanager.PluginRespirator;
+import freenet.winterface.freenet.NodeFreenetInterface;
 
 /**
  * Winterface {@link FredPlugin}
@@ -75,7 +76,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 		// initServer();
 		serverManager = new ServerManager();
-		serverManager.startServer(DEV_MODE, config, new FreenetWrapper(pr));
+		serverManager.startServer(DEV_MODE, config, new NodeFreenetInterface(pr.getNode()));
 	}
 
 	@Override

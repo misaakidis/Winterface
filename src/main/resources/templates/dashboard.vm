@@ -158,10 +158,17 @@
             <strong>$i18n.get("Status.ConnectionsQuantityTitle")</strong>
             <a href="#" class="btn btn-link btn-small">$i18n.get("Global.MoreDetailsAction")</a>
             <div class="progress">
-
-              ##TODO: Implement the result and change colours
-
-              <div class="bar bar-success" style="width: 60%;">6/10</div>
+              #if ($freenet.Connections.Maximum > 0)
+              	#set($width = 100 * $freenet.Connections.Current / $freenet.Connections.Maximum)
+              	#if ($width < 25)
+              	  #set($color = "warning")
+              	#else
+              	  #set($color = "success")
+              	#end
+                <div class="bar bar-${color}" style="width: ${width}%;">$freenet.Connections.Current/$freenet.Connections.Maximum</div>
+              #else
+                <div class="bar bar-warning" style="width: 100%">0/0</div>
+              #end
             </div>
             <strong>$i18n.get("Status.SecurityLevelsTitle")</strong> 
             <a href="/settings/seclevels" class="btn btn-link btn-small">$i18n.get("Global.EditAction")</a>

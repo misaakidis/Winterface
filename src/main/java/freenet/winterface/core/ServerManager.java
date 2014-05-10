@@ -6,6 +6,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
+import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.web.VelocityTest;
 import freenet.winterface.web.Dashboard;
 
@@ -45,8 +46,7 @@ public class ServerManager {
 	 */
 	private final static Logger logger = Logger.getLogger(ServerManager.class);
 
-	public static final String FREENET_ID = "plugin-respirator";
-
+	public static final String FREENET_INTERFACE = "freenet-interface";
 	public static final String CONFIG_ID = "winterface-configuration";
 
 	/**
@@ -65,7 +65,7 @@ public class ServerManager {
 	 *            {@code false} to start in deployment mode
 	 * @return running instance of {@link Server}
 	 */
-	public Server startServer(boolean devMode, final Configuration config, final FreenetWrapper fw) {
+	public Server startServer(boolean devMode, final Configuration config, FreenetInterface freenetInterface) {
 		if (server == null) {
 			server = new Server();
 
@@ -91,7 +91,7 @@ public class ServerManager {
 			 * Add PluginRespirator/Configuration to servlet context So it can
 			 * be retrievable by our WebApplication
 			 */
-			sch.setAttribute(FREENET_ID, fw);
+			sch.setAttribute(FREENET_INTERFACE, freenetInterface);
 			sch.setAttribute(CONFIG_ID, config);
 
 			server.setHandler(sch);
