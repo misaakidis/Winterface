@@ -207,6 +207,7 @@
             <br>
             <strong>$i18n.get("Global.NodeControl")</strong>  <br>
             <a href="#" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.RestartFreenet")</a>
+            <a href="#" class="btn btn-small " id="btn_reloadWinterface"><i class="icon-repeat"></i> $i18n.get("Global.ReloadWinterface")</a>
             <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a>
           </section>
         </div>
