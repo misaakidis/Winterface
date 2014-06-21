@@ -17,5 +17,6 @@ public class Dashboard extends VelocityBase {
 	@Override
 	protected void subFillContext(Context context, HttpServletRequest request) {
 		context.put("test", "Do ya like waffles?");
+		context.put("thread_name", context.get("winterface-thread-name"));
 	}
 }

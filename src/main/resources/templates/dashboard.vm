@@ -207,8 +207,13 @@
             <br>
             <strong>$i18n.get("Global.NodeControl")</strong>  <br>
             <a href="#" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.RestartFreenet")</a>
-            <a href="#" class="btn btn-small " id="btn_reloadWinterface"><i class="icon-repeat"></i> $i18n.get("Global.ReloadWinterface")</a>
-            <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a>
+            <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a> <br>
+            <br>
+            <strong>$i18n.get("Global.WinterfaceControl")</strong>  <br>
+			<form id="reloadPluginForm" accept-charset="utf-8" method="post" action="." enctype="multipart/form-data" style="margin:0px;">
+    			<input type="hidden" value="$thread_name" name="reload"></input>
+    			<button type="submit" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.ReloadWinterface")</button>
+			</form>
           </section>
         </div>
       </div>

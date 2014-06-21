@@ -48,6 +48,7 @@ public class ServerManager {
 
 	public static final String FREENET_INTERFACE = "freenet-interface";
 	public static final String CONFIG_ID = "winterface-configuration";
+	public static final String WINTERFACE_THREAD_NAME = "winterface-thread-name";
 
 	/**
 	 * Starts {@link Server} in the desired mode.
@@ -93,6 +94,7 @@ public class ServerManager {
 			 */
 			sch.setAttribute(FREENET_INTERFACE, freenetInterface);
 			sch.setAttribute(CONFIG_ID, config);
+			sch.setAttribute(WINTERFACE_THREAD_NAME, WinterfacePlugin.getWinterfaceThreadName());
 
 			server.setHandler(sch);
 

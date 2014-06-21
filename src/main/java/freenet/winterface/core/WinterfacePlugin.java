@@ -31,6 +31,12 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	 * {@link URL} at which {@link WinterfacePlugin} resides
 	 */
 	private URL plugin_path;
+	
+	/**
+	 * {@link String} name of {@link WinterfacePlugin} main thread
+	 */
+	private String winterface_thread_name;
+
 
 	/**
 	 * An instance of {@link ServerManager} for all {@link Server} related
@@ -63,8 +69,12 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	public void runPlugin(PluginRespirator pr) {
 		// Load path
 		plugin_path = this.getClass().getClassLoader().getResource(".");
+		// Get plugin main thread name
+		winterface_thread_name = getWinterfaceThreadName();
+		
 		// Register logger and so on
 		logger.debug("Loaded WinterFacePlugin on path " + plugin_path);
+		logger.debug("Winterface plugin thread name: " + winterface_thread_name);
 
 		// Templates are stored in jars on the classpath.
 		Properties properties = new Properties();
@@ -117,6 +127,10 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	@Override
 	public void setupConfig(SubConfig subconfig) {
 		config.initialize(subconfig);
+	}
+	
+	public static String getWinterfaceThreadName() {
+		return Thread.currentThread().getName();
 	}
 
 }
