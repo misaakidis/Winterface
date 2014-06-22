@@ -1,13 +1,12 @@
-If post request includes reload, Winterface gets reloaded <br>
-$request.getParameter('reload') $thread_name
-
-#if( $request.getParameter('reload') == $thread_name )
+#if( $request.getParameter('reload') == "winterface-reload" )
+Winterface reloading in 5 seconds...
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function () {
-    // Handler for .ready() called.
     window.setTimeout(function () {
-        location.href = "/plugins";
+        location.href = "/";
     }, 5000)
 });
 </script>
+#else
+Winterface plugin is loaded.
 #end

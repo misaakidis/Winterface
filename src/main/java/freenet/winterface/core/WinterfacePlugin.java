@@ -142,7 +142,12 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	}
 	
 	public boolean reload() {
-		terminate();
+		try {
+			Thread.sleep(SECONDS.toMillis(2));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		final PluginManager pm = node.getPluginManager();
 		final String fn = PluginFreenetInterface.getPluginSpecification(pm, winterface_thread_name);
@@ -151,6 +156,8 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		//TODO Add purge option (remove from cache)
 		
 		pm.startPluginAuto(fn, true);
+		
+		terminate();
 		
 		return true;
 	}
