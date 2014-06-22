@@ -47,10 +47,9 @@ public class ServerManager {
 	 */
 	private final static Logger logger = Logger.getLogger(ServerManager.class);
 
+	public static final String WINTERFACE_PLUGIN = "winterface-plugin";
 	public static final String FREENET_INTERFACE = "freenet-interface";
-	public static final String PLUGIN_FREENET_INTERFACE = "plugin-freenet-interface";
 	public static final String CONFIG_ID = "winterface-configuration";
-	public static final String WINTERFACE_THREAD_NAME = "winterface-thread-name";
 
 	/**
 	 * Starts {@link Server} in the desired mode.
@@ -68,7 +67,7 @@ public class ServerManager {
 	 *            {@code false} to start in deployment mode
 	 * @return running instance of {@link Server}
 	 */
-	public Server startServer(boolean devMode, final Configuration config, FreenetInterface freenetInterface, PluginFreenetInterface pluginFreenetInterface) {
+	public Server startServer(boolean devMode, final Configuration config, FreenetInterface freenetInterface, WinterfacePlugin winterfacePlugin) {
 		if (server == null) {
 			server = new Server();
 
@@ -94,10 +93,10 @@ public class ServerManager {
 			 * Add PluginRespirator/Configuration to servlet context So it can
 			 * be retrievable by our WebApplication
 			 */
+			//FIXME use freenet interface for accessing winterface plugin instance
+			sch.setAttribute(WINTERFACE_PLUGIN, winterfacePlugin);
 			sch.setAttribute(FREENET_INTERFACE, freenetInterface);
-			sch.setAttribute(PLUGIN_FREENET_INTERFACE, pluginFreenetInterface);
 			sch.setAttribute(CONFIG_ID, config);
-			sch.setAttribute(WINTERFACE_THREAD_NAME, WinterfacePlugin.getWinterfaceThreadName());
 
 			server.setHandler(sch);
 

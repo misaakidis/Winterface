@@ -1,5 +1,7 @@
 package freenet.winterface.core;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.net.URL;
 import java.util.Properties;
 
@@ -13,6 +15,8 @@ import freenet.node.Node;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginConfigurable;
 import freenet.pluginmanager.FredPluginVersioned;
+import freenet.pluginmanager.PluginInfoWrapper;
+import freenet.pluginmanager.PluginManager;
 import freenet.pluginmanager.PluginRespirator;
 import freenet.winterface.freenet.NodeFreenetInterface;
 import freenet.winterface.freenet.PluginFreenetInterface;
@@ -37,7 +41,11 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	 * {@link String} name of {@link WinterfacePlugin} main thread
 	 */
 	private String winterface_thread_name;
-
+	
+	/**
+	 * The instance of freenet node that loaded Winterface
+	 */
+	private Node node;
 
 	/**
 	 * An instance of {@link ServerManager} for all {@link Server} related
@@ -62,12 +70,16 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	 */
 	private static final Logger logger = Logger.getLogger(WinterfacePlugin.class);
 
+	private static final long MAX_THREADED_UNLOAD_WAIT_TIME = SECONDS.toMillis(60);
+
 	public WinterfacePlugin() {
 		config = new Configuration();
 	}
 
 	@Override
 	public void runPlugin(PluginRespirator pr) {
+		node = pr.getNode();
+		
 		// Load path
 		plugin_path = this.getClass().getClassLoader().getResource(".");
 		// Get plugin main thread name
@@ -75,7 +87,6 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		
 		// Register logger and so on
 		logger.debug("Loaded WinterFacePlugin on path " + plugin_path);
-		logger.debug("Winterface plugin thread name: " + winterface_thread_name);
 
 		// Templates are stored in jars on the classpath.
 		Properties properties = new Properties();
@@ -87,7 +98,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 		// initServer();
 		serverManager = new ServerManager();
-		serverManager.startServer(DEV_MODE, config, new NodeFreenetInterface(pr.getNode()), new PluginFreenetInterface(pr.getNode()));
+		serverManager.startServer(DEV_MODE, config, new NodeFreenetInterface(pr.getNode()), this);
 	}
 
 	@Override
@@ -130,7 +141,20 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		config.initialize(subconfig);
 	}
 	
-	public static String getWinterfaceThreadName() {
+	public boolean reload() {
+		terminate();
+		
+		final PluginManager pm = node.getPluginManager();
+		final String fn = plugin_path.toString();
+		
+		pm.startPluginAuto(fn, true);
+		
+		pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
+		//TODO Add purge option (remove from cache)
+		return true;
+	}
+	
+	private static String getWinterfaceThreadName() {
 		return Thread.currentThread().getName();
 	}
 

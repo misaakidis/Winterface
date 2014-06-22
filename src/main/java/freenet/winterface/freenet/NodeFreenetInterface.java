@@ -27,6 +27,7 @@ public class NodeFreenetInterface implements FreenetInterface {
 
 	@VisibleForTesting
 	NodeFreenetInterface(Node node, PeerManager peerManager) {
+		//TODO get winterface plugin instance, substitute the one put in context
 		this.node = node;
 		this.peerManager = peerManager;
 	}

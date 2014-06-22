@@ -3,9 +3,9 @@ package freenet.winterface.freenet;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import freenet.node.Node;
-import freenet.node.PeerManager;
 import freenet.pluginmanager.PluginInfoWrapper;
 import freenet.pluginmanager.PluginManager;
+import freenet.winterface.core.WinterfacePlugin;
 
 import com.google.common.annotations.VisibleForTesting;
 
