@@ -7,6 +7,7 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
+import freenet.winterface.freenet.PluginFreenetInterface;
 import freenet.winterface.web.VelocityTest;
 import freenet.winterface.web.Dashboard;
 
@@ -47,6 +48,7 @@ public class ServerManager {
 	private final static Logger logger = Logger.getLogger(ServerManager.class);
 
 	public static final String FREENET_INTERFACE = "freenet-interface";
+	public static final String PLUGIN_FREENET_INTERFACE = "plugin-freenet-interface";
 	public static final String CONFIG_ID = "winterface-configuration";
 	public static final String WINTERFACE_THREAD_NAME = "winterface-thread-name";
 
@@ -66,7 +68,7 @@ public class ServerManager {
 	 *            {@code false} to start in deployment mode
 	 * @return running instance of {@link Server}
 	 */
-	public Server startServer(boolean devMode, final Configuration config, FreenetInterface freenetInterface) {
+	public Server startServer(boolean devMode, final Configuration config, FreenetInterface freenetInterface, PluginFreenetInterface pluginFreenetInterface) {
 		if (server == null) {
 			server = new Server();
 
@@ -93,6 +95,7 @@ public class ServerManager {
 			 * be retrievable by our WebApplication
 			 */
 			sch.setAttribute(FREENET_INTERFACE, freenetInterface);
+			sch.setAttribute(PLUGIN_FREENET_INTERFACE, pluginFreenetInterface);
 			sch.setAttribute(CONFIG_ID, config);
 			sch.setAttribute(WINTERFACE_THREAD_NAME, WinterfacePlugin.getWinterfaceThreadName());
 
