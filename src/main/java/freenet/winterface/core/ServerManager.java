@@ -10,6 +10,7 @@ import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.freenet.PluginFreenetInterface;
 import freenet.winterface.web.VelocityTest;
 import freenet.winterface.web.Dashboard;
+import freenet.winterface.web.Plugins;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
@@ -88,6 +89,7 @@ public class ServerManager {
 			initStaticResources(sch);
 			sch.addServlet(VelocityTest.class, "/test");
 			sch.addServlet(Dashboard.class, "/");
+			sch.addServlet(Plugins.class, "/plugins");
 
 			/*
 			 * Add PluginRespirator/Configuration to servlet context So it can

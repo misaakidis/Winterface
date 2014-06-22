@@ -32,19 +32,7 @@ public class PluginFreenetInterface{
 		 * "pfreenet.winterface.core.WinterfacePlugin_154014970";
 		 */
 
-		String tmpfn = null;
-		
-		for(PluginInfoWrapper pi: pluginManager.getPlugins()) {
-			if (pi.getThreadName().equals(pluginThreadName)) {
-				tmpfn = pi.getFilename();
-			}
-		}
-		//TODO Show error message if plugin not found (fn==null)
-		if (tmpfn==null) {
-			return false;
-		}
-		
-		final String fn = tmpfn;
+		final String fn = getPluginSpecification(pluginManager, pluginThreadName);
 		
 		pluginManager.killPlugin(pluginThreadName, MAX_THREADED_UNLOAD_WAIT_TIME, true);
 		//TODO Add purge option (remove from cache)
@@ -59,6 +47,15 @@ public class PluginFreenetInterface{
 
 		});
 		return true;
+	}
+	
+	public static String getPluginSpecification(PluginManager pm, String pluginThreadName) {
+		for(PluginInfoWrapper pi: pm.getPlugins()) {
+			if (pi.getThreadName().equals(pluginThreadName)) {
+				return pi.getFilename();
+			}
+		}
+		return null;
 	}
 
 }

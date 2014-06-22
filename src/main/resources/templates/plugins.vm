@@ -1,0 +1,13 @@
+If post request includes reload, Winterface gets reloaded <br>
+$request.getParameter('reload') $thread_name
+
+#if( $request.getParameter('reload') == $thread_name )
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function () {
+    // Handler for .ready() called.
+    window.setTimeout(function () {
+        location.href = "/plugins";
+    }, 5000)
+});
+</script>
+#end

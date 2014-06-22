@@ -40,7 +40,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	/**
 	 * {@link String} name of {@link WinterfacePlugin} main thread
 	 */
-	private String winterface_thread_name;
+	private static String winterface_thread_name;
 	
 	/**
 	 * The instance of freenet node that loaded Winterface
@@ -83,7 +83,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		// Load path
 		plugin_path = this.getClass().getClassLoader().getResource(".");
 		// Get plugin main thread name
-		winterface_thread_name = getWinterfaceThreadName();
+		winterface_thread_name = Thread.currentThread().getName();
 		
 		// Register logger and so on
 		logger.debug("Loaded WinterFacePlugin on path " + plugin_path);
@@ -145,17 +145,18 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		terminate();
 		
 		final PluginManager pm = node.getPluginManager();
-		final String fn = plugin_path.toString();
-		
-		pm.startPluginAuto(fn, true);
+		final String fn = PluginFreenetInterface.getPluginSpecification(pm, winterface_thread_name);
 		
 		pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
 		//TODO Add purge option (remove from cache)
+		
+		pm.startPluginAuto(fn, true);
+		
 		return true;
 	}
-	
-	private static String getWinterfaceThreadName() {
-		return Thread.currentThread().getName();
+
+	public static String getWinterfaceThreadName() {
+		return winterface_thread_name;
 	}
 
 }

@@ -10,14 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Test page for Velocity templates in Jetty.
  */
-public class Dashboard extends VelocityBase {
+public class Plugins extends VelocityBase {
 
-	public Dashboard() {
-		super("dashboard.vm");
+	public Plugins() {
+		super("plugins.vm");
 	}
 
 	@Override
 	protected void subFillContext(Context context, HttpServletRequest request) {
+		if (request.getMethod().equals("POST")) {
+			if (request.getParameter("reload") != null) {
+				//TODO use FreenetInterface for accessing winterface plugin instance
+				((WinterfacePlugin) context.get("winterface-plugin")).reload();
+			}
+		}
 	}
 	
 }
