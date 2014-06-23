@@ -152,12 +152,11 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		final PluginManager pm = node.getPluginManager();
 		final String fn = PluginFreenetInterface.getPluginSpecification(pm, winterface_thread_name);
 		
-		pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
+		terminate();
+		//pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
 		//TODO Add purge option (remove from cache)
 		
 		pm.startPluginAuto(fn, true);
-		
-		terminate();
 		
 		return true;
 	}

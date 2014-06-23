@@ -106,9 +106,9 @@
               <div id="collapseThree" class="accordion-body collapse">
                 <div class="accordion-inner">
                   <ul>
-                    <li><a data-toggle="tooltip" data-placement="right"  title="Toad&#39;s flog" href="#">Toad</a></li>
-                    <li><a data-toggle="tooltip" data-placement="right"  title="Bombe&#39;s flog" href="#">Bombe</a></li>
-                    <li><a data-toggle="tooltip" data-placement="right"  title="Flog of the main Freetalk &amp; Web Of Trust developer" href="#/">xor</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Toad&#39;s flog" href="/USK@yGvITGZzrY1vUZK-4AaYLgcjZ7ysRqNTMfdcO8gS-LY,-ab5bJVD3Lp-LXEQqBAhJpMKrKJ19RnNaZMIkusU79s,AQACAAE/toad/46/">Toad</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Bombe&#39;s flog" href="/USK@e3myoFyp5avg6WYN16ImHri6J7Nj8980Fm~aQe4EX1U,QvbWT0ImE0TwLODTl7EoJx2NBnwDxTbLTE6zkB-eGPs,AQACAAE/bombe/110/">Bombe</a></li>
+                    <li><a data-toggle="tooltip" data-placement="right"  title="Flog of the main Freetalk &amp; Web Of Trust developer" href="/USK@QeTBVWTwBldfI-lrF~xf0nqFVDdQoSUghT~PvhyJ1NE,OjEywGD063La2H-IihD7iYtZm3rC0BP6UTvvwyF5Zh4,AQACAAE/flog/23/">xor</a></li>
                   </ul>
                 </div>
               </div>
@@ -210,7 +210,7 @@
             <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a> <br>
             <br>
             <strong>$i18n.get("Global.WinterfaceControl")</strong>  <br>
-			<form id="reloadPluginForm" accept-charset="utf-8" method="post" action="./plugins" style="margin:0px;">
+			<form id="reloadPluginForm" accept-charset="utf-8" method="post" action="/plugins" style="margin:0px;">
     			<input type="hidden" value="winterface-reload" name="reload"></input>
     			<button type="submit" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.ReloadWinterface")</button>
 			</form>

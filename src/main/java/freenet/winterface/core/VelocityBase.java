@@ -1,8 +1,14 @@
 package freenet.winterface.core;
 
+import java.io.StringReader;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeServices;
+import org.apache.velocity.runtime.RuntimeSingleton;
+import org.apache.velocity.runtime.parser.ParseException;
+import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +46,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		// TODO: Support for Wizard nav bar pages too - set navbar to wizard_navbar.vm
 		context.put("navbar", templateFor("navbar.vm"));
 		context.put("i18n", i18n);
+		context.put("page_title", new String("Freenet"));
 		subFillContext(context, request);
 	}
 
@@ -54,7 +61,18 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		return Velocity.getTemplate(templateFor("index.vm"));
 	}
 
-	private String templateFor(String name) {
+	protected String templateFor(String name) {
 		return TEMPLATE_PATH + name;
+	}
+	
+	protected Template templateFromString(String inputString) throws ParseException {
+		RuntimeServices runtimeServices = RuntimeSingleton.getRuntimeServices();
+		StringReader reader = new StringReader(inputString);
+		SimpleNode node = runtimeServices.parse(reader, "Template name");
+		Template template = new Template();
+		template.setRuntimeServices(runtimeServices);
+		template.setData(node);
+		template.initDocument();
+		return template;
 	}
 }
