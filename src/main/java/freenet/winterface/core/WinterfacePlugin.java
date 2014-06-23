@@ -46,6 +46,11 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	 * The instance of freenet node that loaded Winterface
 	 */
 	private Node node;
+	
+	/**
+	 * Interface for HighLevelSimpleClient
+	 */
+	private HighLevelSimpleClientInterface client;
 
 	/**
 	 * An instance of {@link ServerManager} for all {@link Server} related
@@ -95,6 +100,8 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		                       "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
 		Velocity.init(properties);
+		
+		client = new HighLevelSimpleClientInterface(pr.getHLSimpleClient());
 
 		// initServer();
 		serverManager = new ServerManager();
