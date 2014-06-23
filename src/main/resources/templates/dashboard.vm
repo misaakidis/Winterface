@@ -1,3 +1,14 @@
+#if( $request.getRequestURI().startsWith("/USK@") )
+Fetching file with USK $request.getRequestURI().substring(1)
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function () {
+    window.setTimeout(function () {
+        location.href = "/fetch$request.getRequestURI()";
+    }, 1000)
+});
+</script>
+#else
+
 ##
 ## Expected data
 ##
@@ -67,7 +78,7 @@
           <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
             <div class="accordion-inner">
               <ul>
-                <li><a title="A large, regularly updated index, linking to absolutely everything. Some sites may not have accurate descriptions. Be careful!"  data-placement="right" href="/redesign/downloadingfile" data-toggle="tooltip">Linkageddon</a></li>
+                <li><a title="A large, regularly updated index, linking to absolutely everything. Some sites may not have accurate descriptions. Be careful!"  data-placement="right" href="/USK@Isel-izgllc8sr~1reXQJz1LNGLIY-voOnLWWOyagYQ,xWfr4py0YZqAQSI-BX7bolDe-kI3DW~i9xHCHd-Bu9k,AQACAAE/linkageddon/1042/" data-toggle="tooltip">Linkageddon</a></li>
                 <li><a title="An index of freenet sites with categories" data-placement="right" data-toggle="tooltip" href="#">AFKindex</a></li>
                 <li><a data-toggle="tooltip"  data-placement="right" title="A one-page index with a menu including categories" href="#">The Ultimate FreeNet Index</a></li>
                 <li><a data-toggle="tooltip"  data-placement="right" title="A small French index with descriptions" href="#">Index des sites Français</a></li>
@@ -84,13 +95,13 @@
             <div id="collapseTwo" class="accordion-body collapse">
               <div class="accordion-inner">
                 <ul>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="The official freesite of FMS, a spam resistant message board system for Freenet"  href="#">Freenet Message System</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right" title="The official site for Freemail - email over Freenet"  href="#">Freemail</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="Simple guide to publishing web sites to Freenet" href="#">Publish!</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="A more detailed explanation of publishing freesites" href="#/">Freesite HOWTO</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="Fast anonymous social chat over Freenet" href="#">Sone</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="Tool for uploading freesites (Freenet websites)" href="http://127.0.0.1:8888/USK@e3myoFyp5avg6WYN16ImHri6J7Nj8980Fm~aQe4EX1U,QvbWT0ImE0TwLODTl7EoJx2NBnwDxTbLTE6zkB-eGPs,AQACAAE/jSite/19/">jSite</a></li>
-                  <li><a data-toggle="tooltip" data-placement="right"  title="A Wiki about Freenet (needs some tools to edit)" href="#">Freenet
+                  <li><a data-toggle="tooltip" data-placement="right"  title="The official freesite of FMS, a spam resistant message board system for Freenet"  href="/USK@0npnMrqZNKRCRoGojZV93UNHCMN-6UU3rRSAmP6jNLE,~BG-edFtdCC1cSH4O3BWdeIYa8Sw5DfyrSV-TKdO5ec,AQACAAE/fms/139/">Freenet Message System</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right" title="The official site for Freemail - email over Freenet"  href="/USK@M0d8y6YoLpXOeQGxu0-IDg8sE5Yt~Ky6t~GPyyZe~zo,KlqIjAj3~dA1Zf57VDljkmp3vHUozndpxnH-P2RRugI,AQACAAE/freemail/8/">Freemail</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Simple guide to publishing web sites to Freenet" href="/USK@940RYvj1-aowEHGsb5HeMTigq8gnV14pbKNsIvUO~-0,FdTbR3gIz21QNfDtnK~MiWgAf2kfwHe-cpyJXuLHdOE,AQACAAE/publish/3/">Publish!</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="A more detailed explanation of publishing freesites" href="USK@8r-uSRcJPkAr-3v3YJR16OCx~lyV2XOKsiG4MOQQBMM,P42IgNemestUdaI7T6z3Og6P-Hi7g9U~e37R3kWGVj8,AQACAAE/freesite-HOWTO/4//">Freesite HOWTO</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Fast anonymous social chat over Freenet" href="/USK@nwa8lHa271k2QvJ8aa0Ov7IHAV-DFOCFgmDt3X6BpCI,DuQSUZiI~agF8c-6tjsFFGuZ8eICrzWCILB60nT8KKo,AQACAAE/sone/63/">Sone</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="Tool for uploading freesites (Freenet websites)" href="/USK@e3myoFyp5avg6WYN16ImHri6J7Nj8980Fm~aQe4EX1U,QvbWT0ImE0TwLODTl7EoJx2NBnwDxTbLTE6zkB-eGPs,AQACAAE/jSite/19/">jSite</a></li>
+                  <li><a data-toggle="tooltip" data-placement="right"  title="A Wiki about Freenet (needs some tools to edit)" href="/USK@z6lnOx7PPe16P3Sobu1KM9jiLiIxdvE3L918QMVCLak,AmZ7RemmWcKM2-W4Zs38Ks511lRTsWleMj2mVAReB4E,AQACAAE/freenetdocwiki/17/">Freenet
                     Documentation Wiki</a></li>
                     <li><a data-toggle="tooltip" data-placement="right"  title="An illustrated guide to setting up social networking tools" href="#">Freenet Social Networking Guide</a></li>
                   </ul>
@@ -217,3 +228,5 @@
           </section>
         </div>
       </div>
+
+#end

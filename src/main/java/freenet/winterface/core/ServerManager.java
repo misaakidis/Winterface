@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.freenet.PluginFreenetInterface;
+import freenet.winterface.web.Fetch;
 import freenet.winterface.web.VelocityTest;
 import freenet.winterface.web.Dashboard;
 import freenet.winterface.web.Plugins;
@@ -89,7 +90,8 @@ public class ServerManager {
 			initStaticResources(sch);
 			sch.addServlet(VelocityTest.class, "/test");
 			sch.addServlet(Dashboard.class, "/");
-			sch.addServlet(Plugins.class, "/plugins");
+			sch.addServlet(Plugins.class, "/plugins/*");
+			sch.addServlet(Fetch.class, "/fetch/*");
 
 			/*
 			 * Add PluginRespirator/Configuration to servlet context So it can
