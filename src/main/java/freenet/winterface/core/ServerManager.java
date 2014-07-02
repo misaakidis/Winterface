@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.freenet.PluginFreenetInterface;
+import freenet.winterface.web.InvalidKey;
 import freenet.winterface.web.Root;
 import freenet.winterface.web.VelocityTest;
 import freenet.winterface.web.Dashboard;
@@ -91,6 +92,7 @@ public class ServerManager {
 			sch.addServlet(Root.class, "/*");
 			sch.addServlet(Dashboard.class, "/dashboard/*");
 			sch.addServlet(Plugins.class, "/plugins/*");
+			sch.addServlet(InvalidKey.class, "/invalidkey/*");
 			sch.addServlet(VelocityTest.class, "/test");
 
 			/*

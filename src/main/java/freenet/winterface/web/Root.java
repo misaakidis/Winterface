@@ -1,8 +1,5 @@
 package freenet.winterface.web;
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
@@ -27,10 +24,18 @@ public class Root extends HttpServlet {
 	public Root() {
 	}
 	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getParameter("modal_key") != null) {
+			response.sendRedirect("/" + request.getParameter("modal_key"));
+		} else {
+			response.sendRedirect("/");
+		}
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getRequestURI().startsWith("/USK@")) {
-			response.setContentType("text/html");
-	        response.setStatus(HttpServletResponse.SC_OK);
+		if(request.getRequestURI().equals("/")) {
+			response.sendRedirect("/dashboard");
+		} else if (request.getRequestURI().startsWith("/USK@")) {
 			FetchResult result = null;
 			try {
 				// Remove "/" from the beginning of the requested URI, fetch the document
@@ -43,6 +48,8 @@ public class Root extends HttpServlet {
 				e.printStackTrace();
 			}
 			if (result != null) {
+				response.setContentType(result.getMimeType());
+		        response.setStatus(HttpServletResponse.SC_OK);
 				OutputStream resOutStream = response.getOutputStream();
 
 				Bucket resultBucket = result.asBucket();
@@ -57,7 +64,7 @@ public class Root extends HttpServlet {
 				resultBucket.free();
 			}
 		} else {
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/invalidkey");
 		}
 		
 	}
