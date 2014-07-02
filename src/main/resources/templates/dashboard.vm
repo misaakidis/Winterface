@@ -1,14 +1,3 @@
-#if( $request.getRequestURI().startsWith("/USK@") )
-Fetching file with USK $request.getRequestURI().substring(1)
-<script language="JavaScript" type="text/javascript">
-$(document).ready(function () {
-    window.setTimeout(function () {
-        location.href = "/fetch$request.getRequestURI()";
-    }, 1000)
-});
-</script>
-#else
-
 ##
 ## Expected data
 ##
@@ -228,5 +217,3 @@ $(document).ready(function () {
           </section>
         </div>
       </div>
-
-#end

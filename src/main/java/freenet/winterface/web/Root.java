@@ -22,20 +22,19 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Fetch USK page.
  */
-public class Fetch extends HttpServlet {
+public class Root extends HttpServlet {
 
-	public Fetch() {
+	public Root() {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-		
-		if (request.getRequestURI().startsWith("/fetch/USK@")) {
+		if (request.getRequestURI().startsWith("/USK@")) {
+			response.setContentType("text/html");
+	        response.setStatus(HttpServletResponse.SC_OK);
 			FetchResult result = null;
 			try {
-				// Remove "/" from the beginning of the requested URI
-				result = HighLevelSimpleClientInterface.fetchURI(new FreenetURI(request.getRequestURI().substring(7)));
+				// Remove "/" from the beginning of the requested URI, fetch the document
+				result = HighLevelSimpleClientInterface.fetchURI(new FreenetURI(request.getRequestURI().substring(1)));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -43,7 +42,7 @@ public class Fetch extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (result != null && result.getMimeType().equals("text/html")) {
+			if (result != null) {
 				OutputStream resOutStream = response.getOutputStream();
 
 				Bucket resultBucket = result.asBucket();
@@ -57,6 +56,8 @@ public class Fetch extends HttpServlet {
 				}
 				resultBucket.free();
 			}
+		} else {
+			response.sendRedirect("/dashboard");
 		}
 		
 	}
