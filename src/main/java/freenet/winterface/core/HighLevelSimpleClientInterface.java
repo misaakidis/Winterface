@@ -9,23 +9,28 @@ import freenet.node.NodeClientCore;
 import freenet.node.RequestStarter;
 
 public class HighLevelSimpleClientInterface {
+	
+	private static HighLevelSimpleClientInterface HLSCInterface = new HighLevelSimpleClientInterface();
 
-	static private HighLevelSimpleClient client;
-	static private Node node;
+	private HighLevelSimpleClient client;
+	private Node node;
+	
+	private HighLevelSimpleClientInterface() {
+		
+	}
 	
 	public HighLevelSimpleClientInterface(Node node, NodeClientCore core) {
-		this.node = node;
-		this.client = node.clientCore.makeClient(RequestStarter.INTERACTIVE_PRIORITY_CLASS, false, false);
+		HLSCInterface.node = node;
+		HLSCInterface.client = node.clientCore.makeClient(RequestStarter.INTERACTIVE_PRIORITY_CLASS, false, false);
 	}
 	
 	public HighLevelSimpleClientInterface(HighLevelSimpleClient hlSimpleClient) {
-		this.client = hlSimpleClient;
+		HLSCInterface.client = hlSimpleClient;
 	}
 
 	public static FetchResult fetchURI(FreenetURI uri) throws FetchException {
-		FetchResult result = client.fetch(uri);
+		FetchResult result = HLSCInterface.client.fetch(uri);
 		return result;
 	}
-	
 	
 }
