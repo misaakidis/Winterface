@@ -7,7 +7,6 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
-import freenet.winterface.freenet.PluginFreenetInterface;
 import freenet.winterface.web.InvalidKey;
 import freenet.winterface.web.Root;
 import freenet.winterface.web.VelocityTest;
@@ -89,6 +88,7 @@ public class ServerManager {
 			initIPFilter(sch, config);
 			initErrorHandlers(sch);
 			initStaticResources(sch);
+			sch.setContextPath("/");
 			sch.addServlet(Root.class, "/*");
 			sch.addServlet(Dashboard.class, "/dashboard/*");
 			sch.addServlet(Plugins.class, "/plugins/*");

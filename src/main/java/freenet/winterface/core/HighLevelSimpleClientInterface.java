@@ -9,28 +9,40 @@ import freenet.node.NodeClientCore;
 import freenet.node.RequestStarter;
 
 public class HighLevelSimpleClientInterface {
-	
-	private static HighLevelSimpleClientInterface HLSCInterface = new HighLevelSimpleClientInterface();
+
+	private static volatile HighLevelSimpleClientInterface HLSCInterface = null;
 
 	private HighLevelSimpleClient client;
 	private Node node;
-	
+
 	private HighLevelSimpleClientInterface() {
-		
-	}
-	
-	public HighLevelSimpleClientInterface(Node node, NodeClientCore core) {
-		HLSCInterface.node = node;
-		HLSCInterface.client = node.clientCore.makeClient(RequestStarter.INTERACTIVE_PRIORITY_CLASS, false, false);
-	}
-	
-	public HighLevelSimpleClientInterface(HighLevelSimpleClient hlSimpleClient) {
-		HLSCInterface.client = hlSimpleClient;
 	}
 
+	public HighLevelSimpleClientInterface(Node node, NodeClientCore core) {
+		synchronized (HighLevelSimpleClientInterface.class) {
+			if (HLSCInterface == null) {
+				HLSCInterface = new HighLevelSimpleClientInterface();
+				HLSCInterface.node = node;
+				HLSCInterface.client = node.clientCore.makeClient(RequestStarter.INTERACTIVE_PRIORITY_CLASS, false, false);
+			}
+		}
+	}
+
+	public HighLevelSimpleClientInterface(HighLevelSimpleClient hlSimpleClient) {
+		synchronized (HighLevelSimpleClientInterface.class) {
+			if (HLSCInterface == null) {
+				HLSCInterface = new HighLevelSimpleClientInterface();
+				HLSCInterface.client = hlSimpleClient;
+			}
+		}
+	}
+
+	/*
+	 * Synchronous fetch of files from Freenet, given a FreenetURI
+	*/
 	public static FetchResult fetchURI(FreenetURI uri) throws FetchException {
 		FetchResult result = HLSCInterface.client.fetch(uri);
 		return result;
 	}
-	
+
 }

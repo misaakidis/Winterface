@@ -9,7 +9,7 @@ import freenet.client.FetchResult;
 import freenet.keys.FreenetURI;
 import freenet.support.api.Bucket;
 import freenet.support.io.BucketTools;
-import freenet.winterface.core.HighLevelSimpleClientInterface;
+import freenet.winterface.freenet.FreenetInterface;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,10 +36,11 @@ public class Root extends HttpServlet {
 		if(request.getRequestURI().equals("/")) {
 			response.sendRedirect("/dashboard");
 		} else if (request.getRequestURI().startsWith("/USK@")) {
+			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute("freenet-interface");
 			FetchResult result = null;
 			try {
 				// Remove "/" from the beginning of the requested URI, fetch the document
-				result = HighLevelSimpleClientInterface.fetchURI(new FreenetURI(request.getRequestURI().substring(1)));
+				result = freenetInterface.fetchURI(new FreenetURI(request.getRequestURI().substring(1)));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

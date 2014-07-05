@@ -15,7 +15,6 @@ import freenet.node.Node;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginConfigurable;
 import freenet.pluginmanager.FredPluginVersioned;
-import freenet.pluginmanager.PluginInfoWrapper;
 import freenet.pluginmanager.PluginManager;
 import freenet.pluginmanager.PluginRespirator;
 import freenet.winterface.freenet.NodeFreenetInterface;
@@ -160,10 +159,11 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 		final String fn = PluginFreenetInterface.getPluginSpecification(pm, winterface_thread_name);
 		
 		terminate();
-		//pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
-		//TODO Add purge option (remove from cache)
 		
 		pm.startPluginAuto(fn, true);
+		
+		pm.killPlugin(winterface_thread_name, MAX_THREADED_UNLOAD_WAIT_TIME, true);
+		//TODO Add purge option (remove from cache)
 		
 		return true;
 	}

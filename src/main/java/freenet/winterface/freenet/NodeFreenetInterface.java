@@ -3,10 +3,13 @@ package freenet.winterface.freenet;
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.FluentIterable.from;
 import static java.util.Arrays.asList;
-
+import freenet.client.FetchException;
+import freenet.client.FetchResult;
+import freenet.keys.FreenetURI;
 import freenet.node.DarknetPeerNode;
 import freenet.node.Node;
 import freenet.node.PeerManager;
+import freenet.winterface.core.HighLevelSimpleClientInterface;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Predicate;
@@ -57,6 +60,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 				return !darknetPeerNode.isDisabled();
 			}
 		};
+	}
+
+	@Override
+	public FetchResult fetchURI(FreenetURI uri) throws FetchException {
+		return HighLevelSimpleClientInterface.fetchURI(uri);
 	}
 
 }
