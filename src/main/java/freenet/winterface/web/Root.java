@@ -9,6 +9,8 @@ import freenet.client.FetchResult;
 import freenet.keys.FreenetURI;
 import freenet.support.api.Bucket;
 import freenet.support.io.BucketTools;
+import freenet.winterface.core.Routes;
+import freenet.winterface.core.ServerManager;
 import freenet.winterface.freenet.FreenetInterface;
 
 import javax.servlet.ServletException;
@@ -28,15 +30,15 @@ public class Root extends HttpServlet {
 		if (request.getParameter("modal_key") != null) {
 			response.sendRedirect("/" + request.getParameter("modal_key"));
 		} else {
-			response.sendRedirect("/");
+			doGet(request, response);
 		}
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getRequestURI().equals("/")) {
-			response.sendRedirect("/dashboard");
+			response.sendRedirect(Routes.getPathFor(Dashboard.class));
 		} else if (request.getRequestURI().startsWith("/USK@")) {
-			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute("freenet-interface");
+			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
 				// Remove "/" from the beginning of the requested URI, fetch the document
@@ -65,7 +67,7 @@ public class Root extends HttpServlet {
 				resultBucket.free();
 			}
 		} else {
-			response.sendRedirect("/invalidkey");
+			response.sendRedirect(Routes.getPathFor(InvalidKey.class));
 		}
 		
 	}

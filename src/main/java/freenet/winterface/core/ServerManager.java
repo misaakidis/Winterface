@@ -7,6 +7,7 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
 import org.eclipse.jetty.server.Server;
@@ -45,8 +46,8 @@ public class ServerManager {
 
 	public static final String WINTERFACE_PLUGIN = "winterface-plugin";
 	public static final String FREENET_INTERFACE = "freenet-interface";
+	public static final String WINTERFACE_ROUTES = "winterface-routes";
 	public static final String CONFIG_ID = "winterface-configuration";
-
 	/**
 	 * Starts {@link Server} in the desired mode.
 	 * <p>
@@ -97,6 +98,7 @@ public class ServerManager {
 			//FIXME use freenet interface for accessing winterface plugin instance
 			sch.setAttribute(WINTERFACE_PLUGIN, winterfacePlugin);
 			sch.setAttribute(FREENET_INTERFACE, freenetInterface);
+			sch.setAttribute(WINTERFACE_ROUTES, routes);
 			sch.setAttribute(CONFIG_ID, config);
 
 			server.setHandler(sch);
