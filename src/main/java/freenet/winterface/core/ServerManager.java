@@ -7,12 +7,6 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
-import freenet.winterface.web.InvalidKey;
-import freenet.winterface.web.Root;
-import freenet.winterface.web.VelocityTest;
-import freenet.winterface.web.Dashboard;
-import freenet.winterface.web.Plugins;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
 import org.eclipse.jetty.server.Server;
@@ -89,11 +83,12 @@ public class ServerManager {
 			initErrorHandlers(sch);
 			initStaticResources(sch);
 			sch.setContextPath("/");
-			sch.addServlet(Root.class, "/*");
-			sch.addServlet(Dashboard.class, "/dashboard/*");
-			sch.addServlet(Plugins.class, "/plugins/*");
-			sch.addServlet(InvalidKey.class, "/invalidkey/*");
-			sch.addServlet(VelocityTest.class, "/test");
+			
+			Routes routes = new Routes();
+			routes.initRoutes();
+			for (Class servletClass : routes.getServletClasses()) {
+				sch.addServlet(servletClass, Routes.getPathFor(servletClass));
+			}
 
 			/*
 			 * Add PluginRespirator/Configuration to servlet context So it can

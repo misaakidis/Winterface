@@ -12,10 +12,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Plugins extends VelocityBase {
 
-	public Plugins() {
-		super("plugins.vm");
-	}
-
 	@Override
 	protected void subFillContext(final Context context, HttpServletRequest request) {
 		if (request.getMethod().equals("POST")) {

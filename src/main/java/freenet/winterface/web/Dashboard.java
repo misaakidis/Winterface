@@ -11,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Dashboard extends VelocityBase {
 
-	public Dashboard() {
-		super("dashboard.vm");
-	}
-
 	@Override
 	protected void subFillContext(Context context, HttpServletRequest request) {
 	}

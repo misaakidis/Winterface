@@ -1,6 +1,7 @@
 package freenet.winterface.web;
 
 import freenet.winterface.core.VelocityBase;
+
 import org.apache.velocity.context.Context;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  * Test page for Velocity templates in Jetty.
  */
 public class VelocityTest extends VelocityBase {
-
-	public VelocityTest() {
-		super("test.vm");
-	}
 
 	@Override
 	protected void subFillContext(Context context, HttpServletRequest request) {

@@ -34,6 +34,11 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		this.templateName = templateName;
 		i18n = new I18n();
 	}
+	
+	public VelocityBase() {
+		this.templateName = Routes.getTemplateFor(getClass());
+		i18n = new I18n();
+	}
 
 	/**
 	 * Fill the context with template information for the outer content.

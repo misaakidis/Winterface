@@ -20,10 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class InvalidKey extends VelocityBase {
 
-	public InvalidKey() {
-		super("invalidkey.vm");
-	}
-
 	@Override
 	protected void subFillContext(Context context, HttpServletRequest request) {
 	}
