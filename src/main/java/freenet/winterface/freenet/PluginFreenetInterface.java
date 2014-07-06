@@ -5,8 +5,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import freenet.node.Node;
 import freenet.pluginmanager.PluginInfoWrapper;
 import freenet.pluginmanager.PluginManager;
-import freenet.winterface.core.WinterfacePlugin;
-
 import com.google.common.annotations.VisibleForTesting;
 
 //TODO Implements FreenetInterface?

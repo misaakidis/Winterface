@@ -3,6 +3,7 @@ package freenet.winterface.web;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 import freenet.client.FetchException;
 import freenet.client.FetchResult;
@@ -39,9 +40,10 @@ public class Root extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getRequestURI().equals("/")) {
+		String requestURI = request.getRequestURI();
+		if(requestURI.equals("/")) {
 			response.sendRedirect(getRoutes().getPathForDashboard());
-		} else if (request.getRequestURI().startsWith("/USK@")) {
+		} else if (requestURI.startsWith("/USK@") || requestURI.startsWith("/KSK@") || requestURI.startsWith("/SSK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
@@ -51,8 +53,12 @@ public class Root extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (FetchException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				if (e.getMode() == FetchException.PERMANENT_REDIRECT) {
+					String newURI = "/".concat(e.newURI.toString());
+					response.sendRedirect(newURI);
+				} else {
+					e.printStackTrace();
+				}
 			}
 			if (result != null) {
 				response.setContentType(result.getMimeType());
