@@ -26,6 +26,10 @@ public class Root extends HttpServlet {
 	public Root() {
 	}
 	
+	protected Routes getRoutes() {
+		return (Routes) getServletContext().getAttribute(ServerManager.WINTERFACE_ROUTES);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("modal_key") != null) {
 			response.sendRedirect("/" + request.getParameter("modal_key"));
@@ -36,7 +40,7 @@ public class Root extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getRequestURI().equals("/")) {
-			response.sendRedirect(Routes.getPathFor(Dashboard.class));
+			response.sendRedirect(getRoutes().getPathForDashboard());
 		} else if (request.getRequestURI().startsWith("/USK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
@@ -67,7 +71,7 @@ public class Root extends HttpServlet {
 				resultBucket.free();
 			}
 		} else {
-			response.sendRedirect(Routes.getPathFor(InvalidKey.class));
+			response.sendRedirect(getRoutes().getPathForErrorPage());
 		}
 		
 	}

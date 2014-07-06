@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import freenet.winterface.freenet.FreenetInterface;
@@ -87,8 +88,8 @@ public class ServerManager {
 			
 			Routes routes = new Routes();
 			routes.initRoutes();
-			for (Class servletClass : routes.getServletClasses()) {
-				sch.addServlet(servletClass, Routes.getPathFor(servletClass));
+			for (Class<? extends HttpServlet> servletClass : routes.getServletClasses()) {
+				sch.addServlet(servletClass, routes.getMatchFor(servletClass));
 			}
 
 			/*

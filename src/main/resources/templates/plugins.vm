@@ -3,7 +3,7 @@ Winterface reloading in 5 seconds...
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function () {
     window.setTimeout(function () {
-        location.href = "/";
+        location.href = "$winterface-routes.getPathForDashboard()";
     }, 5000)
 });
 </script>

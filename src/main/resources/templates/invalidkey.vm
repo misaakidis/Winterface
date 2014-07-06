@@ -1,2 +1,2 @@
 <strong>Invalid key.</strong><br>
-Go back to <a href="$winterface-routes.getPathForClassName("Dashboard")">Dashboard</a>.
+Go back to <a href="$winterface-routes.getPathForDashboard()">Dashboard</a>.

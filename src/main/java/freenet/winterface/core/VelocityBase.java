@@ -11,6 +11,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,7 +25,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	 */
 	public static final String TEMPLATE_PATH = "/templates/";
 
-	protected final String templateName;
+	protected String templateName;
 	private final I18n i18n;
 
 	/**
@@ -36,7 +37,6 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	}
 	
 	public VelocityBase() {
-		this.templateName = Routes.getTemplateFor(getClass());
 		i18n = new I18n();
 	}
 
@@ -45,6 +45,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	 */
 	@Override
 	protected void fillContext(Context context, HttpServletRequest request) {
+		this.templateName = getTemplateFromRoutes(getClass());
 		context.put("freenet", context.get(ServerManager.FREENET_INTERFACE));
 		context.put("winterface-routes", context.get(ServerManager.WINTERFACE_ROUTES));
 		context.put("requestedPage", templateFor(templateName));
@@ -69,6 +70,18 @@ public abstract class VelocityBase extends VelocityViewServlet {
 
 	protected String templateFor(String name) {
 		return TEMPLATE_PATH + name;
+	}
+	
+	private Routes getRoutes() {
+		return (Routes) getServletContext().getAttribute(ServerManager.WINTERFACE_ROUTES);
+	}
+	
+	protected String getPathFromRoutes(Class<? extends HttpServlet> classObject) {
+		return getRoutes().getPathFor(classObject);
+	}
+	
+	protected String getTemplateFromRoutes(Class<? extends HttpServlet> classObject) {
+		return getRoutes().getTemplateFor(classObject);
 	}
 	
 	protected Template templateFromString(String inputString) throws ParseException {
