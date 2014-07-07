@@ -3,8 +3,6 @@ package freenet.winterface.web;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-
 import freenet.client.FetchException;
 import freenet.client.FetchResult;
 import freenet.keys.FreenetURI;
@@ -40,15 +38,14 @@ public class Root extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String requestURI = request.getRequestURI();
-		if(requestURI.equals("/")) {
+		String localPath = request.getRequestURI().substring(request.getContextPath().length() + 1);
+		if(localPath.equals("")) {
 			response.sendRedirect(getRoutes().getPathForDashboard());
-		} else if (requestURI.startsWith("/USK@") || requestURI.startsWith("/KSK@") || requestURI.startsWith("/SSK@")) {
+		} else if (localPath.startsWith("USK@") || localPath.startsWith("KSK@") || localPath.startsWith("SSK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
-				// Remove "/" from the beginning of the requested URI, fetch the document
-				result = freenetInterface.fetchURI(new FreenetURI(request.getRequestURI().substring(1)));
+				result = freenetInterface.fetchURI(new FreenetURI(localPath));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

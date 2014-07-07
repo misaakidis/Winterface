@@ -3,8 +3,13 @@ package freenet.winterface.freenet;
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.FluentIterable.from;
 import static java.util.Arrays.asList;
+
+import java.util.List;
+
 import freenet.client.FetchException;
 import freenet.client.FetchResult;
+import freenet.clients.http.bookmark.BookmarkCategory;
+import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
 import freenet.node.DarknetPeerNode;
 import freenet.node.Node;
@@ -24,6 +29,8 @@ public class NodeFreenetInterface implements FreenetInterface {
 	private final Node node;
 	private final PeerManager peerManager;
 
+	private final BookmarkFreenetInterface bmInterface;
+
 	public NodeFreenetInterface(Node node) {
 		this(node, node.peers);
 	}
@@ -33,6 +40,7 @@ public class NodeFreenetInterface implements FreenetInterface {
 		//TODO get winterface plugin instance, substitute the one put in context
 		this.node = node;
 		this.peerManager = peerManager;
+		bmInterface = new BookmarkFreenetInterface(node);
 	}
 
 	@Override
@@ -65,6 +73,16 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public FetchResult fetchURI(FreenetURI uri) throws FetchException {
 		return HighLevelSimpleClientInterface.fetchURI(uri);
+	}
+
+	@Override
+	public List<BookmarkCategory> getBookmarkCategories() {
+		return bmInterface.getBookmarkCategories();
+	}
+
+	@Override
+	public List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat) {
+		return bmInterface.getBookmarksFromCat(cat);
 	}
 
 }
