@@ -27,20 +27,29 @@
       <div class="page-header clearfix">
         <span class="lead">$i18n.get("Global.NotificationsTitle")</span>
       </div>
-
-      ##TODO: Create the loop (How messages will get here?)
       
       ##foreach (notification in $freenet.Notifications)
-
-      <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>$notification.title</strong>
-        Message: $notification.message
-        Key: $notification.key
-        <br>
-        <a href="#" class="act lowercase">$i18n.get("Global.ViewAction")</a> | 
-        <a href="#" class="act act-danger lowercase"  data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
-      </div>
+			
+	  #foreach( $alert in $freenet.getAlerts() )
+		#if( $alert.isValid() )
+    		<div class="alert $freenet.alertClass($alert) alert-block">
+    			<button type="button" class="close" data-dismiss="alert">&times;</button>
+    			<strong>$alert.getTitle()</strong><br>
+    			$alert.getShortText()<br>
+    			<a href="$winterface-routes.getPathFor("Alerts")" class="btn act lowercase">$i18n.get("Global.ViewAction")</a>
+                <a id="alertHide$velocityCount" class="btn act act-danger lowercase" data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
+    		</div>
+			<script>
+				$("#alertHide$velocityCount").click( function() { 
+					$.post( "$winterface-routes.getPathFor("Alerts")", {"dismissAlert" : "$alert.anchor()"} );
+					$("#notifications-quantity").text( Number($("#notifications-quantity").text()) - 1 );
+					if ($("#notifications-quantity").text() == 0 ) {
+						$("#notifications-quantity").removeClass("label-info");
+					}
+				});
+			</script>
+		#end
+      #end
 
       ##endfor
 
@@ -69,7 +78,12 @@
             <div class="accordion-inner">
               <ul>
               #foreach ( $item in $freenet.getBookmarksFromCat($cat) )
-                <li><a title="$item.getDescription()" data-placement="right" href="/$item.getKey()" data-toggle="tooltip">$item.getVisibleName()</a> $item.getShortDescription()</li>
+                <li>
+					##if( $item.getUpdatedStatus() == true )
+					##	<span class="icon-info-sign"></span>
+					##end
+					<a title="$item.getDescription()" data-placement="right" href="/$item.getKey()" data-toggle="tooltip">$item.getVisibleName()</a> $item.getShortDescription()
+				</li>
               #end  
               </ul>
             </div>
@@ -180,22 +194,3 @@
           </section>
         </div>
       </div>
-      
-      <!-- Modal -->
-      <div id="visitFreesite" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="visitFreesite" aria-hidden="true">
-      <form id="visitFreesiteModalForm" accept-charset="utf-8" method="post" action="/">
-          <fieldset>
-			<div class="modal-header">
-				<h3 id="visitFreesiteModalHeader">Visit a Freesite</h3>
-			</div>
-			<div class="modal-body">
-				<label>Key:</label>
-				<input id="key" name="modal_key" type="text" placeholder="Key including USK@..." style="width: 95%;" required="" autofocus="">
-			</div>
-			<div class="modal-footer">
-				<a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-				<button class="btn btn-primary" type="submit">Fetch</button>
-			</div>
-		  </fieldset>
-	  </form>
-	  </div>

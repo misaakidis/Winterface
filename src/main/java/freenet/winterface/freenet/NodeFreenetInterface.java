@@ -14,6 +14,7 @@ import freenet.keys.FreenetURI;
 import freenet.node.DarknetPeerNode;
 import freenet.node.Node;
 import freenet.node.PeerManager;
+import freenet.node.useralerts.UserAlert;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -29,18 +30,20 @@ public class NodeFreenetInterface implements FreenetInterface {
 	private final Node node;
 	private final PeerManager peerManager;
 
+	private final UserAlertManagerInterface uamInterface;
 	private final BookmarkFreenetInterface bmInterface;
 
 	public NodeFreenetInterface(Node node) {
-		this(node, node.peers);
+		this(node, node.peers, new BookmarkFreenetInterface(node), new UserAlertManagerInterface(node.clientCore.alerts));
 	}
 
 	@VisibleForTesting
-	NodeFreenetInterface(Node node, PeerManager peerManager) {
+	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface) {
 		//TODO get winterface plugin instance, substitute the one put in context
 		this.node = node;
 		this.peerManager = peerManager;
-		bmInterface = new BookmarkFreenetInterface(node);
+		this.bmInterface = bmInterface;
+		this.uamInterface = uamInterface;
 	}
 
 	@Override
@@ -84,5 +87,31 @@ public class NodeFreenetInterface implements FreenetInterface {
 	public List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat) {
 		return bmInterface.getBookmarksFromCat(cat);
 	}
-
+	
+	@Override
+	public UserAlert[] getAlerts() {
+		return uamInterface.getAlerts();
+	}
+	
+	@Override
+	public int countAlerts() {
+		return uamInterface.countAlerts();
+	}
+	
+	@Override
+	public String alertClass(UserAlert alert) {
+		int priority = alert.getPriorityClass();
+		if (priority == UserAlert.CRITICAL_ERROR || priority == UserAlert.ERROR)
+			return "alert-error";
+		else if (priority == UserAlert.WARNING)
+			return "alert-info";
+		else
+			return "alert-success";
+	}
+	
+	@Override
+	public void dismissAlert(int alertHashCode) {
+		uamInterface.dismissAlert(alertHashCode);
+	}
+	
 }

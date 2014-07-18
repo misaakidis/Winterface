@@ -38,8 +38,8 @@ public class Root extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String localPath = request.getRequestURI().substring(request.getContextPath().length() + 1);
-		if(localPath.equals("")) {
+		String localPath = request.getPathInfo().substring(request.getServletPath().length() + 1);
+		if(localPath.isEmpty()) {
 			response.sendRedirect(getRoutes().getPathForDashboard());
 		} else if (localPath.startsWith("USK@") || localPath.startsWith("KSK@") || localPath.startsWith("SSK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);

@@ -21,7 +21,7 @@ public class NodeFreenetInterfaceTest {
 
 	private final Node node = mock(Node.class);
 	private final PeerManager peerManager = mock(PeerManager.class);
-	private final FreenetInterface freenetInterface = new NodeFreenetInterface(node, peerManager);
+	private final FreenetInterface freenetInterface = new NodeFreenetInterface(node, peerManager, null, null);
 
 	@Test
 	public void canGetConnectionOverviewWithOpennetDisabled() {

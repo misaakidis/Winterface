@@ -7,6 +7,7 @@ import freenet.client.FetchResult;
 import freenet.clients.http.bookmark.BookmarkCategory;
 import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
+import freenet.node.useralerts.UserAlert;
 
 /**
  * Defines the interface between Winterface and the Freenet node. All methods
@@ -22,5 +23,10 @@ public interface FreenetInterface {
 	
 	List<BookmarkCategory> getBookmarkCategories();
 	List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat);
+	
+	public UserAlert[] getAlerts();
+	String alertClass(UserAlert alert);
+	void dismissAlert(int alertHashCode);
+	int countAlerts();
 
 }

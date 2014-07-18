@@ -1,0 +1,19 @@
+#foreach( $alert in $freenet.getAlerts() )
+	#if( $alert.isValid() )
+		<div class="alert $freenet.alertClass($alert) alert-block">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>$alert.getTitle()</strong><br>
+			$alert.getText()<br><br>
+            <a id="alertHide$velocityCount" class="btn act act-danger lowercase" data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
+		</div>
+		<script>
+			$("#alertHide$velocityCount").click( function() { 
+				$.post( "$winterface-routes.getPathFor("Alerts")", {"dismissAlert" : "$alert.anchor()"} );
+				$("#notifications-quantity").text( Number($("#notifications-quantity").text()) - 1 );
+				if ($("#notifications-quantity").text() == 0 ) {
+					$("#notifications-quantity").removeClass("label-info");
+				}
+			});
+		</script>
+	#end
+#end

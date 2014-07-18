@@ -1,5 +1,6 @@
 package freenet.winterface.web;
 
+import freenet.winterface.core.ServerManager;
 import freenet.winterface.core.VelocityBase;
 import freenet.winterface.core.WinterfacePlugin;
 
@@ -19,7 +20,7 @@ public class Plugins extends VelocityBase {
 				//TODO use FreenetInterface for accessing winterface plugin instance
 				(new Thread() {
 					public void run() {
-						((WinterfacePlugin) context.get("winterface-plugin")).reload();
+						((WinterfacePlugin) context.get(ServerManager.WINTERFACE_PLUGIN)).reload();
 					}
 				}).start();
 

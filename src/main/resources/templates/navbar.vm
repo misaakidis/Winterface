@@ -238,7 +238,7 @@ SETTINGS > STATUS SUBMENU:
         <ul class="dropdown-menu">
           <li class="#if( $freenet.openApp.name == "bookmarks")active#end"><a href="/browse/bookmarks">$i18n.get("Navbar.browse.bookmarks")</a></li>
           <li class="#if( $freenet.openApp.name == "search")active#end"><a href="/browse/search">$i18n.get("Navbar.browse.search")</a></li>
-          <li class="#if( $freenet.openApp.name == "visit")active#end"><a href="/browse/visit">$i18n.get("Navbar.browse.visit")</a></li>
+          <li class="#if( $freenet.openApp.name == "visit")active#end"><a href="#visitFreesite" data-toggle="modal">$i18n.get("Navbar.browse.visit")</a></li>
         </ul>
       </li>
       <!-- END BROWSE MENU -->
@@ -257,9 +257,9 @@ SETTINGS > STATUS SUBMENU:
 
       <!-- BEGIN NOTIFICATIONS MENU -->
       <li class="dropdown #if( $freenet.openApp.group == "notifications")active#end" id="navbar-item-notifications" data-toggle="tooltip" title="$i18n.get('Navbar.notifications')" data-placement="bottom">
-        <a href="/notifications">
-          <span id="notifications-quantity" class="label">
-            0
+        <a href="$winterface-routes.getPathFor("Alerts")">
+          <span id="notifications-quantity" class="label #if( $freenet.countAlerts() > 0 )label-info#end">
+            $freenet.countAlerts()
           </span>
         </a>
       </li>
@@ -278,47 +278,47 @@ SETTINGS > STATUS SUBMENU:
           <strong>$i18n.get("Navbar.securityandstatus.status.connections")</strong>
           <a href="/status/connectionstostrangers" class="btn btn-link btn-small no-margin">$i18n.get("Navbar.securityandstatus.status.detailsBtn")</a>
           <div class="progress">
-            <div class="bar 
-            #if( $freenet.status.connections.percentage >= 0 && $freenet.status.connections.percentage <= 30 )
-              bar-danger
-            #elseif( $freenet.status.connections.percentage >= 31 && $freenet.status.connections.percentage <= 60 )
-              bar-warning
-            #elseif( $freenet.status.connections.percentage >= 61 && $freenet.status.connections.percentage <= 100 )
-              bar-success
-            #end" style="width: ${freenet.status.connections.percentage}%;">$freenet.status.connections.quantity</div>
+              #if ($freenet.Connections.Maximum > 0)
+              	#set($width = 100 * $freenet.Connections.Current / $freenet.Connections.Maximum)
+              	#if ($width < 25)
+              	  #set($color = "warning")
+              	#else
+              	  #set($color = "success")
+              	#end
+                <div class="bar bar-${color}" style="width: ${width}%;">$freenet.Connections.Current/$freenet.Connections.Maximum</div>
+              #else
+                <div class="bar bar-warning" style="width: 100%">0/0</div>
+              #end
           </div>
           <strong>$i18n.get("Navbar.securityandstatus.security")</strong> 
           <a href="/settings/securitylevels" class="btn btn-link btn-small no-margin">$i18n.get("Navbar.securityandstatus.security.editBtn")</a>
           <br>
           <div class="row">
-            <div class="span2">
-              <small class="text-small uppercase">$i18n.get("Navbar.securityandstatus.security.connection")</small><br>
-              #if( $freenet.security.connection.level ==  0 )
-                <span class="muted uppercase"><i class="icon-off"></i> $i18n.get("Navbar.securityandstatus.security.disconnected")</span>
-              #elseif( $freenet.security.connection.level ==  1 )
-                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Navbar.securityandstatus.security.low")</span>
-              #elseif( $freenet.security.connection.level ==  2 )
-                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Navbar.securityandstatus.security.normal")</span>
-              #elseif( $freenet.security.connection.level ==  3 )
-                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Navbar.securityandstatus.security.high")</span>
-              #elseif( $freenet.security.connection.level ==  4 )
-                <span class="uppercase"><i class="icon-shield"></i> <strong>$i18n.get("Navbar.securityandstatus.security.maximum")</strong></span>
-              #end
+              <div class="span2">
+                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsConnectionTitle")</small><br>
+                #if( $freenet_SecurityLevelsConnection == "low" ) 
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsConnectionLow") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "normal" )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsConnectionNormal") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "high" )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsConnectionHigh") </span>
+                #elseif( $freenet_SecurityLevelsConnection == "maximum" )
+                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsConnectionMaximum") </span>
+                #end
+              </div>
+              <div class="span2">
+                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsDataStorageTitle")</small><br>
+                #if( $freenet_SecurityLevelsDataStorage == "none" ) 
+                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsDataStorageNone") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "low" )
+                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsDataStorageLow") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "high" )
+                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsDataStorageHigh") </span>
+                #elseif( $freenet_SecurityLevelsDataStorage == "maximum" )
+                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsDataStorageMaximum") </span>
+                #end
+              </div>
             </div>
-            <div class="span2">
-              <small class="text-small uppercase">$i18n.get("Navbar.securityandstatus.security.dataStorage")</small><br>
-              #if( $freenet.security.connection.level ==  0 )
-                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Navbar.securityandstatus.security.none") </span>
-              #elseif( $freenet.security.connection.level ==  1 )
-                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Navbar.securityandstatus.security.low") </span>
-              #elseif( $freenet.security.connection.level ==  2 )
-                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Navbar.securityandstatus.security.high") </span>
-              #elseif( $freenet.security.connection.level ==  3 )
-                <span class="uppercase"><i class="icon-shield"></i> <strong>$i18n.get("Navbar.securityandstatus.security.maximum")</strong> </span>
-              #end
-              
-            </div>
-          </div>
         </div>
       </li>
       <!-- END STATUS AND SECURITY MENU -->
@@ -359,3 +359,22 @@ SETTINGS > STATUS SUBMENU:
   </div>
 </nav>
 </header>
+
+      <!-- Modal Visit Freesite -->
+      <div id="visitFreesite" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="visitFreesite" aria-hidden="true">
+      <form id="visitFreesiteModalForm" accept-charset="utf-8" method="post" action="/">
+          <fieldset>
+			<div class="modal-header">
+				<h3 id="visitFreesiteModalHeader">Visit a Freesite</h3>
+			</div>
+			<div class="modal-body">
+				<label>Key:</label>
+				<input id="key" name="modal_key" type="text" placeholder="Key including USK@..." style="width: 95%;" required="" autofocus="">
+			</div>
+			<div class="modal-footer">
+				<a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+				<button class="btn btn-primary" type="submit">Fetch</button>
+			</div>
+		  </fieldset>
+	  </form>
+	  </div>
