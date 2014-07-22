@@ -21,7 +21,7 @@ public class UserAlertManagerInterface {
 		uam.dismissAlert(alertHashCode);
 	}
 	
-	public int countAlerts() {
+	public int getValidAlertCount() {
 		int count = 0;
 		for (UserAlert ua : getAlerts()) {
 			if(ua.isValid()) {

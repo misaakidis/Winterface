@@ -258,8 +258,8 @@ SETTINGS > STATUS SUBMENU:
       <!-- BEGIN NOTIFICATIONS MENU -->
       <li class="dropdown #if( $freenet.openApp.group == "notifications")active#end" id="navbar-item-notifications" data-toggle="tooltip" title="$i18n.get('Navbar.notifications')" data-placement="bottom">
         <a href="$winterface-routes.getPathFor("Alerts")">
-          <span id="notifications-quantity" class="label #if( $freenet.countAlerts() > 0 )label-info#end">
-            $freenet.countAlerts()
+          <span id="notifications-quantity" class="label #if( $freenet.getValidAlertCount() > 0 )label-warning#end">
+            $freenet.getValidAlertCount()
           </span>
         </a>
       </li>

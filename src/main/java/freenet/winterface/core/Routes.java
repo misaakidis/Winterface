@@ -80,16 +80,14 @@ public class Routes {
 	}
 	
 	public String getPathFor(Class<?> servletClass) {
-		return k.get(servletClass).path;
+		if (k.containsKey(servletClass)) {
+			return k.get(servletClass).path;
+		} else
+			return getPathForErrorPage();
 	}
 	
 	public String getPathFor(String className) {
-		for (Entry<Class<? extends HttpServlet>, ServletContext> routeEntry : k.entrySet()) {
-			if (routeEntry.getKey().getSimpleName().equals(className)) {
-				return routeEntry.getValue().path;
-			}
-		}
-		return getPathFor(errorPage);
+		return getPathFor(getClassFor(className));
 	}
 	
 	public String getPathForErrorPage() {
@@ -106,6 +104,23 @@ public class Routes {
 			return notfoundTemplate;
 		}
 		return template;
+	}
+	
+	public String getTemplateFor(String className) {
+		return getTemplateFor(getClassFor(className));
+	}
+	
+	public String getFullPathTemplateFor(String className) {
+		return VelocityBase.TEMPLATE_PATH + getTemplateFor(className);
+	}
+	
+	private Class<? extends HttpServlet> getClassFor(String className) {
+		for (Entry<Class<? extends HttpServlet>, ServletContext> routeEntry : k.entrySet()) {
+			if (routeEntry.getKey().getSimpleName().equals(className)) {
+				return routeEntry.getKey();
+			}
+		}
+		return errorPage;
 	}
 	
 	private class ServletContext {

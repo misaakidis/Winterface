@@ -24,9 +24,9 @@ public interface FreenetInterface {
 	List<BookmarkCategory> getBookmarkCategories();
 	List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat);
 	
-	public UserAlert[] getAlerts();
-	String alertClass(UserAlert alert);
+	UserAlert[] getAlerts();
+	int alertClass(UserAlert alert);
 	void dismissAlert(int alertHashCode);
-	int countAlerts();
+	int getValidAlertCount();
 
 }

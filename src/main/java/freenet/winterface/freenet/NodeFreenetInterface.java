@@ -94,19 +94,13 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 	
 	@Override
-	public int countAlerts() {
-		return uamInterface.countAlerts();
+	public int getValidAlertCount() {
+		return uamInterface.getValidAlertCount();
 	}
 	
 	@Override
-	public String alertClass(UserAlert alert) {
-		int priority = alert.getPriorityClass();
-		if (priority == UserAlert.CRITICAL_ERROR || priority == UserAlert.ERROR)
-			return "alert-error";
-		else if (priority == UserAlert.WARNING)
-			return "alert-info";
-		else
-			return "alert-success";
+	public int alertClass(UserAlert alert) {
+		return alert.getPriorityClass();
 	}
 	
 	@Override

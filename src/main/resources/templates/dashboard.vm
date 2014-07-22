@@ -28,30 +28,8 @@
         <span class="lead">$i18n.get("Global.NotificationsTitle")</span>
       </div>
       
-      ##foreach (notification in $freenet.Notifications)
-			
-	  #foreach( $alert in $freenet.getAlerts() )
-		#if( $alert.isValid() )
-    		<div class="alert $freenet.alertClass($alert) alert-block">
-    			<button type="button" class="close" data-dismiss="alert">&times;</button>
-    			<strong>$alert.getTitle()</strong><br>
-    			$alert.getShortText()<br>
-    			<a href="$winterface-routes.getPathFor("Alerts")" class="btn act lowercase">$i18n.get("Global.ViewAction")</a>
-                <a id="alertHide$velocityCount" class="btn act act-danger lowercase" data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
-    		</div>
-			<script>
-				$("#alertHide$velocityCount").click( function() { 
-					$.post( "$winterface-routes.getPathFor("Alerts")", {"dismissAlert" : "$alert.anchor()"} );
-					$("#notifications-quantity").text( Number($("#notifications-quantity").text()) - 1 );
-					if ($("#notifications-quantity").text() == 0 ) {
-						$("#notifications-quantity").removeClass("label-info");
-					}
-				});
-			</script>
-		#end
-      #end
-
-      ##endfor
+	  ## Parse Alerts template
+	  #parse($winterface-routes.getFullPathTemplateFor("Alerts"))
 
     </section>
   </div>
@@ -82,7 +60,10 @@
 					##if( $item.getUpdatedStatus() == true )
 					##	<span class="icon-info-sign"></span>
 					##end
-					<a title="$item.getDescription()" data-placement="right" href="/$item.getKey()" data-toggle="tooltip">$item.getVisibleName()</a> $item.getShortDescription()
+					<a id="bmPop$velocityCount" href="/$item.getKey()" target="_blank" data-trigger="manual" data-original-title="Edit Bookmark" rel="bkPopover" data-container="#bookmark-list" data-placement="left" data-html="true"
+					data-content='<a href"#"><i class="icon-edit"></i>Edit</a> <a href="#"><i class="icon-trash"></i>Delete</a><br><a href="#"><i class="icon-arrow-up"></i>Up</a> <a href="#"><i class="icon-arrow-down"></i>Down</a>'>
+						$item.getVisibleName()
+					</a> $item.getShortDescription()
 				</li>
               #end  
               </ul>
@@ -90,6 +71,22 @@
 		  </div>
         </div>
 	  #end	
+	  <script>  
+        $('a[rel=bkPopover]').popover().on("mouseenter", function () {
+        	var _this = this;
+        	$(this).popover("show");
+        	$(".popover").on("mouseleave", function () {
+            	$(_this).popover('hide');
+        	});
+        }).on("mouseleave", function () {
+        	var _this = this;
+        	setTimeout(function () {
+            	if (!$(".popover:hover").length) {
+                	$(_this).popover("hide")
+            	}
+        	}, 100);
+        });
+	  </script>
 	  </div>
     </section>
   </div>
@@ -120,7 +117,7 @@
                 </ul>
                 <h5>$i18n.get("Dashboard.TasksLearnTitle")</h5>
                 <ul>
-                  <li><a href="#">Social Guide</a> <small class="muted">social apps how-to</small></li>
+                  <li><a href="/USK@t5zaONbYd5DvGNNSokVnDCdrIEytn9U5SSD~pYF0RTE,guWyS9aCMcywU5PFBrKsMiXs7LzwKfQlGSRi17fpffc,AQACAAE/fsng/58/">Social Guide</a> <small class="muted">social apps how-to</small></li>
                   <li><a href="#">Wiki</a> <small class="muted">freenet wiki site</small></li>
                 </ul>
               </div>

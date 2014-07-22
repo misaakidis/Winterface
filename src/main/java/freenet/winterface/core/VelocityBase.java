@@ -11,6 +11,8 @@ import org.apache.velocity.runtime.parser.ParseException;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
+import freenet.winterface.freenet.WinterfaceConstants;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 
 	protected String templateName;
 	private final I18n i18n;
+	private final WinterfaceConstants constants;
 
 	/**
 	 * @param templateName path to the template for this page. It is relative to the /templates/ resources directory.
@@ -34,10 +37,12 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	public VelocityBase(String templateName) {
 		this.templateName = templateName;
 		i18n = new I18n();
+		constants = new WinterfaceConstants();
 	}
 	
 	public VelocityBase() {
 		i18n = new I18n();
+		constants = new WinterfaceConstants();
 	}
 
 	/**
@@ -53,6 +58,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		// TODO: Support for Wizard nav bar pages too - set navbar to wizard_navbar.vm
 		context.put("navbar", templateFor("navbar.vm"));
 		context.put("i18n", i18n);
+		constants.addConstantsToContext(context);
 		context.put("page_title", new String("Freenet"));
 		subFillContext(context, request);
 	}

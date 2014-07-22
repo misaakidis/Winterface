@@ -16,4 +16,4 @@ $(document).ready(function() {
 		//Print the menu
 		$("#open-app").html($(open_app).html());
 	}
-}
+});
