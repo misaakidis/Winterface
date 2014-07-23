@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServlet;
 
 import freenet.winterface.web.Alerts;
+import freenet.winterface.web.Bookmarks;
 import freenet.winterface.web.Dashboard;
 import freenet.winterface.web.InvalidKey;
 import freenet.winterface.web.Plugins;
@@ -27,6 +28,7 @@ public class Routes {
 		addRoute(Plugins.class, "/plugins", true, "plugins.vm");
 		addRoute(InvalidKey.class, "/invalidkey", true, "invalidkey.vm");
 		addRoute(Alerts.class, "/alerts", true, "alerts.vm");
+		addRoute(Bookmarks.class, "/bookmarks", true, "bookmarks.vm");
 		addRoute(VelocityTest.class, "/test", false, "test.vm");
 	}
 	

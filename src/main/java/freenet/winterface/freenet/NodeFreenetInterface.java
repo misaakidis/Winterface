@@ -13,7 +13,9 @@ import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
 import freenet.node.DarknetPeerNode;
 import freenet.node.Node;
+import freenet.node.NodeStarter;
 import freenet.node.PeerManager;
+import freenet.node.Version;
 import freenet.node.useralerts.UserAlert;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
 
@@ -44,6 +46,26 @@ public class NodeFreenetInterface implements FreenetInterface {
 		this.peerManager = peerManager;
 		this.bmInterface = bmInterface;
 		this.uamInterface = uamInterface;
+	}
+	
+	@Override
+	public String publicVersion() {
+		return Version.publicVersion();
+	}
+	
+	@Override
+	public int buildNumber() {
+		return Version.buildNumber();
+	}
+	
+	@Override
+	public String cvsRevision() {
+		return Version.cvsRevision();
+	}
+	
+	@Override
+	public String extRevisionNumber() {
+		return NodeStarter.extRevisionNumber;
 	}
 
 	@Override

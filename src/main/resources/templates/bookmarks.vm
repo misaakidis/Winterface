@@ -1,0 +1,62 @@
+<div class=" 
+	#if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )span12
+	#else
+		#if( $freenet.getValidAlertCount() > 0 )span8#{else}span12#end
+	#end
+	" id="bookmarks-container">
+    <section class="nopadding">
+      <div class="page-header">
+        <a class="btn btn-small btn-link pull-right" href="$winterface-routes.getPathFor("Bookmarks")" id="edit-bookmarks">$i18n.get("Global.EditAction")</a>
+        <span class="lead">$i18n.get("Global.BookmarksTitle")</span>
+      </div>
+
+      <div class="accordion" id="bookmark-list">
+      #foreach( $cat in $freenet.getBookmarkCategories() )
+		<div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#bookmark-list" href="#bmcollapse$velocityCount">
+              $cat.getVisibleName()
+            </a>
+          </div>
+          <div id="bmcollapse$velocityCount" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <ul>
+              #foreach ( $item in $freenet.getBookmarksFromCat($cat) )
+                <li>
+					##if( $item.getUpdatedStatus() == true )
+					##	<span class="icon-info-sign"></span>
+					##end
+					<a id="bmPop$velocityCount" href="/$item.getKey()" target="_blank" data-trigger="manual" data-original-title="Edit Bookmark" rel="bkPopover" data-container="#bookmark-list" data-placement="left" data-html="true"
+					data-content='<a href"#"><i class="icon-edit"></i>Edit</a> <a href="#"><i class="icon-trash"></i>Delete</a><br><a href="#"><i class="icon-arrow-up"></i>Up</a> <a href="#"><i class="icon-arrow-down"></i>Down</a>'>
+						$item.getVisibleName()
+					</a> $item.getShortDescription()
+				</li>
+              #end  
+              </ul>
+            </div>
+		  </div>
+        </div>
+	  #end
+
+	  #if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )
+	  <script>  
+	  	$("[id^=bmcollapse]").collapse('show');
+        $('a[rel=bkPopover]').popover().on("mouseenter", function () {
+        	var _this = this;
+        	$(this).popover("show");
+        	$(".popover").on("mouseleave", function () {
+            	$(_this).popover('hide');
+        	});
+        }).on("mouseleave", function () {
+        	var _this = this;
+        	setTimeout(function () {
+            	if (!$(".popover:hover").length) {
+                	$(_this).popover("hide")
+            	}
+        	}, 100);
+        });
+	  </script>
+	  #end
+	  </div>
+    </section>
+</div>

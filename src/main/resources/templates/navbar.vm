@@ -236,7 +236,7 @@ SETTINGS > STATUS SUBMENU:
       <li class="dropdown #if( $freenet.openApp.group == "browse")active#end" id="navbar-item-browse">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Browse Freenet">$i18n.get("Navbar.browse") <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li class="#if( $freenet.openApp.name == "bookmarks")active#end"><a href="/browse/bookmarks">$i18n.get("Navbar.browse.bookmarks")</a></li>
+          <li class="#if( $freenet.openApp.name == "bookmarks")active#end"><a href="$winterface-routes.getPathFor("Bookmarks")">$i18n.get("Navbar.browse.bookmarks")</a></li>
           <li class="#if( $freenet.openApp.name == "search")active#end"><a href="/browse/search">$i18n.get("Navbar.browse.search")</a></li>
           <li class="#if( $freenet.openApp.name == "visit")active#end"><a href="#visitFreesite" data-toggle="modal">$i18n.get("Navbar.browse.visit")</a></li>
         </ul>

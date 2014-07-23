@@ -17,6 +17,11 @@ import freenet.node.useralerts.UserAlert;
  */
 public interface FreenetInterface {
 
+	String publicVersion();
+	int buildNumber();
+	String cvsRevision();
+	String extRevisionNumber();
+	
 	ConnectionOverview getConnections();
 
 	FetchResult fetchURI(FreenetURI uri) throws FetchException;

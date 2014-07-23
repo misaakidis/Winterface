@@ -23,73 +23,19 @@
 <div class="row">
 
   <div class="span4">
-    <section class="nopadding">
-      <div class="page-header clearfix">
-        <span class="lead">$i18n.get("Global.NotificationsTitle")</span>
-      </div>
-      
-	  ## Parse Alerts template
-	  #parse($winterface-routes.getFullPathTemplateFor("Alerts"))
-
-    </section>
-  </div>
-
-
-  <div class="#if($freenet_NotificationsQuantity)span8#{else}span12#end" id="bookmarks-container">
-    <section class="nopadding">
-      <div class="page-header">
-        <a class="btn btn-small btn-link pull-right" id="edit-bookmarks">$i18n.get("Global.EditAction")</a>
-        <span class="lead">$i18n.get("Global.BookmarksTitle")</span>
-      </div>
-
-      ##TODO: Create bookmarks loop
-
-      <div class="accordion" id="bookmark-list">
-      #foreach( $cat in $freenet.getBookmarkCategories() )
-		<div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#bookmark-list" href="#collapse$velocityCount">
-              $cat.getVisibleName()
-            </a>
+	#if( $freenet.getValidAlertCount() > 0 )
+        <section class="nopadding">
+          <div class="page-header clearfix">
+            <span class="lead">$i18n.get("Global.NotificationsTitle")</span>
           </div>
-          <div id="collapse$velocityCount" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <ul>
-              #foreach ( $item in $freenet.getBookmarksFromCat($cat) )
-                <li>
-					##if( $item.getUpdatedStatus() == true )
-					##	<span class="icon-info-sign"></span>
-					##end
-					<a id="bmPop$velocityCount" href="/$item.getKey()" target="_blank" data-trigger="manual" data-original-title="Edit Bookmark" rel="bkPopover" data-container="#bookmark-list" data-placement="left" data-html="true"
-					data-content='<a href"#"><i class="icon-edit"></i>Edit</a> <a href="#"><i class="icon-trash"></i>Delete</a><br><a href="#"><i class="icon-arrow-up"></i>Up</a> <a href="#"><i class="icon-arrow-down"></i>Down</a>'>
-						$item.getVisibleName()
-					</a> $item.getShortDescription()
-				</li>
-              #end  
-              </ul>
-            </div>
-		  </div>
-        </div>
-	  #end	
-	  <script>  
-        $('a[rel=bkPopover]').popover().on("mouseenter", function () {
-        	var _this = this;
-        	$(this).popover("show");
-        	$(".popover").on("mouseleave", function () {
-            	$(_this).popover('hide');
-        	});
-        }).on("mouseleave", function () {
-        	var _this = this;
-        	setTimeout(function () {
-            	if (!$(".popover:hover").length) {
-                	$(_this).popover("hide")
-            	}
-        	}, 100);
-        });
-	  </script>
-	  </div>
-    </section>
+          
+    	  ## Parse Alerts template
+    	  #parse($winterface-routes.getFullPathTemplateFor("Alerts"))
+    
+        </section>
+	#end
   </div>
+  #parse($winterface-routes.getFullPathTemplateFor("Bookmarks"))
 </div>
       
       <br>
@@ -176,8 +122,8 @@
             <br>
             <strong>$i18n.get("Global.GeneralTitle")</strong>  <br>
             <small>$i18n.get("Global.LanguageTitle"): <a href="#">$i18n.get("Global.LanguageEN")</a></small>  <br>
-            <small>$i18n.get("Global.FreenetVersionTitle"): <span class="muted">$freenet.FreenetVersion</span> </small>  <br>
-            <small>$i18n.get("Global.ExtVersionTitle"): <span class="muted">$freenet.ExtVersion</span></small>  <br>
+            <small>$i18n.get("Global.FreenetVersionTitle"): <span class="muted">$freenet.publicVersion() Build #[[#]]#$freenet.buildNumber()</span> </small>  <br>
+            <small>$i18n.get("Global.ExtVersionTitle"): <span class="muted">#[[#]]#$freenet.extRevisionNumber()</span></small>  <br>
             <br>
             <strong>$i18n.get("Global.NodeControl")</strong>  <br>
             <a href="#" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.RestartFreenet")</a>
