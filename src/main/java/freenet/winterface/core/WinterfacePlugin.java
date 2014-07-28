@@ -62,6 +62,9 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 	/** Current version */
 	private final static String VERSION = "0.1";
+	
+	/** PluginL10n localization */
+	private final I18n i18n = new I18n();
 
 	/**
 	 * {@code true} if in development mode. Change to {@code false} to switch to
@@ -129,17 +132,13 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	}
 
 	@Override
-	public String getString(String arg0) {
-		// TODO Part of FredPluginL10n (which is not yet implemented)
-		// So we just ignore the translation for now
-		return arg0;
+	public String getString(String i18nString) {
+		return i18n.getString(i18nString);
 	}
 
 	@Override
-	public void setLanguage(LANGUAGE arg0) {
-		// TODO Part of FredPluginL10n (which is not yet implemented)
-		// Cannot throw exception, otherwise the plug-in wont start!
-		// throw new UnsupportedOperationException("Not implemented.");
+	public void setLanguage(LANGUAGE language) {
+		i18n.setLanguage(language);
 	}
 
 	@Override
@@ -148,6 +147,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	}
 	
 	public boolean reload() {
+		//FIXME Use FCP messaging instead of the pluginManager directly
 		try {
 			Thread.sleep(SECONDS.toMillis(2));
 		} catch (InterruptedException e) {

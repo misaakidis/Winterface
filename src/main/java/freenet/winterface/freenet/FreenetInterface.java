@@ -8,6 +8,8 @@ import freenet.clients.http.bookmark.BookmarkCategory;
 import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
 import freenet.node.useralerts.UserAlert;
+import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
+import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
 
 /**
  * Defines the interface between Winterface and the Freenet node. All methods
@@ -26,12 +28,21 @@ public interface FreenetInterface {
 
 	FetchResult fetchURI(FreenetURI uri) throws FetchException;
 	
-	List<BookmarkCategory> getBookmarkCategories();
-	List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat);
+	List<BookmarkCategoryWithPath> getBookmarkCategories();
+	int getBookmarkCategoriesCount();
+	List<BookmarkItemWinterface> getBookmarksFromCat(BookmarkCategory cat);
+	int getBookmarksFromCatCount(BookmarkCategory cat);
+	BookmarkCategory getCategoryByPath(String path);
+	BookmarkItem getItemByPath(String path);
+	void removeBookmark(String path);
+	void moveBookmarkUp(String path, boolean store);
+	void moveBookmarkDown(String path, boolean store);
+	void storeBookmarks();
 	
 	UserAlert[] getAlerts();
 	int alertClass(UserAlert alert);
 	void dismissAlert(int alertHashCode);
 	int getValidAlertCount();
-
+	boolean getUpdatedStatus(String bookmarkTitle);
+	
 }

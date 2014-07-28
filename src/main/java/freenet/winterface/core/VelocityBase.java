@@ -78,7 +78,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		return TEMPLATE_PATH + name;
 	}
 	
-	private Routes getRoutes() {
+	protected Routes getRoutes() {
 		return (Routes) getServletContext().getAttribute(ServerManager.WINTERFACE_ROUTES);
 	}
 	

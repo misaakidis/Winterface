@@ -18,6 +18,8 @@ import freenet.node.PeerManager;
 import freenet.node.Version;
 import freenet.node.useralerts.UserAlert;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
+import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
+import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Predicate;
@@ -101,13 +103,53 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 
 	@Override
-	public List<BookmarkCategory> getBookmarkCategories() {
+	public List<BookmarkCategoryWithPath> getBookmarkCategories() {
 		return bmInterface.getBookmarkCategories();
+	}
+	
+	@Override
+	public int getBookmarkCategoriesCount() {
+		return bmInterface.getBookmarkCategoriesCount();
 	}
 
 	@Override
-	public List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat) {
+	public List<BookmarkItemWinterface> getBookmarksFromCat(BookmarkCategory cat) {
 		return bmInterface.getBookmarksFromCat(cat);
+	}
+	
+	@Override
+	public int getBookmarksFromCatCount(BookmarkCategory cat) {
+		return bmInterface.getBookmarksFromCatCount(cat);
+	}
+	
+	@Override
+	public BookmarkCategory getCategoryByPath(String path) {
+		return bmInterface.getCategoryByPath(path);
+	}
+	
+	@Override
+	public BookmarkItem getItemByPath(String path) {
+		return bmInterface.getItemByPath(path);
+	}
+	
+	@Override
+	public void removeBookmark(String path) {
+		bmInterface.removeBookmark(path);
+	}
+	
+	@Override
+	public void moveBookmarkUp(String path, boolean store) {
+		bmInterface.moveBookmarkUp(path, store);
+	}
+	
+	@Override
+	public void moveBookmarkDown(String path, boolean store) {
+		bmInterface.moveBookmarkDown(path, store);
+	}
+	
+	@Override
+	public void storeBookmarks() {
+		bmInterface.storeBookmarks();
 	}
 	
 	@Override
@@ -118,6 +160,19 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public int getValidAlertCount() {
 		return uamInterface.getValidAlertCount();
+	}
+	
+	@Override
+	public boolean getUpdatedStatus(String bookmarkTitle) {
+		//FIXME Dirty hack
+		for (UserAlert alert : uamInterface.getAlerts()) {
+			if (alert.isValid()) {
+				if (alert.getTitle() != null && alert.getTitle().equals("Bookmark Updated: " + bookmarkTitle)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	@Override
