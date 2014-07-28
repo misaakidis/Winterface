@@ -7,7 +7,6 @@ import freenet.pluginmanager.PluginInfoWrapper;
 import freenet.pluginmanager.PluginManager;
 import com.google.common.annotations.VisibleForTesting;
 
-//TODO Implements FreenetInterface?
 public class PluginFreenetInterface{
 	
 	private static final long MAX_THREADED_UNLOAD_WAIT_TIME = SECONDS.toMillis(60);

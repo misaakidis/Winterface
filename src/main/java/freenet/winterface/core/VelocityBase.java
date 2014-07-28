@@ -11,6 +11,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.apache.velocity.tools.view.VelocityViewServlet;
 
+import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.freenet.WinterfaceConstants;
 
 import javax.servlet.http.HttpServlet;
@@ -53,6 +54,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		this.templateName = getTemplateFromRoutes(getClass());
 		context.put("freenet", context.get(ServerManager.FREENET_INTERFACE));
 		context.put("winterface-routes", context.get(ServerManager.WINTERFACE_ROUTES));
+		context.put("fproxy", "http://127.0.0.1:" + ((FreenetInterface) context.get(ServerManager.FREENET_INTERFACE)).getFproxyPort());
 		context.put("requestedPage", templateFor(templateName));
 		context.put("request", request);
 		// TODO: Support for Wizard nav bar pages too - set navbar to wizard_navbar.vm

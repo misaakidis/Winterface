@@ -12,11 +12,15 @@ import freenet.clients.http.bookmark.BookmarkCategory;
 import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
 import freenet.node.DarknetPeerNode;
+import freenet.node.FSParseException;
 import freenet.node.Node;
 import freenet.node.NodeStarter;
 import freenet.node.PeerManager;
 import freenet.node.Version;
+import freenet.node.SecurityLevels.NETWORK_THREAT_LEVEL;
+import freenet.node.SecurityLevels.PHYSICAL_THREAT_LEVEL;
 import freenet.node.useralerts.UserAlert;
+import freenet.support.SimpleFieldSet;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
@@ -95,6 +99,27 @@ public class NodeFreenetInterface implements FreenetInterface {
 				return !darknetPeerNode.isDisabled();
 			}
 		};
+	}
+	
+	@Override
+	public NETWORK_THREAT_LEVEL getNetworkThreatLevel() {
+		return node.securityLevels.getNetworkThreatLevel();
+	}
+	
+	@Override
+	public PHYSICAL_THREAT_LEVEL getPhysicalThreatLevel() {
+		return node.securityLevels.getPhysicalThreatLevel();
+	}
+	
+	@Override
+	public int getFproxyPort() {
+		SimpleFieldSet fproxyConfig = node.config.get("fproxy").exportFieldSet(true);
+		try {
+			return fproxyConfig.getInt("port");
+		} catch (FSParseException e) {
+			e.printStackTrace();
+			return 8888;
+		}
 	}
 
 	@Override

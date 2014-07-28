@@ -49,22 +49,22 @@
               <div class="span4">
                 <h5>$i18n.get("Dashboard.TasksTalkTitle")</h5>
                 <ul>
-                  <li><strong>Sone</strong>  <small class="muted">microblogging platform</small> <a href="#installAppModal" class="btn btn-link btn-mini"  data-toggle="modal">Learn more</a></li>
-                  <li><strong>FMS</strong>  <small class="muted">forum</small> <a href="#installAppModalExisting" class="btn btn-link btn-mini" data-toggle="modal">Learn more</a></li>
-                  <li><strong>FLIC</strong>  <small class="muted">real-time chat</small> <a href="#" class="btn btn-link btn-mini">Learn more</a></li>
-                  <li><strong>Freemail</strong>  <small class="muted">anonymous email</small> <a href="#" class="btn btn-link btn-mini">Learn more</a></li>
+                  <li><strong>Sone</strong>  <small class="muted">microblogging platform</small> <a href="$fproxy/Sone" target="_blank" class="btn btn-link btn-mini"  data-toggle="modal">Learn more</a></li>
+                  <li><strong>FMS</strong>  <small class="muted">forum</small> <a href="$fproxy/chat" target="_blank" class="btn btn-link btn-mini" data-toggle="modal">Learn more</a></li>
+                  <li><strong>FLIC</strong>  <small class="muted">real-time chat</small> <a href="$fproxy/chat" target="_blank" class="btn btn-link btn-mini">Learn more</a></li>
+                  <li><strong>Freemail</strong>  <small class="muted">anonymous email</small> <a href="$fproxy/Freemail/Inbox" target="_blank" class="btn btn-link btn-mini">Learn more</a></li>
                 </ul>
               </div>
               <div class="span4">
                 <h5>$i18n.get("Dashboard.TasksDiscoverTitle")</h5>
                 <ul>
-                  <li><a href="/search?menu=search">Search</a> <small class="muted">dig in freenet</small></li>
+                  <li><a href="$fproxy/library" target="_blank">Search</a> <small class="muted">dig in freenet</small></li>
                   <li><a href="#visitFreesite" data-toggle="modal">Visit a freesite</a> <small class="muted">(if you already have the key)</small></li>
                 </ul>
                 <h5>$i18n.get("Dashboard.TasksLearnTitle")</h5>
                 <ul>
                   <li><a href="/USK@t5zaONbYd5DvGNNSokVnDCdrIEytn9U5SSD~pYF0RTE,guWyS9aCMcywU5PFBrKsMiXs7LzwKfQlGSRi17fpffc,AQACAAE/fsng/58/">Social Guide</a> <small class="muted">social apps how-to</small></li>
-                  <li><a href="#">Wiki</a> <small class="muted">freenet wiki site</small></li>
+                  <li><a href="/USK@z6lnOx7PPe16P3Sobu1KM9jiLiIxdvE3L918QMVCLak,AmZ7RemmWcKM2-W4Zs38Ks511lRTsWleMj2mVAReB4E,AQACAAE/freenetdocwiki/17/">Wiki</a> <small class="muted">freenet wiki site</small></li>
                 </ul>
               </div>
             </div>
@@ -75,60 +75,18 @@
             <div class="page-header clearfix">
               <span class="lead">$i18n.get("Global.FreenetStatusTitle")</span>
             </div>
-            <strong>$i18n.get("Status.ConnectionsQuantityTitle")</strong>
-            <a href="#" class="btn btn-link btn-small">$i18n.get("Global.MoreDetailsAction")</a>
-            <div class="progress">
-              #if ($freenet.Connections.Maximum > 0)
-              	#set($width = 100 * $freenet.Connections.Current / $freenet.Connections.Maximum)
-              	#if ($width < 25)
-              	  #set($color = "warning")
-              	#else
-              	  #set($color = "success")
-              	#end
-                <div class="bar bar-${color}" style="width: ${width}%;">$freenet.Connections.Current/$freenet.Connections.Maximum</div>
-              #else
-                <div class="bar bar-warning" style="width: 100%">0/0</div>
-              #end
-            </div>
-            <strong>$i18n.get("Status.SecurityLevelsTitle")</strong> 
-            <a href="/settings/seclevels" class="btn btn-link btn-small">$i18n.get("Global.EditAction")</a>
-            <br>
-            <div class="row">
-              <div class="span2">
-                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsConnectionTitle")</small><br>
-                #if( $freenet_SecurityLevelsConnection == "low" ) 
-                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsConnectionLow") </span>
-                #elseif( $freenet_SecurityLevelsConnection == "normal" )
-                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsConnectionNormal") </span>
-                #elseif( $freenet_SecurityLevelsConnection == "high" )
-                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsConnectionHigh") </span>
-                #elseif( $freenet_SecurityLevelsConnection == "maximum" )
-                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsConnectionMaximum") </span>
-                #end
-              </div>
-              <div class="span2">
-                <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsDataStorageTitle")</small><br>
-                #if( $freenet_SecurityLevelsDataStorage == "none" ) 
-                <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsDataStorageNone") </span>
-                #elseif( $freenet_SecurityLevelsDataStorage == "low" )
-                <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsDataStorageLow") </span>
-                #elseif( $freenet_SecurityLevelsDataStorage == "high" )
-                <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsDataStorageHigh") </span>
-                #elseif( $freenet_SecurityLevelsDataStorage == "maximum" )
-                <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsDataStorageMaximum") </span>
-                #end
-              </div>
-            </div>
+			#parse("templates/status.vm")
             <br>
             <strong>$i18n.get("Global.GeneralTitle")</strong>  <br>
             <small>$i18n.get("Global.LanguageTitle"): <a href="#">$i18n.get("Global.LanguageEN")</a></small>  <br>
             <small>$i18n.get("Global.FreenetVersionTitle"): <span class="muted">$freenet.publicVersion() Build #[[#]]#$freenet.buildNumber()</span> </small>  <br>
             <small>$i18n.get("Global.ExtVersionTitle"): <span class="muted">#[[#]]#$freenet.extRevisionNumber()</span></small>  <br>
-            <br>
+            <!-- <br>
             <strong>$i18n.get("Global.NodeControl")</strong>  <br>
             <a href="#" class="btn btn-small "><i class="icon-repeat"></i> $i18n.get("Global.RestartFreenet")</a>
             <a href="#" class="btn btn-small "><i class="icon-off"></i> $i18n.get("Global.ShutdownFreenet")</a> <br>
-            <br>
+			-->
+			<br>
             <strong>$i18n.get("Global.WinterfaceControl")</strong>  <br>
 			<form id="reloadPluginForm" accept-charset="utf-8" method="post" action="$winterface-routes.getPathFor("Plugins")" style="margin:0px;">
     			<input type="hidden" value="winterface-reload" name="reload"></input>

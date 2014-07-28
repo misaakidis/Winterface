@@ -1,0 +1,46 @@
+<strong>$i18n.get("Status.ConnectionsQuantityTitle")</strong>
+<a href="$fproxy/connectivity" target="_blank" class="btn btn-link btn-small">$i18n.get("Global.MoreDetailsAction")</a>
+<div class="progress">
+  #if ($freenet.Connections.Maximum > 0)
+  	#set($width = 100 * $freenet.Connections.Current / $freenet.Connections.Maximum)
+  	#if ($width < 25)
+  	  #set($color = "warning")
+  	#else
+  	  #set($color = "success")
+  	#end
+    <div class="bar bar-${color}" style="width: ${width}%;">$freenet.Connections.Current/$freenet.Connections.Maximum</div>
+  #else
+    <div class="bar bar-warning" style="width: 100%">0/0</div>
+  #end
+</div>
+<strong>$i18n.get("Status.SecurityLevelsTitle")</strong> 
+<a href="$fproxy/seclevels" target="_blank" class="btn btn-link btn-small">$i18n.get("Global.EditAction")</a>
+<br>
+<div class="row">
+  <div class="span2">
+    <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsConnectionTitle")</small><br>
+    #set( $network_threat_level = $freenet.getNetworkThreatLevel() )
+	#if( $network_threat_level == $win_NETWORK_THREAT_LEVEL_LOW) 
+    <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsConnectionLow") </span>
+    #elseif( $network_threat_level == $win_NETWORK_THREAT_LEVEL_NORMAL )
+    <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsConnectionNormal") </span>
+    #elseif( $network_threat_level == $win_NETWORK_THREAT_LEVEL_HIGH )
+    <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsConnectionHigh") </span>
+    #elseif( $network_threat_level == $win_NETWORK_THREAT_LEVEL_MAXIMUM )
+    <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsConnectionMaximum") </span>
+    #end
+  </div>
+  <div class="span2">
+    <small class="text-small uppercase">$i18n.get("Status.SecurityLevelsDataStorageTitle")</small><br>
+    #set( $physical_threat_level = $freenet.getPhysicalThreatLevel() )
+	#if( $physical_threat_level == $win_PHYSICAL_THREAT_LEVEL_LOW ) 
+    <span class="text-warning uppercase"><i class="icon-unlock"></i> $i18n.get("Status.SecurityLevelsDataStorageNone") </span>
+    #elseif( $physical_threat_level == $win_PHYSICAL_THREAT_LEVEL_NORMAL )
+    <span class="text-info uppercase"><i class="icon-unlock-alt"></i> $i18n.get("Status.SecurityLevelsDataStorageLow") </span>
+    #elseif( $physical_threat_level == $win_PHYSICAL_THREAT_LEVEL_HIGH )
+    <span class="text-success uppercase"><i class="icon-lock"></i> $i18n.get("Status.SecurityLevelsDataStorageHigh") </span>
+    #elseif( $physical_threat_level ==$win_PHYSICAL_THREAT_LEVEL_MAXIMUM )
+    <span class="strong uppercase"><i class="icon-shield"></i> $i18n.get("Status.SecurityLevelsDataStorageMaximum") </span>
+    #end
+  </div>
+</div>

@@ -7,6 +7,8 @@ import freenet.client.FetchResult;
 import freenet.clients.http.bookmark.BookmarkCategory;
 import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.keys.FreenetURI;
+import freenet.node.SecurityLevels.NETWORK_THREAT_LEVEL;
+import freenet.node.SecurityLevels.PHYSICAL_THREAT_LEVEL;
 import freenet.node.useralerts.UserAlert;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
@@ -25,6 +27,10 @@ public interface FreenetInterface {
 	String extRevisionNumber();
 	
 	ConnectionOverview getConnections();
+	NETWORK_THREAT_LEVEL getNetworkThreatLevel();
+	PHYSICAL_THREAT_LEVEL getPhysicalThreatLevel();
+	
+	int getFproxyPort();
 
 	FetchResult fetchURI(FreenetURI uri) throws FetchException;
 	
