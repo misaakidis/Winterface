@@ -30,6 +30,7 @@
 					##FIXME Dirty hack for updated bookmark status
 					#if( $freenet.getUpdatedStatus($item.getVisibleName()) == true )
 						<span class="icon-info-sign"></span>
+						<script>$("[id=bmcollapse$velocityCount]").collapse('show');</script>
 					#end
 					#set( $itemPath = $item.getPathEncoded($cat.getCatPath()) )
 					<a id="bmPop$velocityCount" href="/$item.getKey()" target="_blank" data-trigger="manual" data-original-title="$i18n.get("Bookmarks.popover.edit")" rel="bkPopover" data-container="#bookmark-list" data-placement="left" data-html="true"

@@ -14,9 +14,12 @@ import freenet.l10n.BaseL10n.LANGUAGE;
 import freenet.node.Node;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginConfigurable;
+import freenet.pluginmanager.FredPluginHTTP;
 import freenet.pluginmanager.FredPluginVersioned;
+import freenet.pluginmanager.PluginHTTPException;
 import freenet.pluginmanager.PluginManager;
 import freenet.pluginmanager.PluginRespirator;
+import freenet.support.api.HTTPRequest;
 import freenet.winterface.freenet.NodeFreenetInterface;
 import freenet.winterface.freenet.PluginFreenetInterface;
 
@@ -29,7 +32,7 @@ import freenet.winterface.freenet.PluginFreenetInterface;
  * @author pasub
  * 
  */
-public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPluginConfigurable {
+public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPluginConfigurable, FredPluginHTTP {
 
 	/**
 	 * {@link URL} at which {@link WinterfacePlugin} resides
@@ -59,9 +62,12 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 	/** Configuration */
 	private final Configuration config;
+	
+	/** Response to Visit in fproxy plugins page (for FredPluginHTTP) */
+	private String redirectToWinterface;
 
 	/** Current version */
-	private final static String VERSION = "0.1";
+	private final static String VERSION = "0.2";
 	
 	/** PluginL10n localization */
 	private final I18n i18n = new I18n();
@@ -144,6 +150,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 	@Override
 	public void setupConfig(SubConfig subconfig) {
 		config.initialize(subconfig);
+		redirectToWinterface = "<head><meta http-equiv=\"refresh\" content=\"0; url=http://127.0.0.1:" + config.getPort() + "\" /></head>Redirecting to Winterface... " + "http://127.0.0.1:" + config.getPort();
 	}
 	
 	public boolean reload() {
@@ -170,6 +177,16 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 	public static String getWinterfaceThreadName() {
 		return winterface_thread_name;
+	}
+
+	@Override
+	public String handleHTTPGet(HTTPRequest request) throws PluginHTTPException {
+		return redirectToWinterface;
+	}
+
+	@Override
+	public String handleHTTPPost(HTTPRequest request) throws PluginHTTPException {
+		return redirectToWinterface;
 	}
 
 }

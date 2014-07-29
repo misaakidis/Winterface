@@ -1,12 +1,29 @@
 #if( $request.getParameter('reload') == "winterface-reload" )
-Winterface reloading in 5 seconds...
+	<strong>Winterface is reloading.</strong> It shouldn't take long!
+	
 <script language="JavaScript" type="text/javascript">
-$(document).ready(function () {
-    window.setTimeout(function () {
-        location.href = "$winterface-routes.getPathForDashboard()";
-    }, 5000)
-});
+    $(document).ready(function () {
+	   setTimeout(function(){
+	   
+    	   var winterfaceReady = false;
+    	   while(!winterfaceReady) {
+               $.ajax({
+                        url: "http://127.0.0.1:$winterface-configuration.getPort()$winterface-routes.getPathForDashboard()",
+                        type: 'GET',
+                        async: false,
+                        cache: false,
+                        timeout: 1000,
+        				success: function(msg) {
+    						winterfaceReady = true;
+        					location.href = "http://127.0.0.1:$winterface-configuration.getPort()$winterface-routes.getPathForDashboard()";
+                    	}
+              });
+    	  }
+		  
+	  }, 2000);
+    });
 </script>
+
 #else
 Winterface plugin is loaded.
 #end
