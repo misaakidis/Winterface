@@ -11,7 +11,6 @@ import freenet.node.SecurityLevels.NETWORK_THREAT_LEVEL;
 import freenet.node.SecurityLevels.PHYSICAL_THREAT_LEVEL;
 import freenet.node.useralerts.UserAlert;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
-import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
 
 /**
  * Defines the interface between Winterface and the Freenet node. All methods
@@ -23,6 +22,9 @@ public interface FreenetInterface {
 
 	String publicVersion();
 	int buildNumber();
+	String fredMinVersionSupported();
+	int fredMinBuildSupported();
+	boolean isFredVersionSupported();
 	String cvsRevision();
 	String extRevisionNumber();
 	
@@ -36,19 +38,21 @@ public interface FreenetInterface {
 	
 	List<BookmarkCategoryWithPath> getBookmarkCategories();
 	int getBookmarkCategoriesCount();
-	List<BookmarkItemWinterface> getBookmarksFromCat(BookmarkCategory cat);
+	List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat);
 	int getBookmarksFromCatCount(BookmarkCategory cat);
 	BookmarkCategory getCategoryByPath(String path);
-	BookmarkItem getItemByPath(String path);
+	String getBookmarkItemPathEncoded(String parentPath, BookmarkItem bmItem);
 	void removeBookmark(String path);
 	void moveBookmarkUp(String path, boolean store);
 	void moveBookmarkDown(String path, boolean store);
 	void storeBookmarks();
 	
 	UserAlert[] getAlerts();
+	UserAlert[] getValidAlerts();	
 	int alertClass(UserAlert alert);
 	void dismissAlert(int alertHashCode);
 	int getValidAlertCount();
-	boolean getUpdatedStatus(String bookmarkTitle);
-	
+	int getAlertAnchorSafe(String anchorUnsafe);
+	int alertsHighestClass();
+
 }

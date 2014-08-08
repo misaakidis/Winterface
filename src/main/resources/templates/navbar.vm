@@ -167,11 +167,10 @@ SETTINGS > STATUS SUBMENU:
 <header id="navbar" class="navbar navbar-inverse navbar-fixed-top">
   <nav class="navbar-inner">
     <div class="container">
-      <img src="/static/images/logo-navbar.png" alt="Freenet" id="logo-navbar">
-
-      <a class="brand" href="/">
-       Freenet
-     </a>
+      <a href="/">
+	    <img src="/static/images/logo-navbar.png" alt="Freenet" id="logo-navbar">
+        <span class="brand">Freenet</span>
+	 </a>
 
      <ul class="nav" id="navbar-item-openapp">
       <li class="divider-vertical"></li>
@@ -260,7 +259,16 @@ SETTINGS > STATUS SUBMENU:
       <!-- BEGIN NOTIFICATIONS MENU -->
       <li class="dropdown #if( $freenet.openApp.group == "notifications")active#end" id="navbar-item-notifications" data-toggle="tooltip" title="$i18n.get('Navbar.notifications')" data-placement="bottom">
         <a href="$winterface-routes.getPathFor("Alerts")">
-          <span id="notifications-quantity" class="label #if( $freenet.getValidAlertCount() > 0 )label-warning#end">
+    	##	  	#set( $alertsHighestClass = $freenet.alertsHighestClass() )
+        ##    	#if( $alertsHighestClass == $win_ALERT_CRITICAL_ERROR || $alertClass == $win_ALERT_ERROR )
+        ##   		#set( $alertsMenuLabel = "label-danger" )
+        ##    	#elseif( $alertsHighestClass == $win_ALERT_WARNING )
+        ##    		#set( $alertsMenuLabel = "label-warning" )
+        ##    	#else
+        ##    		#set( $alertsMenuLabel = "label-info" )
+    	##		#end
+			#set( $alertsMenuLabel = "label-info" )
+          <span id="notifications-quantity" class="label #if( $freenet.getValidAlertCount() > 0 )$alertsMenuLabel#end">
             $freenet.getValidAlertCount()
           </span>
         </a>

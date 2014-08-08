@@ -23,8 +23,6 @@ import freenet.node.useralerts.UserAlert;
 import freenet.support.SimpleFieldSet;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
-import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkItemWinterface;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Predicate;
 
@@ -62,6 +60,40 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public int buildNumber() {
 		return Version.buildNumber();
+	}
+	
+	@Override
+	public String fredMinVersionSupported() {
+		return "0.7.5";
+	}
+	
+	@Override
+	public int fredMinBuildSupported() {
+		return 1465;
+	}
+	
+	//FIXME Should we check for this every time we load a page?
+	// Alternative polish: Replace with a method in Routes (plugin initialization), create a template 
+	// "version not supported" and route all requests there (bind that VelocityBase servlet to *)
+	// Also update the methods fredMin*Supported to use that value
+	@Override
+	public boolean isFredVersionSupported() {
+		String[] version = publicVersion().split("\\.");
+		String[] minVersion = fredMinVersionSupported().split("\\.");
+		for (int i = 0; i < minVersion.length; i++) {
+			try {
+				if (Integer.parseInt(version[i]) > Integer.parseInt(minVersion[i]))
+					return true;
+			} catch (NumberFormatException nfe) {
+				//TODO Log exception
+				nfe.printStackTrace();
+				return false;
+			}
+		}
+		if (buildNumber() >= fredMinBuildSupported()) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -138,7 +170,7 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 
 	@Override
-	public List<BookmarkItemWinterface> getBookmarksFromCat(BookmarkCategory cat) {
+	public List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat) {
 		return bmInterface.getBookmarksFromCat(cat);
 	}
 	
@@ -153,10 +185,10 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 	
 	@Override
-	public BookmarkItem getItemByPath(String path) {
-		return bmInterface.getItemByPath(path);
+	public String getBookmarkItemPathEncoded(String parentPath, BookmarkItem bmItem) {
+		return bmInterface.getBookmarkItemPathEncoded(parentPath, bmItem);
 	}
-	
+
 	@Override
 	public void removeBookmark(String path) {
 		bmInterface.removeBookmark(path);
@@ -183,31 +215,33 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 	
 	@Override
+	public UserAlert[] getValidAlerts() {
+		return uamInterface.getValidAlerts();
+	}
+	
+	@Override
 	public int getValidAlertCount() {
 		return uamInterface.getValidAlertCount();
 	}
 	
 	@Override
-	public boolean getUpdatedStatus(String bookmarkTitle) {
-		//FIXME Dirty hack
-		for (UserAlert alert : uamInterface.getAlerts()) {
-			if (alert.isValid()) {
-				if (alert.getTitle() != null && alert.getTitle().equals("Bookmark Updated: " + bookmarkTitle)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	@Override
 	public int alertClass(UserAlert alert) {
-		return alert.getPriorityClass();
+		return uamInterface.alertClass(alert);
 	}
 	
 	@Override
 	public void dismissAlert(int alertHashCode) {
 		uamInterface.dismissAlert(alertHashCode);
+	}
+	
+	@Override
+	public int getAlertAnchorSafe(String anchorUnsafe) {
+		return uamInterface.getAlertAnchorSafe(anchorUnsafe);
+	}
+	
+	@Override
+	public int alertsHighestClass() {
+		return uamInterface.alertsHighestClass();
 	}
 	
 }

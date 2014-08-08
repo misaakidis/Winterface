@@ -1,8 +1,10 @@
 #if( $request.getParameter('reload') == "winterface-reload" )
-	<strong>Winterface is reloading.</strong> It shouldn't take long!
+	<strong>Winterface is reloading.</strong> It shouldn't take long!<br>
+	You will be automatically redirected back to Winterface when everything is set up.
 	
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function () {
+	   //* A delay is needed here to make sure Winterface has been unloaded, before checking if it is up */
 	   setTimeout(function(){
 	   
     	   var winterfaceReady = false;

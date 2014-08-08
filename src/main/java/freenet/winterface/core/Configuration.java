@@ -18,6 +18,9 @@ import java.util.concurrent.TimeUnit;
  * 
  */
 public class Configuration {
+	
+	/** Localization for plugin config page in fred */
+	private final static I18n i18n = new I18n();
 
 	/** Server port */
 	private int port;
@@ -61,7 +64,7 @@ public class Configuration {
 
 	/** Default bindto hosts */
 	private final static String BINDTO_DEFAULT = "127.0.0.1";
-	/** Full access hosts entry name in config file */
+	/** Bindto hosts entry name in config file */
 	private final static String BINDTO_OPTION = "bindTo";
 
 	/** Defualt MaxLength value (2MB plus a bit due to buggy inserts) */
@@ -267,7 +270,7 @@ public class Configuration {
 	 * @return key for localization
 	 */
 	private String longDesc(String optionName) {
-		return "Config." + optionName + "Long";
+		return i18n.get("Config." + optionName + "Long");
 	}
 
 	/**

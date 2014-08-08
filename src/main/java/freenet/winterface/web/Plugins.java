@@ -5,8 +5,6 @@ import java.io.IOException;
 import freenet.winterface.core.ServerManager;
 import freenet.winterface.core.VelocityBase;
 import freenet.winterface.core.WinterfacePlugin;
-import freenet.winterface.freenet.FreenetInterface;
-
 import org.apache.velocity.context.Context;
 
 import javax.servlet.ServletException;

@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>org.freenetproject</groupId>
 			<artifactId>fred</artifactId>
-			<version>0.7.5.1463</version>
+			<version>0.7.5.1465</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

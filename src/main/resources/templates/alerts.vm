@@ -1,35 +1,33 @@
-#foreach( $alert in $freenet.getAlerts() )
-	#if( $alert.isValid() )
-		#set( $alertClass = $freenet.alertClass($alert) )
-		#if( $alertClass == $win_ALERT_CRITICAL_ERROR || $alertClass == $win_ALERT_ERROR )
-			#set( $alertClassString = "alert-error" )
-		#elseif( $alertClass == $win_ALERT_WARNING )
-			#set( $alertClassString = "alert-block" )
-		#else
-			#set( $alertClassString = "alert-info" )
-		#end
-		<div class="alert $alertClassString alert-block">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>$alert.getTitle()</strong><br>
-			#if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Alerts") )
-				$alert.getText()
-			#else
-				$alert.getShortText()
-			#end
-			<br><br>
-			#if( $requestedPage != $winterface-routes.getFullPathTemplateFor("Alerts") )
-				<a href="$winterface-routes.getPathFor("Alerts")" class="btn act lowercase">$i18n.get("Global.ViewAction")</a>
-			#end
-            <a id="alertHide$velocityCount" class="btn act act-danger lowercase" data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
-		</div>
-		<script>
-			$("#alertHide$velocityCount").click( function() { 
-				$.post( "$winterface-routes.getPathFor("Alerts")", {"dismissAlert" : "$alert.anchor()"} );
-				$("#notifications-quantity").text( Number($("#notifications-quantity").text()) - 1 );
-				if ($("#notifications-quantity").text() == 0 ) {
-					$("#notifications-quantity").removeClass("label-warning");
-				}
-			});
-		</script>
+#foreach( $alert in $freenet.getValidAlerts() )
+	#set( $alertClass = $freenet.alertClass($alert) )
+	#if( $alertClass == $win_ALERT_CRITICAL_ERROR || $alertClass == $win_ALERT_ERROR )
+		#set( $alertClassString = "alert-error" )
+	#elseif( $alertClass == $win_ALERT_WARNING )
+		#set( $alertClassString = "alert-block" )
+	#else
+		#set( $alertClassString = "alert-info" )
 	#end
+	<div class="alert $alertClassString alert-block">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>$alert.getTitle()</strong><br>
+		#if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Alerts") )
+			$alert.getText()
+		#else
+			$alert.getShortText()
+		#end
+		<br><br>
+		#if( $requestedPage != $winterface-routes.getFullPathTemplateFor("Alerts") )
+			<a href="$winterface-routes.getPathFor("Alerts")" class="btn act lowercase">$i18n.get("Global.ViewAction")</a>
+		#end
+        <a id="alertHide$velocityCount" class="btn act act-danger lowercase" data-dismiss="alert">$i18n.get("Global.RemoveAction")</a>
+	</div>
+	<script>
+		$("#alertHide$velocityCount").click( function() { 
+			$.post( "$winterface-routes.getPathFor("Alerts")", {"dismissAlert" : "$freenet.getAlertAnchorSafe($alert.anchor())"} );
+			$("#notifications-quantity").text( Number($("#notifications-quantity").text()) - 1 );
+			if ($("#notifications-quantity").text() == 0 ) {
+				$("#notifications-quantity").removeClass("label-info");
+			}
+		});
+	</script>
 #end

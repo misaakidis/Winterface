@@ -13,7 +13,11 @@
 <body>
 	#parse ($navbar)
 	<main class="container">
-		#parse ($requestedPage)
+		#if( !$freenet.isFredVersionSupported() )
+			Please update Freenet to version $freenet.fredMinVersionSupported() build #[[#]]#$freenet.fredMinBuildSupported() in order to use Winterface.
+		#else
+			#parse ($requestedPage)
+		#end
 	</main>
 </body>
 </html>
