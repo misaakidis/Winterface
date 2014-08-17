@@ -42,6 +42,7 @@ public interface FreenetInterface {
 	int getBookmarksFromCatCount(BookmarkCategory cat);
 	BookmarkCategory getCategoryByPath(String path);
 	String getBookmarkItemPathEncoded(String parentPath, BookmarkItem bmItem);
+	void editBookmark(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink);
 	void removeBookmark(String path);
 	void moveBookmarkUp(String path, boolean store);
 	void moveBookmarkDown(String path, boolean store);

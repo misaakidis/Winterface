@@ -312,7 +312,7 @@ SETTINGS > STATUS SUBMENU:
           <li class="#if( $freenet.openApp.name == "core")active#end"><a href="$fproxy/config/node" target="_blank">$i18n.get("Navbar.settings.core")</a></li>
           <li class="#if( $freenet.openApp.name == "installation")active#end"><a href="$fproxy/config/node.install" target="_blank">$i18n.get("Navbar.settings.installation")</a></li>
           <li class="#if( $freenet.openApp.name == "loadmanagement")active#end"><a href="$fproxy/config/node.load" target="_blank">$i18n.get("Navbar.settings.loadmanagement")</a></li>
-          <li class="#if( $freenet.openApp.name == "opennet")active#end"><a href="$fproxy/config/node.opennet" target="_blank">$i18n.get("Navbar.settings.opennet")Opennet</a></li>
+          <li class="#if( $freenet.openApp.name == "opennet")active#end"><a href="$fproxy/config/node.opennet" target="_blank">$i18n.get("Navbar.settings.opennet")</a></li>
           <li class="#if( $freenet.openApp.name == "scheduling")active#end"><a href="$fproxy/config/node.scheduler" target="_blank">$i18n.get("Navbar.settings.scheduling")</a></li>
           <li class="#if( $freenet.openApp.name == "autoupdate")active#end"><a href="$fproxy/config/node.updater" target="_blank"">$i18n.get("Navbar.settings.autoupdate")</a></li>
           <li class="#if( $freenet.openApp.name == "ssl")active#end"><a href="$fproxy/config/ssl" target="_blank">$i18n.get("Navbar.settings.ssl")</a></li>
@@ -331,15 +331,15 @@ SETTINGS > STATUS SUBMENU:
       <form id="visitFreesiteModalForm" accept-charset="utf-8" method="post" action="/">
           <fieldset>
 			<div class="modal-header">
-				<h3 id="visitFreesiteModalHeader">Visit a Freesite</h3>
+				<h3 id="visitFreesiteModalHeader">$i18n.get('Navbar.visitFreesite.header')</h3>
 			</div>
 			<div class="modal-body">
-				<label>Key:</label>
-				<input id="key" name="modal_key" type="text" placeholder="Key including USK@..." style="width: 95%;" required="" autofocus="">
+				<label>$i18n.get('Navbar.visitFreesite.keyLabel'):</label>
+				<input id="key" name="modal_key" type="text" placeholder="$i18n.get('Navbar.visitFreesite.keyPlaceholder')" style="width: 95%;" required="" autofocus="">
 			</div>
 			<div class="modal-footer">
-				<a class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-				<button class="btn btn-primary" type="submit">Fetch</button>
+				<a class="btn" data-dismiss="modal" aria-hidden="true">$i18n.get('Global.CloseAction')</a>
+				<button class="btn btn-primary" type="submit">$i18n.get('Global.FetchAction')</button>
 			</div>
 		  </fieldset>
 	  </form>

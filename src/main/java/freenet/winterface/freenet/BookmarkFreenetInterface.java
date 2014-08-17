@@ -5,13 +5,14 @@ import java.util.List;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import freenet.clients.http.bookmark.Bookmark;
 import freenet.clients.http.bookmark.BookmarkCategory;
 import freenet.clients.http.bookmark.BookmarkItem;
 import freenet.clients.http.bookmark.BookmarkManager;
+import freenet.keys.FreenetURI;
 import freenet.l10n.NodeL10n;
 import freenet.node.FSParseException;
 import freenet.node.Node;
-import freenet.node.useralerts.UserAlertManager;
 import freenet.support.URLEncoder;
 
 public class BookmarkFreenetInterface{
@@ -71,6 +72,22 @@ public class BookmarkFreenetInterface{
 	public String getBookmarkItemPathEncoded(String parentPath, BookmarkItem bmItem) {
 		return URLEncoder.encode(getBookmarkItemPath(parentPath, bmItem), false);
 	}
+	
+	public void editBookmark(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
+		Bookmark bookmark;
+		if(path.endsWith("/"))
+			bookmark = bookmarkManager.getCategoryByPath(path);
+		else
+			bookmark = bookmarkManager.getItemByPath(path);
+		
+		bookmarkManager.renameBookmark(path, name);
+		if(bookmark instanceof BookmarkItem) {
+			BookmarkItem item = (BookmarkItem) bookmark;
+			item.update(key, hasAnActivelink, descB, explain);
+			//TODO Send feeds to Darknet peers
+		}
+		bookmarkManager.storeBookmarks();
+	}
 
 	public void removeBookmark(String path) {
 		bookmarkManager.removeBookmark(path);
@@ -104,7 +121,7 @@ public class BookmarkFreenetInterface{
 			if(path.isEmpty()) {
 				this.path = mainCategoryPath;
 			} else {
-				this.path = path + "/" + getName() + "/";
+				this.path = path + getName() + "/";
 			}
 		}
 

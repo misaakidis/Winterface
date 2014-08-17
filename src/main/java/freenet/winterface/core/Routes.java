@@ -28,7 +28,7 @@ public class Routes {
 		addRoute(Plugins.class, "/plugins", true, "plugins.vm");
 		addRoute(InvalidKey.class, "/invalidkey", true, "invalidkey.vm");
 		addRoute(Alerts.class, "/alerts", true, "alerts.vm");
-		addRoute(Bookmarks.class, "/bookmarks", true, "bookmarks.vm");
+		addRoute(Bookmarks.class, "/bookmarkEditor", true, "bookmarks.vm");
 		addRoute(VelocityTest.class, "/test", false, "test.vm");
 	}
 	

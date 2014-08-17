@@ -23,6 +23,7 @@ import freenet.node.useralerts.UserAlert;
 import freenet.support.SimpleFieldSet;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Predicate;
 
@@ -187,6 +188,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public String getBookmarkItemPathEncoded(String parentPath, BookmarkItem bmItem) {
 		return bmInterface.getBookmarkItemPathEncoded(parentPath, bmItem);
+	}
+	
+	@Override
+	public void editBookmark(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
+		bmInterface.editBookmark(path, name, key, descB, explain, hasAnActivelink);
 	}
 
 	@Override
