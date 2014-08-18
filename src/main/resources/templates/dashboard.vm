@@ -50,7 +50,7 @@
                 <h5>$i18n.get("Dashboard.TasksTalkTitle")</h5>
                 <ul>
                   <li><strong>Sone</strong>  <small class="muted">microblogging platform</small>
-                  #if( $freenet.isPluginLoaded("SonePlugin") )
+                  #if( $freenet.isPluginLoaded("net.pterodactylus.sone.main.SonePlugin") )
                   	<a href="$fproxy/Sone" target="_blank" class="btn btn-link btn-mini">Visit Sone</a>
                   #else
                   	<a href="/USK@nwa8lHa271k2QvJ8aa0Ov7IHAV-DFOCFgmDt3X6BpCI,DuQSUZiI~agF8c-6tjsFFGuZ8eICrzWCILB60nT8KKo,AQACAAE/sone/63/" target="_blank" class="btn btn-link btn-mini">Learn more</a>
