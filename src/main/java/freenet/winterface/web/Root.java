@@ -30,6 +30,7 @@ public class Root extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// "Visit Freesite" modal post handling
 		if (request.getParameter("modal_key") != null) {
 			response.sendRedirect("/" + request.getParameter("modal_key"));
 		} else {
@@ -39,25 +40,29 @@ public class Root extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String localPath = request.getPathInfo().substring(request.getServletPath().length() + 1);
+		// "/" redirects to the default page - Dashboard
 		if(localPath.isEmpty()) {
 			response.sendRedirect(getRoutes().getPathForDashboard());
+		// Handle Freenet URI fetches
 		} else if (localPath.startsWith("USK@") || localPath.startsWith("KSK@") || localPath.startsWith("SSK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
 				result = freenetInterface.fetchURI(new FreenetURI(localPath));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				response.sendRedirect(getRoutes().getPathForErrorPage());
 			} catch (FetchException e) {
+				// USK key has been updated, redirect to the new URI
 				if (e.getMode() == FetchException.PERMANENT_REDIRECT) {
 					String newURI = "/".concat(e.newURI.toString());
 					response.sendRedirect(newURI);
 				} else {
 					e.printStackTrace();
+					response.sendRedirect(getRoutes().getPathForErrorPage());
 				}
 			}
 			if (result != null) {
+				// When fetching is complete, write it to the response OutputStream
 				response.setContentType(result.getMimeType());
 		        response.setStatus(HttpServletResponse.SC_OK);
 				OutputStream resOutStream = response.getOutputStream();
@@ -74,6 +79,7 @@ public class Root extends HttpServlet {
 				resultBucket.free();
 			}
 		} else {
+			// The path given was invalid (not a Freenet URI and not in the Routes)
 			response.sendRedirect(getRoutes().getPathForErrorPage());
 		}
 		

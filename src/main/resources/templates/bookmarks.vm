@@ -35,7 +35,7 @@
 			  <!-- Modal Delete Category -->
 			  <!-- //FIXME Category 1 Bookmark 11 == Category 11 Bookmark 1
 			  		Find a way to place something in between category and velocity count and still have them parced by velocity -->
-	          <div id="deleteCategory$velocityCount" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteBookmarkItem" aria-hidden="true">
+	          <div id="deleteCategory$velocityCount" class="modal hide fade" tabindex="-1" role="dialog">
 	        	<div class="modal-header">
 	        		<h3>$i18n.get('Bookmarks.deleteCategory')</h3>
 	        	</div>
@@ -85,9 +85,7 @@
 				
 				#if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )
     			  <!-- Modal Delete BookmarkItem -->
-    			  <!-- //FIXME Category 1 Bookmark 11 == Category 11 Bookmark 1
-    			  		Find a way to place something in between category and velocity count and still have them parced by velocity -->
-                  <div id="deleteBookmarkItem$categoryCount$velocityCount" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteBookmarkItem" aria-hidden="true">
+                  <div id="deleteBookmarkItem$categoryCount$velocityCount" class="modal hide fade" tabindex="-1" role="dialog">
                 	<div class="modal-header">
                 		<h3>$i18n.get('Bookmarks.deleteBookmark')</h3>
                 	</div>
@@ -101,7 +99,7 @@
                   </div>
     			  
     			  <!-- Modal Edit BookmarkItem -->
-                  <div id="editBookmarkItem$categoryCount$velocityCount" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteBookmarkItem" aria-hidden="true">
+                  <div id="editBookmarkItem$categoryCount$velocityCount" class="modal hide fade" tabindex="-1" role="dialog">
     			  <form accept-charset="utf-8" method="post" action="?action=edit&bookmark=$itemPath">
                       <fieldset>
             			<div class="modal-header">

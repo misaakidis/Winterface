@@ -18,6 +18,8 @@ public class WinterfaceConstants {
 		initConstants();
 	}
 	
+	// Constants that need to be accessed by Velocity templates
+	// When possible refer to the corresponding value of fred
 	private void initConstants() {
 		/** Alert classes codes */
 		constants.put("ALERT_CRITICAL_ERROR", String.valueOf(UserAlert.CRITICAL_ERROR));
@@ -34,10 +36,11 @@ public class WinterfaceConstants {
 		constants.put("PHYSICAL_THREAT_LEVEL_NORMAL", String.valueOf(PHYSICAL_THREAT_LEVEL.NORMAL));
 		constants.put("PHYSICAL_THREAT_LEVEL_HIGH", String.valueOf(PHYSICAL_THREAT_LEVEL.HIGH));
 		constants.put("PHYSICAL_THREAT_LEVEL_MAXIMUM", String.valueOf(PHYSICAL_THREAT_LEVEL.MAXIMUM));
-		
 	}
 	
 	public void addConstantsToContext(Context ctx) {
+		// Adds constants to context so they can be accessible by Velocity templates as $win_{constant}
+		// e.g. $win_ALERT_WARNING
 		for (Entry<String, String> constant : constants.entrySet()) {
 			ctx.put("win_" + constant.getKey(), constant.getValue());
 		}

@@ -2,6 +2,8 @@ Winterface seperates logic and template of Freenet's web interface, enforces a b
 
 For a more comprehensive description see the [Wiki page](https://wiki.freenetproject.org/User:Pausb/Winterface) at [FreenetProject.org](https://freenetproject.org)
 
+Get the latest released version of Winterface, along with instructions on how to load it from the [Winterface Updates](http://127.0.0.1:8888/USK@it0CEEZMIjspaDLopVr7QRPEat7GzbXJMX-OpiVDEhM,OOL0jKyXVaH400BPebAPu4dsDDDgogpAkWUnyqJgu88,AQACAAE/winterface-updates/4/) freesite.
+
 # Rationale
 Current Freenet's web interface FProxy uses <tt>HTMLNodes</tt> in combination with <tt>ToadletServer</tt> to deliver HTML-Pages. This has the disadvantage of mixed template and logic which makes it hard to separately make changes to each of them. Moreover debugging and understanding of code can be very exhausting.
 
@@ -22,10 +24,10 @@ What is to do:
 # Prerequisites
 
 Requires `freenet` and `freenet-ext`. As these are not currently available in Maven repositories,
-after [downloading](https://downloads.freenetproject.org/alpha/freenet-build01457.jar)
+after [downloading](https://downloads.freenetproject.org/alpha/freenet-build01465.jar)
 [them](https://downloads.freenetproject.org/alpha/freenet-ext.jar) or building them from source, install them:
 
-    mvn install:install-file -Dfile=freenet.jar -DgroupId=org.freenetproject -DartifactId=fred -Dversion=0.7.5.1457 -Dpackaging=jar
+    mvn install:install-file -Dfile=freenet.jar -DgroupId=org.freenetproject -DartifactId=fred -Dversion=0.7.5.1465 -Dpackaging=jar
     mvn install:install-file -Dfile=freenet-ext.jar -DgroupId=org.freenetproject -DartifactId=freenet-ext -Dversion=29 -Dpackaging=jar
 
 # Building

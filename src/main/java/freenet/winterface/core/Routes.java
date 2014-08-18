@@ -22,6 +22,7 @@ public class Routes {
 	
 	private Hashtable<Class<? extends HttpServlet>, ServletContext> k = new Hashtable<Class<? extends HttpServlet>, Routes.ServletContext>();
 	
+	// Initialize routes and define the corresponding Servlets
 	public void initRoutes() {
 		addRoute(Root.class, "", true, null);
 		addRoute(Dashboard.class, "/dashboard", true, "dashboard.vm");
@@ -125,6 +126,7 @@ public class Routes {
 		return errorPage;
 	}
 	
+	// Inner class to keep all servlet-related info in one place
 	private class ServletContext {
 		String path;
 		boolean matchWildcard;

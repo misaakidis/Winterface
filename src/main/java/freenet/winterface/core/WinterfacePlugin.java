@@ -113,7 +113,7 @@ public class WinterfacePlugin implements FredPlugin, FredPluginVersioned, FredPl
 
 		// initServer();
 		serverManager = new ServerManager();
-		serverManager.startServer(DEV_MODE, config, new NodeFreenetInterface(pr.getNode()), this);
+		serverManager.startServer(DEV_MODE, config, new NodeFreenetInterface(pr.getNode(), i18n), this);
 	}
 
 	@Override

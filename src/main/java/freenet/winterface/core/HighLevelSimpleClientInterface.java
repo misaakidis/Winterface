@@ -37,9 +37,13 @@ public class HighLevelSimpleClientInterface {
 		}
 	}
 
-	/*
-	 * Synchronous fetch of files from Freenet, given a FreenetURI
-	*/
+	/**
+	 * Synchronously fetch a file from Freenet, given a FreenetURI
+	 * 
+	 * @param uri of the file to be fetched
+	 * @return a FetchResult instance upon successful fetch
+	 * @throws FetchException
+	 */
 	public static FetchResult fetchURI(FreenetURI uri) throws FetchException {
 		FetchResult result = HLSCInterface.client.fetch(uri);
 		return result;

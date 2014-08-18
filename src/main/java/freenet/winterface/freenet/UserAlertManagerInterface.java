@@ -41,6 +41,12 @@ public class UserAlertManagerInterface {
 		uam.dismissAlert(alertHashCode);
 	}
 	
+	/**
+	 * Returns the anchor of an alert, ignoring leading identifiers (announcer: etc.)
+	 * 
+	 * @param anchorUnsafe the anchor of the alert
+	 * @return the last numerical part of the anchore
+	 */
 	public int getAlertAnchorSafe(String anchorUnsafe) {
 		String[] anchorSubstrings = anchorUnsafe.split(":");
 		return Integer.parseInt(anchorSubstrings[anchorSubstrings.length - 1]);
@@ -50,6 +56,10 @@ public class UserAlertManagerInterface {
 		return alert.getPriorityClass();
 	}
 	
+	/**
+	 * @return the highest class of valid alerts.
+	 * If there are no valid alerts, return a value greater than the lowest alert class
+	 */
 	public int alertsHighestClass() {
 		if (getValidAlerts().length > 0)
 			return getValidAlerts()[0].getPriorityClass();

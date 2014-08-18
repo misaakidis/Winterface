@@ -84,6 +84,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		return (Routes) getServletContext().getAttribute(ServerManager.WINTERFACE_ROUTES);
 	}
 	
+	// Decoupling paths from Servlets, use this when you need to reference a Servlet
 	protected String getPathFromRoutes(Class<? extends HttpServlet> classObject) {
 		return getRoutes().getPathFor(classObject);
 	}

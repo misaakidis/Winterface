@@ -22,6 +22,7 @@ import freenet.node.SecurityLevels.PHYSICAL_THREAT_LEVEL;
 import freenet.node.useralerts.UserAlert;
 import freenet.support.SimpleFieldSet;
 import freenet.winterface.core.HighLevelSimpleClientInterface;
+import freenet.winterface.core.I18n;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -36,21 +37,22 @@ public class NodeFreenetInterface implements FreenetInterface {
 
 	private final Node node;
 	private final PeerManager peerManager;
-
+	private final I18n i18n;
+	
 	private final UserAlertManagerInterface uamInterface;
 	private final BookmarkFreenetInterface bmInterface;
 
-	public NodeFreenetInterface(Node node) {
-		this(node, node.peers, new BookmarkFreenetInterface(node), new UserAlertManagerInterface(node.clientCore.alerts));
+	public NodeFreenetInterface(Node node, I18n i18n) {
+		this(node, node.peers, new BookmarkFreenetInterface(node, i18n), new UserAlertManagerInterface(node.clientCore.alerts), i18n);
 	}
 
 	@VisibleForTesting
-	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface) {
-		//TODO get winterface plugin instance, substitute the one put in context
+	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface, I18n i18n) {
 		this.node = node;
 		this.peerManager = peerManager;
 		this.bmInterface = bmInterface;
 		this.uamInterface = uamInterface;
+		this.i18n = i18n;
 	}
 	
 	@Override
@@ -63,8 +65,18 @@ public class NodeFreenetInterface implements FreenetInterface {
 		return Version.buildNumber();
 	}
 	
+	/** 
+	 * Returns the minimum version of fred supported by Winterface
+	 * 
+	 * Previous versions are not compatible because of references to missing methods/variables/classes
+	 * in fred by the interfaces.
+	 * 
+	 * Continue with checking for the minimum build supported with {@link #fredMinBuildSupported()}.
+	 * 
+	 */
 	@Override
 	public String fredMinVersionSupported() {
+		//TODO Move it to a better place, like package-info
 		return "0.7.5";
 	}
 	

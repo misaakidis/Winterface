@@ -16,22 +16,25 @@ import freenet.node.FSParseException;
 import freenet.node.Node;
 import freenet.node.useralerts.UserAlertManager;
 import freenet.support.URLEncoder;
+import freenet.winterface.core.I18n;
 
 public class BookmarkFreenetInterface{
 
 	private BookmarkManager bookmarkManager;
 	private Node node;
 	private UserAlertManager uam;
+	private I18n i18n;
 
-	public BookmarkFreenetInterface(Node node) {
-		this(node, node.clientCore.getBookmarkManager());
+	public BookmarkFreenetInterface(Node node, I18n i18n) {
+		this(node, node.clientCore.getBookmarkManager(), i18n);
 	}
 
 	@VisibleForTesting
-	BookmarkFreenetInterface(Node node, BookmarkManager bookmarkManager) {
+	BookmarkFreenetInterface(Node node, BookmarkManager bookmarkManager, I18n i18n) {
 		this.node = node;
 		this.bookmarkManager = bookmarkManager;
 		this.uam = node.clientCore.alerts;
+		this.i18n = i18n;
 	}
 
 	public List<BookmarkCategoryWithPath> getBookmarkCategories() {
@@ -157,6 +160,7 @@ public class BookmarkFreenetInterface{
 	}
 
 
+	// Inner class to store BookmarkCategory and its path
 	public class BookmarkCategoryWithPath extends BookmarkCategory {
 
 		private final static String mainCategoryPath = "/";
@@ -176,8 +180,7 @@ public class BookmarkFreenetInterface{
 		@Override
 		public String getVisibleName() {
 			if (path.equals(mainCategoryPath)) {
-				//TODO Add localization for Main Cateogry
-				return "Main Category (" + mainCategoryPath + ")";
+				return i18n.get("Bookmarks.mainCategory") + "(" + mainCategoryPath + ")";
 			} else if (name.toLowerCase().startsWith("l10n:")) {
 				return NodeL10n.getBase().getString("Bookmarks.Defaults.Name."+name.substring("l10n:".length()));
 			} else {

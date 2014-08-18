@@ -38,7 +38,7 @@ public class PluginFreenetInterface{
 
 			@Override
 			public void run() {
-				// FIXME
+				// FIXME Use FCP messaging instead of the plugin manager
 				pluginManager.startPluginAuto(fn, true);
 			}
 
