@@ -24,6 +24,10 @@ public class PluginFreenetInterface{
 		this.pluginManager = pluginManager;
 	}
 	
+	public boolean isPluginLoaded(String plugname) {
+		return pluginManager.isPluginLoaded(plugname);
+	}
+	
 	public boolean reloadPlugin(String pluginThreadName) {
 		/* Expect thread name to be something like:
 		 * "pfreenet.winterface.core.WinterfacePlugin_154014970";

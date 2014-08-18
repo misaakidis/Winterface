@@ -49,16 +49,29 @@
               <div class="span4">
                 <h5>$i18n.get("Dashboard.TasksTalkTitle")</h5>
                 <ul>
-                  <li><strong>Sone</strong>  <small class="muted">microblogging platform</small> <a href="$fproxy/Sone" target="_blank" class="btn btn-link btn-mini"  data-toggle="modal">Learn more</a></li>
+                  <li><strong>Sone</strong>  <small class="muted">microblogging platform</small>
+                  #if( $freenet.isPluginLoaded("SonePlugin") )
+                  	<a href="$fproxy/Sone" target="_blank" class="btn btn-link btn-mini">Visit Sone</a>
+                  #else
+                  	<a href="/USK@nwa8lHa271k2QvJ8aa0Ov7IHAV-DFOCFgmDt3X6BpCI,DuQSUZiI~agF8c-6tjsFFGuZ8eICrzWCILB60nT8KKo,AQACAAE/sone/63/" target="_blank" class="btn btn-link btn-mini">Learn more</a>
+                  #end
+                  </li>
                   <li><strong>FMS</strong>  <small class="muted">forum</small> <a href="$fproxy/chat" target="_blank" class="btn btn-link btn-mini" data-toggle="modal">Learn more</a></li>
                   <li><strong>FLIC</strong>  <small class="muted">real-time chat</small> <a href="$fproxy/chat" target="_blank" class="btn btn-link btn-mini">Learn more</a></li>
-                  <li><strong>Freemail</strong>  <small class="muted">anonymous email</small> <a href="$fproxy/Freemail/Inbox" target="_blank" class="btn btn-link btn-mini">Learn more</a></li>
+                  <li><strong>Freemail</strong>  <small class="muted">anonymous email</small> 
+                  #if( $freenet.isPluginLoaded("Freemail_wot") )
+                  	<a href="$fproxy/Freemail/Inbox" target="_blank" class="btn btn-link btn-mini">Visit Freemail</a></li>
+                  #else
+                  	<a href="USK@M0d8y6YoLpXOeQGxu0-IDg8sE5Yt~Ky6t~GPyyZe~zo,KlqIjAj3~dA1Zf57VDljkmp3vHUozndpxnH-P2RRugI,AQACAAE/freemail/8/" target="_blank" class="btn btn-link btn-mini">Learn more</a>
+                  #end
                 </ul>
               </div>
               <div class="span4">
                 <h5>$i18n.get("Dashboard.TasksDiscoverTitle")</h5>
                 <ul>
-                  <li><a href="$fproxy/library" target="_blank">Search</a> <small class="muted">dig in freenet</small></li>
+                  #if( $freenet.isPluginLoaded("Library") )
+                  	<li><a href="$fproxy/library" target="_blank">Search</a> <small class="muted">dig in freenet</small></li>
+                  #end
                   <li><a href="#visitFreesite" data-toggle="modal">Visit a freesite</a> <small class="muted">(if you already have the key)</small></li>
                 </ul>
                 <h5>$i18n.get("Dashboard.TasksLearnTitle")</h5>

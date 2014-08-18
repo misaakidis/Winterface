@@ -36,6 +36,8 @@ public interface FreenetInterface {
 
 	FetchResult fetchURI(FreenetURI uri) throws FetchException;
 	
+	boolean isPluginLoaded(String plugname);
+	
 	List<BookmarkCategoryWithPath> getBookmarkCategories();
 	int getBookmarkCategoriesCount();
 	List<BookmarkItem> getBookmarksFromCat(BookmarkCategory cat);

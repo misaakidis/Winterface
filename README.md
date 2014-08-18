@@ -1,5 +1,7 @@
 Winterface seperates logic and template of Freenet's web interface, enforces a better modularization and makes theming easier.
 
+[Winterface freesite](http://127.0.0.1:8888/USK@k-JXT6Ljmn435YB2rq6uB5dpiBVzU9hfsndau1soUek,LXUiN2L-A9duMjGDsKBu0kAt9tEig6ea6B6gRQZegkE,AQACAAE/Winterface/0/)
+
 For a more comprehensive description see the [Wiki page](https://wiki.freenetproject.org/User:Pausb/Winterface) at [FreenetProject.org](https://freenetproject.org)
 
 Get the latest released version of Winterface, along with instructions on how to load it from the [Winterface Updates](http://127.0.0.1:8888/USK@it0CEEZMIjspaDLopVr7QRPEat7GzbXJMX-OpiVDEhM,OOL0jKyXVaH400BPebAPu4dsDDDgogpAkWUnyqJgu88,AQACAAE/winterface-updates/4/) freesite.

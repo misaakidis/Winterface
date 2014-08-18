@@ -41,17 +41,19 @@ public class NodeFreenetInterface implements FreenetInterface {
 	
 	private final UserAlertManagerInterface uamInterface;
 	private final BookmarkFreenetInterface bmInterface;
+	private final PluginFreenetInterface pifInterface;
 
 	public NodeFreenetInterface(Node node, I18n i18n) {
-		this(node, node.peers, new BookmarkFreenetInterface(node, i18n), new UserAlertManagerInterface(node.clientCore.alerts), i18n);
+		this(node, node.peers, new BookmarkFreenetInterface(node, i18n), new UserAlertManagerInterface(node.clientCore.alerts), new PluginFreenetInterface(node), i18n);
 	}
 
 	@VisibleForTesting
-	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface, I18n i18n) {
+	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface, PluginFreenetInterface pifInterface, I18n i18n) {
 		this.node = node;
 		this.peerManager = peerManager;
 		this.bmInterface = bmInterface;
 		this.uamInterface = uamInterface;
+		this.pifInterface = pifInterface;
 		this.i18n = i18n;
 	}
 	
@@ -170,6 +172,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public FetchResult fetchURI(FreenetURI uri) throws FetchException {
 		return HighLevelSimpleClientInterface.fetchURI(uri);
+	}
+	
+	@Override
+	public boolean isPluginLoaded(String plugname) {
+		return pifInterface.isPluginLoaded(plugname);
 	}
 
 	@Override

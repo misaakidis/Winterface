@@ -103,4 +103,41 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		template.initDocument();
 		return template;
 	}
+	
+	/**
+	 * Safely get a parameter value from a request
+	 * 
+	 * @param request the HttpServletRequest containing the parameter
+	 * @param name the name of the parameter
+	 * @param maxlength the maximum length accepted of the parameter value
+	 * @param defaultValue the default value to return in case parameter is not set or exceeds maxlength (can be null)
+	 * @return the parameter value, or the default value if parameter is not set or exceeds maxlength
+	 */
+	protected String getParamSafe(HttpServletRequest request, String name, int maxlength, String defaultValue) {
+		if (isParamSet(request, name)) {
+			String safeResult = request.getParameter(name);
+			if (safeResult.length() <= maxlength) {
+				return safeResult;
+			}
+		}
+		return defaultValue;
+	}
+	
+	protected boolean getParamBooleanSafe(HttpServletRequest request, String name) {
+		if (isParamSet(request, name)) {
+			String paramString = getParamSafe(request, name, 5, "");
+			if (paramString.equals("on") || paramString.equals("true")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	protected boolean isParamSet(HttpServletRequest request, String name) {
+		if (request.getParameter(name) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
