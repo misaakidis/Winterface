@@ -54,8 +54,13 @@ public class Bookmarks extends VelocityBase {
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
+		
+		if (request.getParameter("AddDefaultBookmarks") != null) {
+			freenetInterface.reAddDefaultBookmarks();
+		}
+		
 		if (request.getQueryString() != null && request.getQueryString().startsWith("action") && request.getParameter("bookmark").length() > 0) {
-			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			
 			String bookmarkPath = request.getParameter("bookmark");
 			String bookmarkPathDecoded = "";
@@ -76,6 +81,8 @@ public class Bookmarks extends VelocityBase {
 					// The bookmark path corresponds to a bookmarkItem
 					freenetInterface.editBookmark(bookmarkPathDecoded, (String) request.getParameter("name"), new FreenetURI((String) request.getParameter("key")), (String) request.getParameter("descB"), (String) request.getParameter("explain"), (String) request.getParameter("hasAnActivelink") != null && ((String) request.getParameter("hasAnActivelink")).equals("on"));
 				}
+			} else if (action.equals("addCat")) {
+				freenetInterface.addCategory(bookmarkPathDecoded, (String) request.getParameter("name"));
 			} else if (action.equals("addItem")) {
 				freenetInterface.addBookmarkItem(bookmarkPathDecoded, (String) request.getParameter("name"), new FreenetURI((String) request.getParameter("key")), (String) request.getParameter("descB"), (String) request.getParameter("explain"), request.getParameter("hasAnActivelink") != null && ((String) request.getParameter("hasAnActivelink")).equals("on"));
 			}

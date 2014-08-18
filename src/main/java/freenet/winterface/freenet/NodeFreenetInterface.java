@@ -196,6 +196,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 	
 	@Override
+	public void addCategory(String path, String name) {
+		bmInterface.addCategory(path, name);
+	}
+	
+	@Override
 	public void addBookmarkItem(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
 		bmInterface.addBookmarkItem(path, name, key, descB, explain, hasAnActivelink);
 	}
@@ -218,6 +223,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 	@Override
 	public void storeBookmarks() {
 		bmInterface.storeBookmarks();
+	}
+	
+	@Override
+	public void reAddDefaultBookmarks() {
+		bmInterface.reAddDefaultBookmarks();
 	}
 	
 	@Override

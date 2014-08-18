@@ -131,23 +131,47 @@
 	  #end
 	  
 	  #if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )
-    	  <script>  
-    	  	$("[id^=bmcollapse]").collapse('show');
-            $('a[rel=bkPopover]').popover().on("mouseenter", function () {
-            	var _this = this;
-            	$(this).popover("show");
-            	$(".popover").on("mouseleave", function () {
-                	$(_this).popover('hide');
-            	});
-            }).on("mouseleave", function () {
-            	var _this = this;
-            	setTimeout(function () {
-                	if (!$(".popover:hover").length) {
-                    	$(_this).popover("hide")
-                	}
-            	}, 100);
-            });
-    	  </script>
+		  <br><p><a class="btn btn-primary" href="#addCategory" data-toggle="modal">Add a category</a></p>
+		  <!-- Modal Add Category -->
+	      <div id="addCategory" class="modal hide fade" tabindex="-1" role="dialog">
+		  <form accept-charset="utf-8" method="post" action="?action=addCat&bookmark=/">
+	          <fieldset>
+	    			<div class="modal-header">
+	    				<h3>$i18n.get('Bookmarks.addCategory')</h3>
+	    			</div>
+	    			<div class="modal-body">
+	    				<label>$i18n.get('Bookmarks.addCategory.nameLabel'):</label><input name="name" type="text" placeholder="Category name" style="width: 95%;" required="" autofocus="">
+	    			</div>
+				<div class="modal-footer">
+					<a class="btn" data-dismiss="modal" aria-hidden="true">$i18n.get('Global.CancelAction')</a>
+					<button class="btn btn-primary" type="submit">$i18n.get('Global.SaveAction')</button>
+				</div>
+			  </fieldset>
+		  </form>
+	      </div>
+	      
+	      <p><form action="" method="post" accept-charset="utf-8">
+	        <input class="btn btn-primary" name="AddDefaultBookmarks" value="$i18n.get('Bookmarks.reAddDefaultBookmarks')" type="submit">
+		  </form></p>
+		  
+		  
+		  <script>  
+		  	$("[id^=bmcollapse]").collapse('show');
+	        $('a[rel=bkPopover]').popover().on("mouseenter", function () {
+	        	var _this = this;
+	        	$(this).popover("show");
+	        	$(".popover").on("mouseleave", function () {
+	            	$(_this).popover('hide');
+	        	});
+	        }).on("mouseleave", function () {
+	        	var _this = this;
+	        	setTimeout(function () {
+	            	if (!$(".popover:hover").length) {
+	                	$(_this).popover("hide")
+	            	}
+	        	}, 100);
+	        });
+		  </script>
 	  #end
 	  
 	  </div>

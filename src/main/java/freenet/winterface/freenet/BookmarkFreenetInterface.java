@@ -92,6 +92,22 @@ public class BookmarkFreenetInterface{
 		}
 		bookmarkManager.storeBookmarks();
 	}
+	
+	public void addCategory(String path, String name) {
+		Bookmark newCategory = null;
+
+		if (name.contains("/")) {
+			// Invalid Name
+			return;
+		} else {
+			newCategory = new BookmarkCategory(name);
+		}
+		
+		if (newCategory != null) {
+			bookmarkManager.addBookmark(path, newCategory);
+			bookmarkManager.storeBookmarks();
+		}
+	}
 
 	public void addBookmarkItem(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
 		Bookmark newBookmark = null;
@@ -131,6 +147,10 @@ public class BookmarkFreenetInterface{
 
 	public void storeBookmarks() {
 		bookmarkManager.storeBookmarks();
+	}
+	
+	public void reAddDefaultBookmarks() {
+		bookmarkManager.reAddDefaultBookmarks();
 	}
 
 
