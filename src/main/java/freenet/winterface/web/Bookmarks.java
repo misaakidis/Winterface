@@ -69,7 +69,15 @@ public class Bookmarks extends VelocityBase {
 			
 			if (action.equals("edit")) {
 				//TODO Check/sanitize request parameters
-				freenetInterface.editBookmark(bookmarkPathDecoded, (String) request.getParameter("name"), new FreenetURI((String) request.getParameter("key")), (String) request.getParameter("descB"), (String) request.getParameter("explain"), (String) request.getParameter("hasAnActivelink") != null && ((String) request.getParameter("hasAnActivelink")).equals("on"));
+				if(bookmarkPathDecoded.endsWith("/")) {
+					// The bookmark path corresponds to a category
+					freenetInterface.editBookmark(bookmarkPathDecoded, (String) request.getParameter("name"), null, null, null, false);
+				} else {
+					// The bookmark path corresponds to a bookmarkItem
+					freenetInterface.editBookmark(bookmarkPathDecoded, (String) request.getParameter("name"), new FreenetURI((String) request.getParameter("key")), (String) request.getParameter("descB"), (String) request.getParameter("explain"), (String) request.getParameter("hasAnActivelink") != null && ((String) request.getParameter("hasAnActivelink")).equals("on"));
+				}
+			} else if (action.equals("addItem")) {
+				freenetInterface.addBookmarkItem(bookmarkPathDecoded, (String) request.getParameter("name"), new FreenetURI((String) request.getParameter("key")), (String) request.getParameter("descB"), (String) request.getParameter("explain"), request.getParameter("hasAnActivelink") != null && ((String) request.getParameter("hasAnActivelink")).equals("on"));
 			}
 			
 			response.sendRedirect(getRoutes().getPathFor("Bookmarks"));

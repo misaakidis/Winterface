@@ -194,6 +194,11 @@ public class NodeFreenetInterface implements FreenetInterface {
 	public void editBookmark(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
 		bmInterface.editBookmark(path, name, key, descB, explain, hasAnActivelink);
 	}
+	
+	@Override
+	public void addBookmarkItem(String path, String name, FreenetURI key, String descB, String explain, boolean hasAnActivelink) {
+		bmInterface.addBookmarkItem(path, name, key, descB, explain, hasAnActivelink);
+	}
 
 	@Override
 	public void removeBookmark(String path) {
