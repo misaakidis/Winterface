@@ -122,8 +122,36 @@
     			  </form>
                   </div>
 				#end
-			  
               #end  
+              
+				#if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )
+				  	<li>
+				  		<a href="#addBookmarkItem$categoryCount" data-toggle="modal">$i18n.get('Bookmarks.addBookmarkInCategory')</a>
+					</li>
+				  	
+					  <!-- Modal Add BookmarkItem -->
+					  <div id="addBookmarkItem$categoryCount" class="modal hide fade" tabindex="-1" role="dialog">
+					  <form accept-charset="utf-8" method="post" action="?action=addItem&bookmark=$catPath">
+					      <fieldset>
+							<div class="modal-header">
+								<h3>$i18n.get('Bookmarks.addBookmark')</h3>
+							</div>
+							<div class="modal-body">
+								<label>$i18n.get('Bookmarks.editBookmark.nameLabel'):</label><input name="name" type="text" placeholder="$i18n.get('Bookmarks.addBookmark.nameHolder')" style="width: 95%;" required="" autofocus="">
+								<label>$i18n.get('Bookmarks.editBookmark.keyLabel'):</label><input name="key" type="text" placeholder="$i18n.get('Bookmarks.addBookmark.keyHolder')" style="width: 95%;" required="">        			
+					            $i18n.get('Bookmarks.editBookmark.descBLabel')<br><textarea name="descB" rows="3" placeholder="$i18n.get('Bookmarks.addBookmark.descBHolder')" style="width: 95%;"></textarea>        			
+					            $i18n.get('Bookmarks.editBookmark.explainLabel')<br><textarea name="explain" rows="3" placeholder="$i18n.get('Bookmarks.addBookmark.explainHolder')" style="width: 95%;"></textarea>
+								$i18n.get('Bookmarks.editBookmark.hasAnActivelinkLabel') <input type="checkbox" name="hasAnActivelink">
+							</div>
+							<div class="modal-footer">
+								<a class="btn" data-dismiss="modal" aria-hidden="true">$i18n.get('Global.CancelAction')</a>
+								<button class="btn btn-primary" type="submit">$i18n.get('Global.SaveAction')</button>
+							</div>
+						  </fieldset>
+					  </form>
+					  </div>
+				  #end
+				  
               </ul>
             </div>
 		  </div>
@@ -131,7 +159,7 @@
 	  #end
 	  
 	  #if( $requestedPage == $winterface-routes.getFullPathTemplateFor("Bookmarks") )
-		  <br><p><a class="btn btn-primary" href="#addCategory" data-toggle="modal">Add a category</a></p>
+		  <br><p><a class="btn" href="#addCategory" data-toggle="modal">Add a category</a></p>
 		  <!-- Modal Add Category -->
 	      <div id="addCategory" class="modal hide fade" tabindex="-1" role="dialog">
 		  <form accept-charset="utf-8" method="post" action="?action=addCat&bookmark=/">
@@ -151,7 +179,7 @@
 	      </div>
 	      
 	      <p><form action="" method="post" accept-charset="utf-8">
-	        <input class="btn btn-primary" name="AddDefaultBookmarks" value="$i18n.get('Bookmarks.reAddDefaultBookmarks')" type="submit">
+	        <input class="btn" name="AddDefaultBookmarks" value="$i18n.get('Bookmarks.reAddDefaultBookmarks')" type="submit">
 		  </form></p>
 		  
 		  

@@ -45,14 +45,17 @@ public class BookmarkFreenetInterface{
 	}
 
 	private void recursivelyAddSubCategoriesWithPath(List<BookmarkCategoryWithPath> catList, BookmarkCategory bc, String path) {
+		BookmarkCategoryWithPath bcWithPath = null;
 		try {
-			catList.add(new BookmarkCategoryWithPath(bc, path));
+			bcWithPath = new BookmarkCategoryWithPath(bc, path);
 		} catch (FSParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
 		}
+		catList.add(bcWithPath);
 		for (BookmarkCategory bcChild : bc.getSubCategories()) {
-			recursivelyAddSubCategoriesWithPath(catList, bcChild, path + bc.getName());
+			recursivelyAddSubCategoriesWithPath(catList, bcChild, bcWithPath.getCatPath());
 		}
 	}
 
