@@ -1,5 +1,6 @@
 package freenet.winterface.core;
 
+import java.io.IOException;
 import java.io.StringReader;
 
 import org.apache.velocity.Template;
@@ -14,6 +15,7 @@ import org.apache.velocity.tools.view.VelocityViewServlet;
 import freenet.winterface.freenet.FreenetInterface;
 import freenet.winterface.freenet.WinterfaceConstants;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -139,5 +141,11 @@ public abstract class VelocityBase extends VelocityViewServlet {
 		} else {
 			return false;
 		}
+	}
+	
+	protected void postReqReturnErrorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect(getRoutes().getPathForErrorPage());
+		super.doPost(request, response);
+		return;
 	}
 }

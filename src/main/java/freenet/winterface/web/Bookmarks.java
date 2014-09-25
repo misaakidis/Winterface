@@ -77,10 +77,12 @@ public class Bookmarks extends VelocityBase {
 			try {
 				bookmarkPathDecoded = URLDecoder.decode(bookmarkPath, false);
 			} catch(URLEncodedFormatException e) {
-				response.sendRedirect(getRoutes().getPathForErrorPage());
+				postReqReturnErrorPage(request, response);
+				return;
 			}
 			
 			String action = getParamSafe(request, "action", MAX_ACTION_LENGTH, "");
+			FreenetURI key = null;
 			
 			if (action.equals("edit")) {
 				//TODO Check/sanitize request parameters
@@ -89,12 +91,24 @@ public class Bookmarks extends VelocityBase {
 					freenetInterface.editBookmark(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null), null, null, null, false);
 				} else {
 					// The bookmark path corresponds to a bookmarkItem
-					freenetInterface.editBookmark(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null), new FreenetURI((String) request.getParameter("key")), getParamSafe(request, "descB", MAX_EXPLANATION_LENGTH, ""), getParamSafe(request, "explain", MAX_EXPLANATION_LENGTH, ""), getParamBooleanSafe(request, "hasAnActivelink"));
+					try {
+						key = new FreenetURI(getParamSafe(request, "key", 100, null));
+					} catch(Exception e) {
+						postReqReturnErrorPage(request, response);
+						return;
+					}
+					freenetInterface.editBookmark(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null), key, getParamSafe(request, "descB", MAX_EXPLANATION_LENGTH, ""), getParamSafe(request, "explain", MAX_EXPLANATION_LENGTH, ""), getParamBooleanSafe(request, "hasAnActivelink"));
 				}
 			} else if (action.equals("addCat")) {
 				freenetInterface.addCategory(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null));
 			} else if (action.equals("addItem")) {
-				freenetInterface.addBookmarkItem(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null), new FreenetURI((String) request.getParameter("key")), getParamSafe(request, "descB", MAX_EXPLANATION_LENGTH, ""), getParamSafe(request, "explain", MAX_EXPLANATION_LENGTH, ""), getParamBooleanSafe(request, "hasAnActivelink"));
+				try {
+					key = new FreenetURI(getParamSafe(request, "key", 100, null));
+				} catch(Exception e) {
+					postReqReturnErrorPage(request, response);
+					return;
+				}
+				freenetInterface.addBookmarkItem(bookmarkPathDecoded, getParamSafe(request, "name", MAX_NAME_LENGTH, null), key, getParamSafe(request, "descB", MAX_EXPLANATION_LENGTH, ""), getParamSafe(request, "explain", MAX_EXPLANATION_LENGTH, ""), getParamBooleanSafe(request, "hasAnActivelink"));
 			}
 			
 			response.sendRedirect(getRoutes().getPathFor("Bookmarks"));
