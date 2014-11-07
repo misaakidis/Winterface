@@ -1,5 +1,6 @@
 package freenet.winterface.core;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map.Entry;
@@ -95,6 +96,37 @@ public class Routes {
 	
 	public String getPathForErrorPage() {
 		return getPathFor(errorPage);
+	}
+	
+	/**
+	 * Gives the relative URI for the given exception, the default error page if unknown.
+	 * @param e the exception
+	 * @param fproxyUri the URI we can give to FProxy to retry, or either {@code null} or the empty
+	 * String if unknown
+	 * @return A relative URI (i.e. the path possibly including a fragment part)
+	 */
+	public String getPathForErrorPage(Exception e, String fproxyUri) {
+	    String errorPath = getPathFor(errorPage);
+        try {
+            Method m = errorPage.getDeclaredMethod("getErrorFragment", Exception.class,
+                String.class);
+            Object o = m.invoke(null, e, fproxyUri);
+            if (o instanceof String) {
+                return errorPath + "?" + o;
+            }
+            return errorPath;
+        } catch (Exception ignored) {
+            // Uh-oh, our error page did not know that exception. Return the plain error page.
+            return errorPath;
+        }
+	}
+	
+	/**
+	 * Shorthand for {@code getPathForErrorPage(e, null)}.
+	 * @see Routes#getPathForErrorPage(Exception, String)
+	 */
+	public String getPathForErrorPage(Exception e) {
+	    return getPathForErrorPage(e, null);
 	}
 	
 	public String getPathForDashboard() {
