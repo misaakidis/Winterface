@@ -48,7 +48,7 @@ public class Root extends HttpServlet {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
-				result = freenetInterface.fetchURI(new FreenetURI(localPath));
+				result = freenetInterface.filteredFetchURI(new FreenetURI(localPath));
 			} catch (MalformedURLException e) {
 				response.sendRedirect(getRoutes().getPathForErrorPage());
 			} catch (FetchException e) {
@@ -86,3 +86,4 @@ public class Root extends HttpServlet {
 	}
 
 }
+

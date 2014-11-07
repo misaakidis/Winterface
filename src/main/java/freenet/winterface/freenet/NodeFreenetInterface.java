@@ -21,7 +21,6 @@ import freenet.node.SecurityLevels.NETWORK_THREAT_LEVEL;
 import freenet.node.SecurityLevels.PHYSICAL_THREAT_LEVEL;
 import freenet.node.useralerts.UserAlert;
 import freenet.support.SimpleFieldSet;
-import freenet.winterface.core.HighLevelSimpleClientInterface;
 import freenet.winterface.core.I18n;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
 
@@ -42,19 +41,30 @@ public class NodeFreenetInterface implements FreenetInterface {
 	private final UserAlertManagerInterface uamInterface;
 	private final BookmarkFreenetInterface bmInterface;
 	private final PluginFreenetInterface pifInterface;
+	private final FreenetURIFetcher uriFetcher;
+
 
 	public NodeFreenetInterface(Node node, I18n i18n) {
-		this(node, node.peers, new BookmarkFreenetInterface(node, i18n), new UserAlertManagerInterface(node.clientCore.alerts), new PluginFreenetInterface(node), i18n);
+		this(node,
+			 node.peers,
+			 new BookmarkFreenetInterface(node, i18n),
+			 new UserAlertManagerInterface(node.clientCore.alerts),
+			 new PluginFreenetInterface(node),
+			 i18n,
+			 new InteractiveHLSCFreenetURIFetcher(node));
 	}
 
 	@VisibleForTesting
-	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface, UserAlertManagerInterface uamInterface, PluginFreenetInterface pifInterface, I18n i18n) {
+	NodeFreenetInterface(Node node, PeerManager peerManager, BookmarkFreenetInterface bmInterface,
+	        UserAlertManagerInterface uamInterface, PluginFreenetInterface pifInterface, I18n i18n,
+	        FreenetURIFetcher uriFetcher) {
 		this.node = node;
 		this.peerManager = peerManager;
 		this.bmInterface = bmInterface;
 		this.uamInterface = uamInterface;
 		this.pifInterface = pifInterface;
 		this.i18n = i18n;
+		this.uriFetcher = uriFetcher;
 	}
 	
 	@Override
@@ -170,11 +180,6 @@ public class NodeFreenetInterface implements FreenetInterface {
 	}
 
 	@Override
-	public FetchResult fetchURI(FreenetURI uri) throws FetchException {
-		return HighLevelSimpleClientInterface.fetchURI(uri);
-	}
-	
-	@Override
 	public boolean isPluginLoaded(String plugname) {
 		return pifInterface.isPluginLoaded(plugname);
 	}
@@ -284,4 +289,14 @@ public class NodeFreenetInterface implements FreenetInterface {
 		return uamInterface.alertsHighestClass();
 	}
 	
+    @Override
+    public FetchResult fetchURI(FreenetURI uri) throws FetchException {
+        return uriFetcher.fetchURI(uri);
+    }
+    
+    @Override
+    public FetchResult filteredFetchURI(FreenetURI uri) throws FetchException {
+        return uriFetcher.filteredFetchURI(uri);
+    }	
 }
+

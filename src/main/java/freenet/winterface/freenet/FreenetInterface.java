@@ -13,12 +13,11 @@ import freenet.node.useralerts.UserAlert;
 import freenet.winterface.freenet.BookmarkFreenetInterface.BookmarkCategoryWithPath;
 
 /**
- * Defines the interface between Winterface and the Freenet node. All methods
- * in this interface should return as fast as possible.
+ * Defines the interface between Winterface and the Freenet node.
  *
  * @author <a href="mailto:bombe@pterodactylus.net">David ‘Bombe’ Roden</a>
  */
-public interface FreenetInterface {
+public interface FreenetInterface extends FreenetURIFetcher {
 
 	String publicVersion();
 	int buildNumber();
@@ -33,8 +32,6 @@ public interface FreenetInterface {
 	PHYSICAL_THREAT_LEVEL getPhysicalThreatLevel();
 	
 	int getFproxyPort();
-
-	FetchResult fetchURI(FreenetURI uri) throws FetchException;
 	
 	boolean isPluginLoaded(String plugname);
 	
