@@ -44,21 +44,23 @@ public class Root extends HttpServlet {
 		if(localPath.isEmpty()) {
 			response.sendRedirect(getRoutes().getPathForDashboard());
 		// Handle Freenet URI fetches
-		} else if (localPath.startsWith("USK@") || localPath.startsWith("KSK@") || localPath.startsWith("SSK@")) {
+		} else if (localPath.startsWith("USK@") ||
+		           localPath.startsWith("KSK@") ||
+		           localPath.startsWith("SSK@") ||
+		           localPath.startsWith("CHK@")) {
 			FreenetInterface freenetInterface = (FreenetInterface) getServletContext().getAttribute(ServerManager.FREENET_INTERFACE);
 			FetchResult result = null;
 			try {
-				result = freenetInterface.fetchURI(new FreenetURI(localPath));
+				result = freenetInterface.filteredFetchURI(new FreenetURI(localPath));
 			} catch (MalformedURLException e) {
-				response.sendRedirect(getRoutes().getPathForErrorPage());
+				response.sendRedirect(getRoutes().getPathForErrorPage(e, localPath));
 			} catch (FetchException e) {
 				// USK key has been updated, redirect to the new URI
 				if (e.getMode() == FetchException.PERMANENT_REDIRECT) {
 					String newURI = "/".concat(e.newURI.toString());
 					response.sendRedirect(newURI);
 				} else {
-					e.printStackTrace();
-					response.sendRedirect(getRoutes().getPathForErrorPage());
+					response.sendRedirect(getRoutes().getPathForErrorPage(e, localPath));
 				}
 			}
 			if (result != null) {
@@ -86,3 +88,4 @@ public class Root extends HttpServlet {
 	}
 
 }
+

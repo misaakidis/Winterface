@@ -29,6 +29,8 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	 * Path within /resources/ to the base templates directory.
 	 */
 	public static final String TEMPLATE_PATH = "/templates/";
+	
+	private static final Escaper ESCAPER = new Escaper();
 
 	protected String templateName;
 	private final I18n i18n;
@@ -54,6 +56,7 @@ public abstract class VelocityBase extends VelocityViewServlet {
 	@Override
 	protected void fillContext(Context context, HttpServletRequest request) {
 		this.templateName = getTemplateFromRoutes(getClass());
+		context.put("esc", ESCAPER);
 		context.put("freenet", context.get(ServerManager.FREENET_INTERFACE));
 		context.put("winterface-routes", context.get(ServerManager.WINTERFACE_ROUTES));
 		context.put("fproxy", "http://127.0.0.1:" + ((FreenetInterface) context.get(ServerManager.FREENET_INTERFACE)).getFproxyPort());

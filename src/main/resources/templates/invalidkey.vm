@@ -1,2 +1,20 @@
-<strong>Invalid key.</strong><br>
-Go back to <a href="$winterface-routes.getPathForDashboard()">Dashboard</a>.
+#set($error = $params.error[0])
+#set($errmsg = $params.errmsg[0])
+#set($rediruri = $params.rediruri[0])
+
+<div class="alert alert-error alert-block">
+#if($error == "fetch")
+<p><strong>The key could not be fetched.</strong></p>
+#else
+<p><strong>Invalid key.</strong></p>
+#end
+#if($errmsg)
+<p>$esc.text($errmsg)</p>
+#end
+</div><br/>
+
+#if($rediruri)
+<a href="$esc.url($fproxy, "/", $rediruri)">Try again with FProxy</a> (Winterface is still in early development) or go back to the <a href="$winterface-routes.getPathForDashboard()">Dashboard</a>.
+#else
+Go back to the <a href="$winterface-routes.getPathForDashboard()">Dashboard</a>.
+#end
